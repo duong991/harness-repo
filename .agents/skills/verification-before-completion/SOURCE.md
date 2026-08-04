@@ -5,7 +5,7 @@
 - Commit: `44c9b2d6e889982ac18c27d05a19fefe335194e1`
 - License: MIT
 - Copied: 2026-08-04
-- Local modifications: condensed the completion gate, required command/check, exit code, important result and untested surfaces, and explicitly rejected Harness status/trace evidence as a substitute for behavior proof.
+- Local modifications: condensed the completion gate, required command/check, exit code, important result and untested surfaces, explicitly rejected Harness status/trace evidence and CodeGraph output as substitutes for behavior proof.
 - Update method: inspect a newer immutable commit, compare the source skill, retain the Harness evidence contract, and rerun the six suite scenarios.
 
 ## MIT License

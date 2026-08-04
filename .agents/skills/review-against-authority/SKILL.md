@@ -48,6 +48,18 @@ on a draft, proposal, generated document, or mockup. A plan reference counts
 only when it records an explicit approval made by the user or another
 recognized authority source.
 
+## CodeGraph evidence
+
+When a live, current CodeGraph capability is available, use it to discover
+candidate callers, callees, routes, and impact surfaces that deserve review.
+Read each consequential current file directly and account for static-analysis
+blind spots such as dynamic dispatch, dependency injection, reflection,
+generated code, templates, events, and external integrations.
+
+CodeGraph results are derived navigation evidence. They cannot establish
+authority, prove a runtime path, prove that the impact set is complete, or
+replace executable validation.
+
 ## Review rubric
 
 Inspect the changed behavior and relevant proof for:

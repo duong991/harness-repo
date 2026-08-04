@@ -9,6 +9,19 @@ Route work; do not replace repository authority. Read `AGENTS.md` and
 `docs/WORKFLOW.md` first, then inspect only the product, design, architecture,
 decision, plan, code, and validation evidence relevant to the request.
 
+## Optional code intelligence
+
+When the task concerns code structure, call paths, routes, dependencies, or
+impact and a live CodeGraph capability with a usable index is available, use it
+to locate the smallest candidate code surface before broad discovery. Confirm
+staleness/status first and read the current files directly before relying on the
+result.
+
+If the capability is unavailable or stale, use targeted repository inspection
+without installing or initializing CodeGraph. Graph output is derived
+navigation evidence: it cannot classify the task, widen scope, establish
+authority, or replace tests and runtime validation.
+
 ## Select exactly one primary type
 
 Choose the first type that accurately captures the requested outcome:

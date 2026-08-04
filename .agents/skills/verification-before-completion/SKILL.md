@@ -49,6 +49,8 @@ permission behavior.
 - a diff that merely looks correct;
 - partial validation extrapolated to an untested surface;
 - an assumption that a small patch cannot regress.
+- CodeGraph index health, graph sync, impact output, absence of additional
+  callers, or an agent's interpretation of graph results.
 
 If validation is unavailable, do not workaround the gate with confident
 language. State the exact blocker, what remains unproven, and the command or

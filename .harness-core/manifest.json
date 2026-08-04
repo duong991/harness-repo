@@ -4,7 +4,7 @@
   "files": [
     {
       "path": "AGENTS.md",
-      "upstream_sha256": "07dcdd653335d02bd49e1371d2ecc9f3d89250fcc5041c8ad01f8bba543e17a9"
+      "upstream_sha256": "ac58a4506de3169e01ace7a4959bd484cb363693c57a810270115567ff49a4ea"
     },
     {
       "path": ".agents/skills/audit-onboarding-proposal/SKILL.md",
@@ -44,7 +44,7 @@
     },
     {
       "path": "docs/WORKFLOW.md",
-      "upstream_sha256": "08ccd7a062d38a566b6f24631a501ba848e64ac31c6fcdb3b03e1abe2de313e8"
+      "upstream_sha256": "fd01a1075b2d57e80e95a9ebf34d97002cd9e621c57d4e7896ea22bdf883c3de"
     },
     {
       "path": "docs/README.md",

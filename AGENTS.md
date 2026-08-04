@@ -29,6 +29,26 @@ code, and validation material relevant to the task.
 SQLite intake, story, trace, scoring, audit, and proposal commands are optional
 compatibility features. Use them only when explicitly requested or required by
 an external orchestrator.
+
+## Optional code intelligence
+
+When a CodeGraph capability is actually available to the agent and its index is
+current, use it to map symbols, call paths, routes, dependencies, and candidate
+impact surfaces before broad code discovery.
+
+- Use the supported MCP or CLI interface. Do not read or write a private graph
+  database or index format directly.
+- Treat graph results as derived navigation evidence, never as product, design,
+  architecture, API, security, permission, or scope authority.
+- Treat impact results as candidates for inspection, not a complete proof of the
+  runtime dependency set. Read the current source directly when the index is
+  stale or when dynamic dispatch, dependency injection, reflection, generated
+  code, templates, events, or external integrations may be involved.
+- CodeGraph is optional. If it is unavailable or not current, fall back to
+  targeted repository inspection. Do not install, initialize, reconfigure, or
+  block the task solely to obtain CodeGraph.
+- CodeGraph does not classify the task, widen scope, create plans or stories,
+  mutate Harness state, or replace executable and runtime validation.
 <!-- HARNESS:END -->
 
 ## Task routing

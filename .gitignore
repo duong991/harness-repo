@@ -1,4 +1,8 @@
 .DS_Store
+
+# Optional local CodeGraph index; never commit derived code intelligence state.
+.codegraph/
+
 # Harness core maintenance binary
 scripts/bin/harness
 scripts/bin/harness.exe

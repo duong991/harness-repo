@@ -38,6 +38,13 @@ boundary. Trace the relevant path from input to failure. Distinguish:
 - **root cause:** the earliest incorrect assumption, state, or operation that
   makes the symptom inevitable.
 
+For code-structure failures, an available and current CodeGraph index may help
+locate entry points, callers, callees, and candidate affected paths. Verify
+those relationships against current source and runtime evidence. A graph result
+is a hypothesis aid, not proof of the root cause or a complete dependency set;
+static analysis may miss dynamic dispatch, dependency injection, reflection,
+generated code, templates, events, and external integrations.
+
 ### 3. Minimise
 
 Remove inputs, callers, configuration, data, and steps one at a time, rerunning

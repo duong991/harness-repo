@@ -20,6 +20,12 @@ Copying the six skill directories alone is incomplete. Every consumer
 repository must install an equivalent `## Task routing` gate in its root
 `AGENTS.md` so `work-router` selects the workflow before downstream skills act.
 
+CodeGraph is not an additional workflow skill. When available, it is an
+optional discovery capability used by the router, debugging, review, and
+verification guidance; its output is derived evidence and never authority or
+completion proof. Consumer repositories may omit it without weakening the
+Harness core workflow.
+
 ## Update policy
 
 Update external skills only from an immutable commit or release. Read each
