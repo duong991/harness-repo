@@ -30,3 +30,24 @@ SQLite intake, story, trace, scoring, audit, and proposal commands are optional
 compatibility features. Use them only when explicitly requested or required by
 an external orchestrator.
 <!-- HARNESS:END -->
+
+## Task routing
+
+Before changing repository state, classify the request as exactly one of:
+
+- read-only-analysis
+- tiny-fix
+- bounded-change
+- ambiguous-product-change
+- multi-session-initiative
+- orchestrated-multi-agent-work
+
+Use `work-router` to select the lightest safe workflow.
+
+Downstream skills refine the selected workflow. They must not independently
+widen scope, create plans, create stories, or introduce orchestration.
+
+A read-only request remains read-only even when a defect is discovered.
+
+Before any positive completion claim, apply
+`verification-before-completion` using fresh evidence.

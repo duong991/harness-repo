@@ -1,6 +1,6 @@
 ---
 name: diagnosing-bugs
-description: Diagnose bugs, failing tests, build failures, runtime failures, and performance regressions with an evidence-driven root-cause workflow before applying a minimal fix. Use automatically when the user reports broken, throwing, failing, incorrect, flaky, or slow behavior, whether the request is diagnosis-only or includes a fix; preserve read-only scope when the user has not authorized changes.
+description: Diagnose bugs, failing tests, build failures, runtime failures, and performance regressions with an evidence-driven root-cause workflow before applying a minimal fix. Use after work-router classifies a concrete failure as read-only analysis, a bug-related tiny fix, or a bounded change; preserve read-only scope when the user has not authorized changes.
 ---
 
 # Diagnosing Bugs
@@ -8,6 +8,12 @@ description: Diagnose bugs, failing tests, build failures, runtime failures, and
 Separate the observed symptom from the causal defect. Read `AGENTS.md`,
 `docs/WORKFLOW.md`, relevant authority, affected code, and existing tests before
 changing behavior.
+
+For an obvious deterministic defect, compress phases without silently skipping
+the evidence chain. Still show a fresh reproduction, direct evidence proving
+the causal line, the minimal authorized fix, and fresh regression validation.
+Combine minimisation and hypothesis testing only when the direct evidence rules
+out competing causes.
 
 ## Workflow
 

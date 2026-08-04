@@ -1,6 +1,6 @@
 ---
 name: review-against-authority
-description: Review a patch, branch, pull request, or implementation against the repository's actual authority and fresh evidence. Use automatically for medium or large changes and whenever the user requests a read-only review; prioritize the current user request and accepted product/design/architecture contracts over existing code, and return evidence-backed findings without editing files.
+description: Review a patch, branch, pull request, or implementation against the repository's actual authority and fresh evidence. Use after work-router classifies a read-only review or a medium or large change, and whenever the user explicitly requests review; prioritize the current user request and accepted product/design/architecture contracts over existing code, and return evidence-backed findings without editing files.
 ---
 
 # Review Against Authority
@@ -24,15 +24,29 @@ Apply this precedence when sources conflict:
 1. current direct user request;
 2. accepted product documentation;
 3. accepted design documentation;
-4. architecture and decision records;
-5. active execution plan;
-6. API contracts;
-7. tests that describe behavior;
+4. architecture and accepted decision records;
+5. accepted API, security, and permission contracts;
+6. active execution plan as execution guidance;
+7. behavioral tests;
 8. current code as observed behavior only.
 
 Configuration defaults, code conventions, implementer comments, and existing
 behavior do not create missing product policy. Mark unresolved normative choices
 as `Decision required` instead of selecting one.
+
+A document is accepted authority only when at least one is true:
+
+- the current user explicitly approved it;
+- repository workflow designates it as authoritative;
+- an accepted decision record adopts it.
+
+A draft, proposal, mockup, generated document, or stale plan is not accepted
+authority merely because it exists in the repository.
+
+An active plan may reference accepted authority, but it cannot confer authority
+on a draft, proposal, generated document, or mockup. A plan reference counts
+only when it records an explicit approval made by the user or another
+recognized authority source.
 
 ## Review rubric
 
@@ -54,6 +68,16 @@ Inspect the changed behavior and relevant proof for:
 Trace each possible problem through the changed code and its consumers. Do not
 report style issues already enforced mechanically unless the enforcement is
 missing or the check fails. Do not invent requirements to make a finding.
+
+## Severity
+
+- **Critical** — security breach, data loss, destructive behavior, or direct
+  violation of a non-negotiable product policy.
+- **High** — incorrect user-visible behavior, broken permission boundary,
+  incompatible contract, or release-blocking regression.
+- **Medium** — incomplete edge state, meaningful maintainability risk, or
+  likely localized regression.
+- **Low** — limited issue with low impact that should not block the change.
 
 ## Findings
 

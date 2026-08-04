@@ -5,7 +5,7 @@
 - Commit: `2ab958093e83e0ec752e6c1c5932da465bf23e0c`
 - License: MIT
 - Copied: 2026-08-04
-- Local modifications: made activation conditional, restored the full red-green-refactor cycle, aligned test boundaries with repository authority, and added Harness completion and orchestration constraints.
+- Local modifications: made activation conditional on router-selected work, restored the full red-green-refactor cycle, aligned tests to observable behavior and practical boundary mocking, and added Harness completion and orchestration constraints.
 - Update method: inspect a newer immutable commit, compare all three source files, reapply local activation and Harness rules, and rerun the six suite scenarios.
 
 ## MIT License

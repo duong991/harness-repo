@@ -5,7 +5,7 @@
 - Commit: `2ab958093e83e0ec752e6c1c5932da465bf23e0c`
 - License: MIT
 - Copied: 2026-08-04
-- Local modifications: renamed the skill, replaced parallel sub-agent review with one evidence-based Harness review, added authority precedence and the required twelve-part rubric, and removed issue-tracker/bootstrap dependencies.
+- Local modifications: renamed the skill, replaced parallel sub-agent review with one evidence-based Harness review, defined accepted authority and finding severity, kept accepted API/security/permission contracts above plans, prevented plans from conferring authority, added the required twelve-part rubric, and removed issue-tracker/bootstrap dependencies.
 - Update method: inspect a newer immutable commit, compare the source directory, retain local authority precedence and no-sub-agent rules, and rerun the six suite scenarios.
 
 ## MIT License

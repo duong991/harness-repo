@@ -5,7 +5,7 @@
 - Commit: `2ab958093e83e0ec752e6c1c5932da465bf23e0c`
 - License: MIT
 - Copied: 2026-08-04
-- Local modifications: aligned the loop to reproduce, evidence, minimise, hypotheses, root cause, minimal fix, regression validation, and Harness scope rules; removed the optional HITL template and architecture-skill handoff.
+- Local modifications: aligned the loop to reproduce, evidence, minimise, hypotheses, root cause, minimal fix, regression validation, router-selected scope, read-only diagnosis, and compressed handling of obvious deterministic defects; removed the optional HITL template and architecture-skill handoff.
 - Update method: inspect a newer immutable commit, compare the source directory, preserve the Harness authority and no-sub-agent constraints, and rerun the six suite scenarios.
 
 ## MIT License

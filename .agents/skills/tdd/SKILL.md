@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Apply a conditional red-green-refactor loop to business logic, data mapping, state transitions, permissions, API contracts, graph/layout algorithms, and testable regressions. Use automatically when the requested behavior has a valuable automated test seam or when the user requests test-first development; do not force TDD onto pure color, spacing, one-off prototype, or visual-only work without a suitable test harness.
+description: Apply a conditional red-green-refactor loop to business logic, data mapping, state transitions, permissions, API contracts, graph/layout algorithms, and testable regressions. Use after work-router classifies a tiny fix or bounded change with a valuable automated seam, or when the user requests test-first development; do not force TDD onto pure color, spacing, one-off prototype, or visual-only work without a suitable test harness.
 ---
 
 # Test-Driven Development

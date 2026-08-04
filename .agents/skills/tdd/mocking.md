@@ -1,17 +1,17 @@
 # When to Mock
 
-Mock at **system boundaries** only:
+Mock explicit architectural or system boundaries when the real dependency
+would make the test slow, nondeterministic, unsafe, or impractical:
 
 - External APIs (payment, email, etc.)
 - Databases (sometimes - prefer test DB)
 - Time/randomness
 - File system (sometimes)
 
-Don't mock:
-
-- Your own classes/modules
-- Internal collaborators
-- Anything you control
+Avoid mocking internal implementation details, including private methods,
+internal call order, and collaborators whose behavior can be exercised through
+a stable public seam. A module you control may still represent an explicit
+architectural boundary; isolate it only for one of the practical reasons above.
 
 ## Designing for Mockability
 

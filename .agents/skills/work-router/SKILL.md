@@ -13,9 +13,12 @@ decision, plan, code, and validation evidence relevant to the request.
 
 Choose the first type that accurately captures the requested outcome:
 
-1. **read-only-analysis** — explanation, diagnosis without a fix, architecture
-   review, impact analysis, or status. Use `inspect → collect evidence →
-   report`. Do not edit, create a plan, create a story, or mutate Harness state.
+1. **read-only-analysis** — explanation, review, impact analysis, status, or
+   diagnosis without authorized changes. Use `inspect → collect evidence →
+   report`. When the request concerns a concrete failure, use
+   `diagnosing-bugs` in read-only mode to reproduce, identify the root cause,
+   and report without implementing a fix. Do not edit, create a plan, create a
+   story, or mutate Harness state.
 2. **tiny-fix** — a localized bug with narrow behavior and a small affected
    surface. Use `diagnosing-bugs → minimal patch → tdd when a valuable
    regression seam exists → validation → verification-before-completion`.
@@ -38,7 +41,9 @@ Choose the first type that accurately captures the requested outcome:
 5. **multi-session-initiative** — work spans sessions, has meaningful
    milestones/dependencies, affects several areas, or needs recovery/rollback.
    Create or resume exactly one file under `docs/plans/active/`, implement by
-   milestone, review, and run a completion audit.
+   milestone, use `review-against-authority`, then apply
+   `verification-before-completion` against every milestone and acceptance
+   criterion before moving the plan to `docs/plans/completed/`.
 6. **orchestrated-multi-agent-work** — independent workers need machine-readable
    dependencies, runnable-task selection, locking, retry, or explicit lifecycle
    state. Use one active plan and Harness CLI only when it is installed and an

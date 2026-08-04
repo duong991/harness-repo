@@ -42,12 +42,12 @@ When the decision tree is resolved, present a concise brief containing:
 - testable acceptance criteria;
 - assumptions, open decisions, and explicit unknowns.
 
-Ask the user to confirm shared understanding. After confirmation, update the
-existing repository document that owns the decision. For product intent, use
-the relevant file under `docs/product/`; create `docs/product/product-brief.md`
-only when no narrower product document exists and the user authorized a new
-brief. If no destination has authority, return the exact brief and request the
-smallest destination decision before writing.
+Ask the user to confirm shared understanding. After confirmation, return the
+final brief. Write it into the repository only when the current
+request authorizes document changes. For product intent, use the relevant file
+under `docs/product/`; create `docs/product/product-brief.md` only when no
+narrower product document exists and the user authorized a new brief.
+Otherwise, identify the recommended destination without modifying it.
 
-End by asking `work-router` to reclassify the confirmed work. Do not continue
-into implementation from this skill.
+Return control to the normal repository workflow so the next step can be
+reclassified. Do not continue into implementation from this skill.

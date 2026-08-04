@@ -20,7 +20,8 @@ Characteristics:
 - Uses public API only
 - Survives internal refactors
 - Describes WHAT, not HOW
-- One logical assertion per test
+- One observable behavior per test; use multiple related assertions when they
+  jointly prove that behavior
 
 ## Bad Tests
 

@@ -5,7 +5,7 @@
 - Commit: `2ab958093e83e0ec752e6c1c5932da465bf23e0c`
 - License: MIT
 - Copied: 2026-08-04
-- Local modifications: renamed the implementation to `grill-me`; removed unsupported Claude-style activation metadata; added Repository Harness discovery, authority, brief-artifact, no-code, no-plan, no-story, and explicit-only rules.
+- Local modifications: renamed the implementation to `grill-me`; removed unsupported Claude-style activation metadata; added Repository Harness discovery, authority, permission-gated brief writing, no-code, no-plan, no-story, and explicit-only rules.
 - Update method: inspect a newer immutable commit, compare both source paths, reapply the Harness-specific contract, and rerun the six suite scenarios before replacing local files.
 
 ## MIT License
