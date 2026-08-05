@@ -3,4 +3,4 @@ interface:
   short_description: "Review patches against repository authority"
   default_prompt: "Use $review-against-authority to review this patch against the repository accepted authority and evidence."
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

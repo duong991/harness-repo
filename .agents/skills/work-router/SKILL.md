@@ -30,8 +30,12 @@ Choose the first type that accurately captures the requested outcome:
    diagnosis without authorized changes. Use `inspect → collect evidence →
    report`. When the request concerns a concrete failure, use
    `diagnosing-bugs` in read-only mode to reproduce, identify the root cause,
-   and report without implementing a fix. Do not edit, create a plan, create a
-   story, or mutate Harness state.
+   and report without implementing a fix. For a request to understand a large
+   completed implementation, such as “explain these changes”, “organize this
+   diff for review”, or “show me what to read first”, use
+   `implementation-walkthrough`. When correctness findings are also requested,
+   run `implementation-walkthrough` first and then `code-review`. Do not edit,
+   create a plan, create a story, or mutate Harness state.
 2. **tiny-fix** — a localized bug with narrow behavior and a small affected
    surface. Use `diagnosing-bugs → minimal patch → tdd when a valuable
    regression seam exists → validation → verification-before-completion`.
@@ -40,8 +44,8 @@ Choose the first type that accurately captures the requested outcome:
    existing-domain filter, that can be completed coherently in one session.
    Discover minor details from repository authority and adjacent behavior; do
    not promote missing implementation detail into product ambiguity. Use an
-   ephemeral plan, conditional TDD, implementation,
-   `review-against-authority` when the change is medium-sized, and
+   ephemeral plan, conditional TDD, implementation, `code-review` when the
+   change is medium-sized, and
    `verification-before-completion`. Do not create an active plan merely
    because the work has several steps.
 4. **ambiguous-product-change** — materially different user outcomes, UX flows,
@@ -54,7 +58,7 @@ Choose the first type that accurately captures the requested outcome:
 5. **multi-session-initiative** — work spans sessions, has meaningful
    milestones/dependencies, affects several areas, or needs recovery/rollback.
    Create or resume exactly one file under `docs/plans/active/`, implement by
-   milestone, use `review-against-authority`, then apply
+   milestone, use `code-review`, then apply
    `verification-before-completion` against every milestone and acceptance
    criterion before moving the plan to `docs/plans/completed/`.
 6. **orchestrated-multi-agent-work** — independent workers need machine-readable
@@ -75,7 +79,7 @@ Choose the first type that accurately captures the requested outcome:
 - Stop before edits when product intent, security policy, compatibility, or a
   hard-to-recover action lacks authority.
 - Use `diagnosing-bugs` as the only debugging workflow, `tdd` as the only TDD
-  workflow, `review-against-authority` as the primary review workflow, and
+  workflow, `code-review` as the primary review workflow, and
   `verification-before-completion` as the sole completion gate.
 - Do not create sub-agents, Harness CLI stories, task databases, alternate plan
   locations, or alternate decision locations from this skill.
