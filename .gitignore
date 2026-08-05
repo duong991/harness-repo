@@ -1,4 +1,6 @@
 .DS_Store
+__MACOSX/
+._*
 
 # Optional local CodeGraph index; never commit derived code intelligence state.
 .codegraph/

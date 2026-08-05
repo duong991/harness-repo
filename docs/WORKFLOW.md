@@ -18,34 +18,6 @@ and process overhead.
 
 Use `docs/README.md` for the map; prefer targeted search.
 
-## Optional code intelligence
-
-CodeGraph is a discovery aid for repositories that have a live CodeGraph
-capability and a current index. It is not required by the Harness core.
-
-For tasks involving code structure, call paths, routes, dependencies, or impact:
-
-1. Confirm the CodeGraph capability is available and its freshness/status is
-   usable for the current worktree.
-2. Use the supported MCP or CLI interface to identify the smallest candidate
-   surface to inspect.
-3. Read the current source, authority, and tests directly before deciding or
-   editing. A graph result is a navigation hint, not proof of root cause or a
-   complete runtime dependency set.
-4. Account explicitly for dynamic dispatch, dependency injection, reflection,
-   generated code, templates, event-driven flows, and external integrations
-   when static analysis may not see them.
-
-Keep `.codegraph/` out of version control in consumer repositories. The Harness
-core does not require, copy, or inspect that derived index as part of its own
-state.
-
-If CodeGraph is unavailable, stale, or incomplete, continue with targeted
-repository inspection. Do not install or initialize it, change MCP/configuration
-as a side effect, read its private database, or block the task to obtain it.
-CodeGraph output never changes task classification, authority precedence, scope,
-Harness state, or the executable/runtime validation required for completion.
-
 ## Select The Work Shape
 
 Answer three questions independently; do not let one risk label decide them.

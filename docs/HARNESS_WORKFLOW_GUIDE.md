@@ -1,9 +1,12 @@
 # Repository Harness — Luồng Làm Việc Hiện Tại
 
-Tài liệu này mô tả cách làm việc với Repository Harness đang được cài trong
-repository này, được kiểm tra lần cuối ngày 2026-08-04.
+> **Explanatory guide only.** Tài liệu này hỗ trợ người đọc hiểu flow và không
+> phải workflow authority. Agent không cần đọc mặc định.
+>
+> Khi có xung đột, dùng `AGENTS.md`, `docs/WORKFLOW.md`, accepted decisions và
+> định nghĩa skill liên quan trước; tài liệu này chỉ giải thích các nguồn đó.
 
-Đây là tài liệu giải thích. Khi có xung đột, thứ tự ưu tiên là:
+Thứ tự ưu tiên để tham khảo là:
 
 1. yêu cầu trực tiếp hiện tại của người dùng;
 2. [`AGENTS.md`](../AGENTS.md);
@@ -512,9 +515,8 @@ Chỉ chạy `harness update` không có `--dry-run`, `install`, `--continue` ho
 nên nằm ngoài Harness-managed markers khi có thể.
 
 Khi thay đổi `.harness-core/base`, cần phát hành core artifact tương ứng và
-đồng bộ version/manifest trước khi phân phối cho repo khác. Draft này vẫn giữ
-core version `0.1.7` vì chưa có artifact `0.1.8`; CodeGraph policy hiện được
-kiểm tra như source/template change, chưa phải một release binary mới.
+đồng bộ version/manifest trước khi phân phối cho repo khác. Consumer-owned
+policy như CodeGraph không được sửa `.harness-core/base` hoặc manifest.
 
 ## 12. CodeGraph và repository consumer
 
@@ -529,7 +531,8 @@ Harness không cài CodeGraph mặc định và không ghi CodeGraph state vào
    áp dụng rộng.
 
 Việc CodeGraph không có mặt không phải là Harness failure và không được block
-workflow chính.
+workflow chính. Chi tiết policy consumer-owned nằm ở
+[`docs/tools/codegraph.md`](tools/codegraph.md).
 
 ## 13. Compatibility control plane
 
@@ -590,23 +593,3 @@ findings và plan location đều đã được cập nhật trước khi chuy�
 - [ ] Đọc exit code và relevant output.
 - [ ] Ghi untested surfaces và limitations.
 - [ ] Hoàn tất/move durable plan chỉ khi mọi criterion có evidence.
-
-## 16. Trạng thái cài đặt hiện tại
-
-Tại lần kiểm tra gần nhất:
-
-- Harness core được cài ở version `0.1.7`.
-- `harness status` báo `modified=1` vì root `AGENTS.md` có consumer routing
-  block; phần bên trong Harness-managed markers vẫn khớp core base.
-- `harness doctor` pass.
-- Core có hai managed onboarding/audit skill.
-- Consumer repo có sáu supplemental workflow skill trong
-  `.agents/skills/`.
-- Root `AGENTS.md` có mandatory `work-router` gate nằm ngoài managed markers.
-- CodeGraph chưa được initialize trong Harness scaffold; đây là chủ ý, vì
-  CodeGraph dành cho consumer repository có discovery surface lớn.
-- Không có active execution plan được index.
-- `docs/product/` chưa có consumer-specific product contract.
-
-Luôn chạy lại `scripts/bin/harness status` và `scripts/bin/harness doctor` thay
-vì dựa vào snapshot này khi trạng thái hiện tại ảnh hưởng quyết định.
