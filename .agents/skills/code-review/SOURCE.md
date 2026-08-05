@@ -1,9 +1,35 @@
 # Source
 
-- Origin: Internal, adapted from the repository's authority-based review workflow
-- Created: 2026-08-05
-- Purpose: Review code changes against accepted repository authority and evidence
-- Upstream: None
+- Origin: Merged local review workflow, incorporating the upstream engineering code-review skill
+- Upstream repository: https://github.com/mattpocock/skills
+- Source path: `skills/engineering/code-review/`
+- Commit: `2ab958093e83e0ec752e6c1c5932da465bf23e0c`
+- License: MIT
+- Copied: 2026-08-04
+- Merged: 2026-08-05
 - Owner: gnoud
-- Activation: Auto after routing for review and medium/large changes
-- Update method: Update with review scenario tests that cover authority, security, and regression findings.
+- Activation: Auto after routing for review requests and medium or large changes
+- Local modifications: unified authority compliance and technical review under one entry point; required authority-first ordering; retained target resolution, full-context review, technical correctness, security, trust-boundary, regression, and validation checks; added revision-range support, accepted-authority rules, `Decision required`, one severity and finding schema, and a risk-gated adversarial pass; prohibited ordinary review from widening scope or spawning sub-agents.
+- Update method: inspect a newer immutable upstream commit, preserve the local authority hierarchy and routing contract, then run the skill validator and all six review scenarios.
+
+## MIT License
+
+Copyright (c) 2026 Matt Pocock
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

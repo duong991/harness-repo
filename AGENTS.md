@@ -47,6 +47,9 @@ Use `work-router` to select the lightest safe workflow.
 Downstream skills refine the selected workflow. They must not independently
 widen scope, create plans, create stories, or introduce orchestration.
 
+Use `code-review` as the only review entry point. Its authority-compliance
+stage must run before technical correctness, security, and regression review.
+
 A read-only request remains read-only even when a defect is discovered.
 
 Before any positive completion claim, apply

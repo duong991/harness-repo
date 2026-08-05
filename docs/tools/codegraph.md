@@ -43,8 +43,9 @@ and external integrations that static analysis may not observe.
   classification remains unchanged.
 - `diagnosing-bugs`: use it to form and eliminate hypotheses; reproduce and
   direct evidence still establish root cause.
-- `review-against-authority`: use it to find candidate callers, callees, routes,
-  and consumers; inspect them directly.
+- `code-review`: use it to find candidate callers, callees, routes, and
+  consumers; inspect them directly. Graph output cannot replace its mandatory
+  authority-compliance stage.
 - `verification-before-completion`: graph health, sync, impact output, or an
   absence of visible callers is never completion evidence.
 

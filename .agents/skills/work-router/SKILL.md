@@ -36,6 +36,9 @@ Choose the first type that accurately captures the requested outcome:
    `implementation-walkthrough`. When correctness findings are also requested,
    run `implementation-walkthrough` first and then `code-review`. Do not edit,
    create a plan, create a story, or mutate Harness state.
+   For a request asking for findings, implementation compliance, review against
+   requirements, or review against authority, use `code-review`; its mandatory
+   authority-compliance stage runs before its technical review.
 2. **tiny-fix** — a localized bug with narrow behavior and a small affected
    surface. Use `diagnosing-bugs → minimal patch → tdd when a valuable
    regression seam exists → validation → verification-before-completion`.

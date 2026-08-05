@@ -1,116 +1,222 @@
 ---
 name: code-review
-description: Reviews code changes and provides actionable feedback. Use when the user asks to review a PR, diff, commit, or code changes. Triggers on "/review", "review this PR", "review my changes", "code review".
+description: Reviews a PR, commit, branch, diff, revision range, or codebase change against accepted product and technical authority, then evaluates correctness, security, maintainability, compatibility, regression risk, and validation evidence. Use when the user asks for code review, change review, PR review, implementation compliance, review against requirements, review against a specification or design, or review against authority.
 ---
 
-You are a code reviewer. Your job is to review code changes and provide actionable feedback.
+# Code Review
 
-## Repository Authority
+Review in two ordered layers:
 
-Read `AGENTS.md` and `docs/WORKFLOW.md` before reviewing. Reconstruct expected
-behavior from repository authority, in this order: the current user request;
-accepted product and design documentation; architecture and accepted decisions;
-accepted API, security, and permission contracts; active plans as execution
-guidance; behavioral tests; then current code as observed behavior only.
+```text
+Authority compliance
+        ↓
+Technical correctness
+```
 
-Plans, defaults, conventions, comments, and existing code do not establish
-missing policy. Mark unresolved normative choices as `Decision required` rather
-than inventing a requirement. For each actionable finding, cite the authority
-and evidence, location, impact, required correction, and validation to rerun.
+Keep reviews read-only. Do not edit, stage, format, create plans, create Harness
+state, or spawn sub-agents unless the router selected an authorized workflow
+that explicitly requires those actions. Review only the requested target; do
+not turn a bounded patch review into a repository audit.
 
-## Determining What to Review
+## Resolve the review target
 
-Based on the input provided, determine which type of review to perform:
+Choose the narrowest target that matches the request:
 
-1. **No arguments (default)**: Review all uncommitted changes
-   - Run: `git diff` for unstaged changes
-   - Run: `git diff --cached` for staged changes
+1. For no argument, inspect both `git diff` and `git diff --cached`.
+2. For a commit, inspect `git show <commit>`.
+3. For a branch, inspect `git diff <branch>...HEAD`.
+4. For a revision range, inspect `git diff <from>..<to>`.
+5. For a pull request, use `gh pr view <pr>` for its description and commits,
+   and `gh pr diff <pr>` for its diff; inspect changed files, declared tests,
+   and validation evidence as well.
 
-2. **Commit hash** (40-char SHA or short hash): Review that specific commit
-   - Run: `git show $ARGUMENTS`
+Verify the fixed points before reviewing a branch or range. Record unrelated
+pre-existing worktree changes and leave them untouched.
 
-3. **Branch name**: Compare current branch to the specified branch
-   - Run: `git diff $ARGUMENTS...HEAD`
+## Gather sufficient context
 
-4. **PR URL or number** (contains "github.com" or "pull" or looks like a PR number): Review the pull request
-   - Run: `gh pr view $ARGUMENTS` to get PR context
-   - Run: `gh pr diff $ARGUMENTS` to get the diff
+Treat the diff as a starting point. Read consequential changed files in full,
+plus the smallest relevant set of callers, consumers, interfaces, schemas,
+types, tests, error paths, permission boundaries, configuration, migrations,
+and deployment or rollback behavior.
 
-Use best judgement when processing input.
+Create findings only for problems the change causes, exposes, or makes worse.
+Read outside the diff when needed to prove impact.
 
----
+When a live and current CodeGraph capability exists, use it only to locate
+candidate callers, callees, routes, and consumers. Read consequential source
+directly and account for dynamic dispatch, dependency injection, reflection,
+generated code, templates, events, and external integrations. Treat graph
+output as navigation evidence, never as authority, runtime proof, or proof of
+complete impact coverage.
 
-## Gathering Context
+## Resolve accepted authority
 
-**Diffs alone are not enough.** After getting the diff, read the entire file(s) being modified to understand the full context. Code that looks wrong in isolation may be correct given surrounding logic—and vice versa.
+Establish which source may decide the reviewed behavior. Apply this precedence
+when sources conflict:
 
-- Use the diff to identify which files changed
-- Read the full file to understand existing patterns, control flow, and error handling
-- When changes touch inputs, auth, storage, networking, rendering, or secrets, trace the trust boundary instead of reviewing the code in isolation
-- Check for existing style guide or conventions files (CONVENTIONS.md, AGENTS.md, .editorconfig, etc.)
+1. Current direct user request and accepted product or business decision.
+2. Accepted design or specification.
+3. Public API, schema, protocol, security, or permission contract.
+4. Repository policy, architecture, and accepted decision record.
+5. Accepted task brief.
+6. Implementation plan as execution guidance only.
+7. Existing tests and code as evidence of observed behavior only.
+8. Reviewer inference.
 
----
+Treat a document as accepted authority only when the user approved it, the
+repository workflow designates it as authoritative, or an accepted decision
+record adopts it. Do not promote drafts, proposals, mockups, generated text,
+comments, README statements, defaults, conventions, plans, or existing code
+into missing product policy.
 
-## What to Look For
+When authority is insufficient, record a separate `Decision required` item.
+State the unresolved policy choice and the behavior the implementation
+currently selects. Do not choose a policy or claim compliance. Continue the
+technical review where possible.
 
-**Bugs** - Your primary focus.
-- Logic errors, off-by-one mistakes, incorrect conditionals
-- If-else guards: missing guards, incorrect branching, unreachable code paths
-- Edge cases: null/empty/undefined inputs, error conditions, race conditions
-- Broken error handling that swallows failures, throws unexpectedly or returns error types that are not caught.
+## Review authority compliance first
 
-**Security / Safety** - Treat this as a first-class review concern, not an afterthought.
-- Assume changed code may be reachable by untrusted users or hostile input unless you can verify otherwise
-- Look for injection, XSS, auth/authz bypass, CSRF, SSRF, open redirects, path traversal, unsafe file access, secret/token exposure, privilege escalation, insecure defaults, and tenant/data isolation leaks
-- Check that validation and authorization happen at the real boundary, not only in the UI or caller
-- Verify sensitive operations fail closed, do not log secrets, and do not expand access beyond the intended actor/resource scope
-- Prefer flagging realistic exploit paths over generic "security concern" comments; explain the attacker-controlled input, boundary, and impact
+Compare observable behavior and contracts to accepted authority before judging
+implementation quality. Check for:
 
-**Structure** - Does the code fit the codebase?
-- Does it follow existing patterns and conventions?
-- Are there established abstractions it should use but doesn't?
-- Excessive nesting that could be flattened with early returns or extraction
+- missing requirements or extra unapproved behavior;
+- changed defaults, fallbacks, or error policy;
+- broken accepted contracts;
+- shifted responsibility between client and server;
+- weakened validation, authorization, or permission boundaries; and
+- implementation-plan choices that contradict higher authority.
 
-**Performance** - Only flag if obviously problematic.
-- O(n²) on unbounded data, N+1 queries, blocking I/O on hot paths
+Well-written code that implements the wrong policy is incorrect.
 
----
+## Review technical correctness
 
-## Before You Flag Something
+After the compliance pass, inspect:
 
-**Be certain.** If you're going to call something a bug, you need to be confident it actually is one.
+- **Correctness:** conditions, mapping, nullability, boundaries, stale state,
+  retries, duplicate processing, idempotency, partial updates, swallowed errors,
+  races, and resource release.
+- **Maintainability:** duplication, misplaced abstraction, unnecessary coupling,
+  misleading names, mixed responsibilities, hidden side effects, and hard-coded
+  configuration. Report style only when an accepted convention is violated and
+  mechanical enforcement does not already cover it.
+- **API and compatibility:** request and response contracts, optionality, enums,
+  serialization, consumer compatibility, version negotiation, migrations,
+  deployment order, and rollback.
+- **Test quality:** observable behavior, regression coverage, failure paths,
+  mocks that hide real behavior, assertion strength, and whether tests prove the
+  pull request's claims.
+- **Performance:** report only concrete risks such as unbounded quadratic work,
+  N+1 access, or blocking I/O on a demonstrated hot path.
 
-- Only review the changes - do not review pre-existing code that wasn't modified
-- Don't flag something as a bug if you're unsure - investigate first
-- Don't invent hypothetical problems - if an edge case matters, explain the realistic scenario where it breaks
-- For security findings, describe the concrete exploit path or trust-boundary failure instead of vague risk language
-- If you need more context to be sure, use the tools below to get it
+Investigate before asserting a bug. Describe the realistic input, state,
+environment, or sequence needed to reproduce it.
 
-**Don't be a zealot about style.** When checking code against conventions:
+## Trace security and trust boundaries
 
-- Verify the code is *actually* in violation. Don't complain about else statements if early returns are already being used correctly.
-- Some "violations" are acceptable when they're the simplest option. A `let` statement is fine if the alternative is convoluted.
-- Excessive nesting is a legitimate concern regardless of other style choices.
-- Don't flag style preferences as issues unless they clearly violate established project conventions.
+For changed flows involving external input, authentication, authorization,
+tenant data, storage, files, commands, queries, networking, secrets, or
+destructive operations, trace:
 
----
+```text
+Untrusted input
+→ parsing
+→ validation
+→ authorization
+→ sensitive operation
+→ storage or output
+```
 
-## Tools
+Verify enforcement at the real backend or operation boundary, not only in the
+UI or caller. Check tenant isolation, injection, path traversal, unsafe file
+access, token or personal-data leakage, fail-closed behavior, race-driven
+permission bypass, and direct-API bypasses. For a security finding, identify
+the attacker-controlled input, missing control, and concrete impact.
 
-Use these to inform your review:
+## Review regression and impact
 
-- **Explore agent** - Find how existing code handles similar problems. Check patterns, conventions, and prior art before claiming something doesn't fit.
+Follow producer changes to consumers and interface changes to implementations
+and callers. Check APIs, databases, caches, queues, events, feature flags,
+existing tests, backward compatibility, deployment order, and rollback.
 
-If you're uncertain about something and can't verify it with these tools, say "I'm not sure about X" rather than flagging it as a definite issue.
+## Gate the adversarial pass by risk
 
----
+Run an explicit counterexample pass when the change involves authentication,
+authorization, tenant isolation, external input, file transfer, secrets,
+migrations or schemas, concurrency, retries or idempotency, destructive
+operations, public API compatibility, multiple services, or a material
+assumption discovered during review.
 
-## Output
+Probe bypasses, duplicate events, failure paths, old state, old consumers, and
+unsafe deployment order. Skip this pass for low-risk changes such as a tiny CSS
+diff unless another risk signal is present.
 
-1. If there is a bug, be direct and clear about why it is a bug.
-2. Clearly communicate severity of issues. Do not overstate severity.
-3. Critiques should clearly and explicitly communicate the scenarios, environments, or inputs that are necessary for the bug to arise. The comment should immediately indicate that the issue's severity depends on these factors.
-4. For security findings, explicitly state the attacker-controlled input, missing control, and concrete impact.
-5. Your tone should be matter-of-fact and not accusatory or overly positive. It should read as a helpful AI assistant suggestion without sounding too much like a human reviewer.
-6. Write so the reader can quickly understand the issue without reading too closely.
-7. AVOID flattery, do not give any comments that are not helpful to the reader. Avoid phrasing like "Great job ...", "Thanks for ...".
+## Evaluate validation evidence
+
+Separate:
+
+```text
+Evidence available
+Evidence missing
+Validation to rerun
+```
+
+Do not infer working behavior from code appearance, historical test results,
+pull-request claims, plan checkboxes, or static analysis alone. If running
+validation directly, apply `verification-before-completion`: run it fresh,
+read the exit code and relevant output, and keep claims within the evidence.
+
+When no code finding exists but runtime proof is missing, report both
+`No actionable code findings found.` and the remaining validation gap. Do not
+imply that untested behavior works.
+
+## Classify and report findings
+
+Use one technical severity per actionable finding:
+
+- **Critical:** likely severe data loss, authentication or authorization
+  bypass, broad data exposure, remote code execution, or inability to deploy or
+  roll back safely.
+- **High:** important requirement violation, primary production failure,
+  broken API or permission contract, main-flow data corruption, or definite
+  consumer regression.
+- **Medium:** realistic edge-case failure, incomplete error handling or
+  validation, missing proof for important behavior, or maintainability likely
+  to produce a defect.
+- **Low:** limited clarity, naming, duplication, or test-readability issue with
+  no material current behavior impact.
+
+Keep `Decision required` separate; it is an unresolved-authority state, not a
+technical severity.
+
+For every finding, use:
+
+```text
+[Severity] Short title
+
+Claim:
+Authority and evidence:
+Location:
+Impact:
+Required correction:
+Validation to rerun:
+```
+
+Order findings by severity and evidence strength. Specify the required outcome
+without forcing one implementation when alternatives satisfy authority.
+
+Structure the final report as:
+
+```text
+Review target
+Authority used
+Summary
+Findings
+Decision required
+Validation gaps
+Files inspected
+```
+
+If no actionable finding exists, say `No actionable findings found.` and still
+identify authority, inspected scope, available validation, missing validation,
+and review limitations. Never return only `LGTM`.

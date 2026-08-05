@@ -47,7 +47,7 @@ flowchart TD
     BC --> EP["Ephemeral plan"]
     EP --> I["Conditional TDD + implementation"]
     I --> Q{"Thay đổi vừa/lớn?"}
-    Q -- "Có" --> RV["review-against-authority"]
+    Q -- "Có" --> RV["code-review: authority → technical"]
     Q -- "Không" --> V
     RV --> V
     AP --> GM["grill-me, chỉ khi được gọi/chấp thuận"]
@@ -285,7 +285,8 @@ cầu triển khai hoặc ghi tài liệu.
    bước.
 4. Dùng TDD khi behavior có seam tự động có giá trị.
 5. Implement vertical slice nhỏ nhất đủ outcome.
-6. Nếu thay đổi vừa/lớn, chạy `review-against-authority`.
+6. Nếu thay đổi vừa/lớn, chạy `code-review`; stage authority
+   compliance bắt buộc chạy trước technical review.
 7. Chạy focused proof và repository-required checks.
 8. Handoff với changed surfaces, evidence và limitation.
 
@@ -353,13 +354,13 @@ Chi tiết protocol nằm tại
 | `grill-me` | Explicit-only | Giải quyết product/UX/scope/permission ambiguity bằng interview |
 | `diagnosing-bugs` | Auto sau routing | Reproduce, evidence, root cause, minimal authorized fix |
 | `tdd` | Auto có điều kiện sau routing | Red → green → refactor qua observable seam |
-| `review-against-authority` | Auto cho review hoặc change vừa/lớn | So patch với accepted authority và fresh evidence |
+| `code-review` | Auto cho review hoặc change vừa/lớn | So patch với accepted authority trước, sau đó review correctness, security, compatibility, regression và evidence |
 | `verification-before-completion` | Auto, bắt buộc | Gate cuối cho mọi positive completion claim |
 
 Nguồn và activation đầy đủ nằm tại
 [`docs/skills/skill-manifest.md`](skills/skill-manifest.md).
 
-Hai Harness-managed core skill không thuộc bộ sáu skill trên:
+Hai Harness-managed core skill không thuộc bộ bảy skill trên:
 
 - `$onboard-repository`: explicit, first pass read-only để map một brownfield
   repository, trace một operational path và đề xuất improvement dựa trên
