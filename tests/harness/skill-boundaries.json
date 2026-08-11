@@ -30,5 +30,51 @@
       "Run it fresh",
       "Exit code"
     ]
+  },
+  {
+    "skill": "writing-for-agents",
+    "must_contain": [
+      "does not create a parallel router",
+      "one source of truth",
+      "completion criterion"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "handoff",
+    "must_contain": [
+      "A handoff is not durable project authority",
+      "rather than duplicating them",
+      "Do not claim a milestone is complete"
+    ],
+    "policy": "allow_implicit_invocation: false"
+  },
+  {
+    "skill": "codebase-design",
+    "must_contain": [
+      "cannot independently spawn sub-agents",
+      "does not authorize refactoring",
+      "orchestrated-multi-agent-work"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "domain-modeling",
+    "must_contain": [
+      "Do not require `CONTEXT.md`",
+      "docs/templates/decision.md",
+      "cannot create a new work type"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "resolving-merge-conflicts",
+    "must_contain": [
+      "Never invent behavior",
+      "Stage only intended resolution paths",
+      "Do not abort an in-progress operation",
+      "cannot stage the entire repository"
+    ],
+    "policy": "allow_implicit_invocation: true"
   }
 ]

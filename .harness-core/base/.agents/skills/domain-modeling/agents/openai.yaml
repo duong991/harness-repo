@@ -1,0 +1,6 @@
+interface:
+  display_name: "Domain Modeling"
+  short_description: "Sharpen domain language and relationships"
+  default_prompt: "Use $domain-modeling to clarify domain terminology and relationships using the repository's existing documentation authority."
+policy:
+  allow_implicit_invocation: true

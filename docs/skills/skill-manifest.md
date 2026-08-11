@@ -1,14 +1,15 @@
 # Repository Skill Manifest
 
-This manifest covers the eight workflow skills installed for this consumer
-repository. They are Harness-managed: their complete file trees have a base
+This manifest covers the core workflow skills and supporting disciplines
+installed for this consumer repository. They are Harness-managed: their complete file trees have a base
 snapshot and hash entry in `.harness-core/manifest.json`, so the updater can
 perform a deterministic three-way update. Harness-managed
-`onboard-repository` and `audit-onboarding-proposal` remain separate core
-skills and are not members of this eight-skill suite.
+`onboard-repository` and `audit-onboarding-proposal` remain separate onboarding
+skills outside the workflow/supporting-discipline suite.
 
 | Skill                            | Source                                                            | Commit                                     | Activation                                        | Local changes                                                                                                                                   | Owner | Last reviewed |
 | -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------------- |
+| **Core workflow skills**         |                                                                   |                                            |                                                   |                                                                                                                                                 |       |               |
 | `work-router`                    | Internal Repository Harness implementation                        | `internal`                                 | Auto, mandatory `AGENTS.md` gate                  | Sole workflow router; downstream skills cannot widen scope, plans, stories, or orchestration                                                    | gnoud | 2026-08-04    |
 | `grill-me`                       | `mattpocock/skills` — `skills/productivity/grill-me` + `grilling` | `2ab958093e83e0ec752e6c1c5932da465bf23e0c` | Explicit-only                                     | Repository discovery, one-question interview, confirmed brief, permission-gated writes, no code/plan/story                                      | gnoud | 2026-08-04    |
 | `diagnosing-bugs`                | `mattpocock/skills` — `skills/engineering/diagnosing-bugs`        | `2ab958093e83e0ec752e6c1c5932da465bf23e0c` | Auto after routing                                | Evidence-first root-cause loop, read-only mode, compressed obvious-defect path, fresh regression validation                                     | gnoud | 2026-08-04    |
@@ -17,10 +18,16 @@ skills and are not members of this eight-skill suite.
 | `implementation-walkthrough`     | Internal                                                          | `internal`                                 | Auto after routing for large-change comprehension | Five-phase BASELINE/MAP/TRACE/PROBE/HANDOFF workflow; behavior-based Review Units, Critical Path, Risk Probes, Invariants, evidence freshness, conditional references, and formal-review handoff | gnoud | 2026-08-11    |
 | `test-walkthrough`               | Internal                                                          | `internal`                                 | Auto after routing for test comprehension       | Per-file digest of actual production symbols, protected behavior, unproven behavior, Direct/Partial/Superficial evidence, and reading priority; explanatory only, never an adequacy or approval gate | gnoud | 2026-08-06    |
 | `verification-before-completion` | `obra/superpowers` — `skills/verification-before-completion`      | `44c9b2d6e889982ac18c27d05a19fefe335194e1` | Auto and mandatory                                | Fresh claim-specific proof, exit-code record, explicit untested surfaces                                                                        | gnoud | 2026-08-04    |
+| **Supporting disciplines**       |                                                                   |                                            |                                                   |                                                                                                                                                 |       |               |
+| `writing-for-agents`             | `mattpocock/skills` — `skills/productivity/writing-for-agents`    | `84fdeffd12f2ee307994d1eb6feb48173b6e0502` | Model-invoked                                      | Harness invocation mechanics, authority pointers, no competing router                                                                            | gnoud | 2026-08-11    |
+| `handoff`                        | `mattpocock/skills` — `skills/productivity/handoff`               | `84fdeffd12f2ee307994d1eb6feb48173b6e0502` | Explicit-only                                      | Temporary compact context, redaction, links instead of duplicate authority                                                                       | gnoud | 2026-08-11    |
+| `codebase-design`                | `mattpocock/skills` — `skills/engineering/codebase-design`        | `84fdeffd12f2ee307994d1eb6feb48173b6e0502` | Model-invoked                                      | Deep-module vocabulary, sequential alternatives, no self-orchestration                                                                           | gnoud | 2026-08-11    |
+| `domain-modeling`                | `mattpocock/skills` — `skills/engineering/domain-modeling`        | `84fdeffd12f2ee307994d1eb6feb48173b6e0502` | Model-invoked                                      | Existing `docs/product/` and `docs/decisions/` authority; no required CONTEXT or ADR hierarchy                                                   | gnoud | 2026-08-11    |
+| `resolving-merge-conflicts`      | `mattpocock/skills` — `skills/engineering/resolving-merge-conflicts` | `84fdeffd12f2ee307994d1eb6feb48173b6e0502` | Model-invoked                                   | Intent-first, no invented behavior, only intended staging and authorized continuation                                                            | gnoud | 2026-08-11    |
 
 ## Installation contract
 
-Copying the eight skill directories alone is incomplete. Every consumer
+Copying the eight core workflow skill directories alone is incomplete. Every consumer
 repository must install an equivalent `## Task routing` gate in its root
 `AGENTS.md` so `work-router` selects the workflow before downstream skills act.
 

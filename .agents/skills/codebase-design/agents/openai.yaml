@@ -1,0 +1,6 @@
+interface:
+  display_name: "Codebase Design"
+  short_description: "Design deep modules and clean seams"
+  default_prompt: "Use $codebase-design to explore a module interface, seam, and implementation shape without widening the authorized scope."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,80 @@
+[
+  {
+    "skill": "implementation-walkthrough",
+    "must_contain": [
+      "This skill is read-only and explanatory",
+      "Correctness, security, adequacy, severity, compliance, and approval belong to `code-review`",
+      "never changes Git state"
+    ]
+  },
+  {
+    "skill": "test-walkthrough",
+    "must_contain": [
+      "it does not approve the implementation",
+      "do not use for test adequacy findings, approval, severity, or formal review",
+      "code-review"
+    ]
+  },
+  {
+    "skill": "code-review",
+    "must_contain": [
+      "Authority compliance",
+      "Technical correctness",
+      "Keep reviews read-only"
+    ]
+  },
+  {
+    "skill": "verification-before-completion",
+    "must_contain": [
+      "make no positive completion claim without fresh evidence",
+      "Run it fresh",
+      "Exit code"
+    ]
+  },
+  {
+    "skill": "writing-for-agents",
+    "must_contain": [
+      "does not create a parallel router",
+      "one source of truth",
+      "completion criterion"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "handoff",
+    "must_contain": [
+      "A handoff is not durable project authority",
+      "rather than duplicating them",
+      "Do not claim a milestone is complete"
+    ],
+    "policy": "allow_implicit_invocation: false"
+  },
+  {
+    "skill": "codebase-design",
+    "must_contain": [
+      "cannot independently spawn sub-agents",
+      "does not authorize refactoring",
+      "orchestrated-multi-agent-work"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "domain-modeling",
+    "must_contain": [
+      "Do not require `CONTEXT.md`",
+      "docs/templates/decision.md",
+      "cannot create a new work type"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "resolving-merge-conflicts",
+    "must_contain": [
+      "Never invent behavior",
+      "Stage only intended resolution paths",
+      "Do not abort an in-progress operation",
+      "cannot stage the entire repository"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  }
+]

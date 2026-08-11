@@ -55,5 +55,45 @@
     "assertions": {
       "code-review": ["Keep reviews read-only"]
     }
+  },
+  {
+    "id": "agent-document-maintenance",
+    "prompt": "Improve this SKILL.md so agents load the right context.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "writing-for-agents"],
+    "assertions": {
+      "work-router": ["Agent-consumed documents or skills", "writing-for-agents"],
+      "writing-for-agents": ["Context pointers", "does not create a parallel router"]
+    }
+  },
+  {
+    "id": "design-analysis",
+    "prompt": "Design a better interface and seam for this module.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "codebase-design"],
+    "assertions": {
+      "work-router": ["Architecture, module, seam, or interface design", "codebase-design"],
+      "codebase-design": ["Module", "Depth", "cannot independently spawn sub-agents"]
+    }
+  },
+  {
+    "id": "domain-modeling",
+    "prompt": "Define the terminology and relationships for these domain concepts.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "domain-modeling"],
+    "assertions": {
+      "work-router": ["domain-vocabulary or domain-model changes", "domain-modeling"],
+      "domain-modeling": ["Challenge terminology", "docs/decisions/"]
+    }
+  },
+  {
+    "id": "merge-conflict-resolution",
+    "prompt": "Resolve this in-progress rebase conflict.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "resolving-merge-conflicts"],
+    "assertions": {
+      "work-router": ["in-progress merge or rebase conflict", "resolving-merge-conflicts"],
+      "resolving-merge-conflicts": ["STATE → INTENT → RESOLVE → VERIFY → CONTINUE", "Never invent behavior"]
+    }
   }
 ]

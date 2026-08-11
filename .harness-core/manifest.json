@@ -80,7 +80,7 @@
     },
     {
       "path": ".agents/skills/work-router/SKILL.md",
-      "upstream_sha256": "2f82e8823159e85910ec6352ada76aff8099a7bf5b0dfbb8fc8e2e4be3aaedb8"
+      "upstream_sha256": "41ca82374993501ce48003094443d52911749fb2d769844c77dcaadf58ea5746"
     },
     {
       "path": ".agents/skills/work-router/SOURCE.md",
@@ -193,6 +193,102 @@
     {
       "path": ".agents/skills/verification-before-completion/agents/openai.yaml",
       "upstream_sha256": "7bb6a9942db5313473b365fb2ed5b20cd8f8be0519a69c8b94e3e592d1a58421"
+    },
+    {
+      "path": ".agents/skills/writing-for-agents/SKILL-MECHANICS.md",
+      "upstream_sha256": "98edd4bf49c1fb53d55ef15377dea2a0ca2f67804c62fe6fed2718a450b79fce"
+    },
+    {
+      "path": ".agents/skills/writing-for-agents/SKILL.md",
+      "upstream_sha256": "f7f94e1f570df55bd495bad22ee3a0f13d296fa9d9e5e1e411a2ab27b4fff974"
+    },
+    {
+      "path": ".agents/skills/writing-for-agents/SOURCE.md",
+      "upstream_sha256": "9120335a90314926ace60eee9369aaa8e3a2d1d0b1cdc3e5491720a17bc108a4"
+    },
+    {
+      "path": ".agents/skills/writing-for-agents/agents/openai.yaml",
+      "upstream_sha256": "5835579b3ce698266a2dacb8fc592eb39f8aa06ffaf8aff662e15f79a54fb272"
+    },
+    {
+      "path": ".agents/skills/handoff/SKILL.md",
+      "upstream_sha256": "8eec260204e351135822359c1dd743203683849a78a83689558774b09037636e"
+    },
+    {
+      "path": ".agents/skills/handoff/SOURCE.md",
+      "upstream_sha256": "6f437e92bb13baa3cc8b16ca0ed6fa8272b1c05edfd035233a319d73119c197a"
+    },
+    {
+      "path": ".agents/skills/handoff/agents/openai.yaml",
+      "upstream_sha256": "fc492a5e619ed6657f31b23fef506790422ab780df77875c493f6690cec07295"
+    },
+    {
+      "path": ".agents/skills/codebase-design/SKILL.md",
+      "upstream_sha256": "682d12033c3270bc620dfb7b517131fcc461c5ce9a343421fe435e471ee0cd25"
+    },
+    {
+      "path": ".agents/skills/codebase-design/SOURCE.md",
+      "upstream_sha256": "b3346727eafb2ba2d712c094a173969100ccfde7f09d09c183210278d7cbc71e"
+    },
+    {
+      "path": ".agents/skills/codebase-design/agents/openai.yaml",
+      "upstream_sha256": "924801b5ef8d0dcb29f13ca94f76e3ef3c7fce68850ab7d9b5b74056163a1a96"
+    },
+    {
+      "path": ".agents/skills/codebase-design/references/deepening.md",
+      "upstream_sha256": "e229d29d74e3e558f8c5cdc369c4bb6dcbc559f36e198b5ea7ab5646901a751c"
+    },
+    {
+      "path": ".agents/skills/codebase-design/references/design-it-twice.md",
+      "upstream_sha256": "2a2000d317e996fae6cdb55ac1db837ebc9781e6915b41afb9223ef475726d87"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/SKILL.md",
+      "upstream_sha256": "b8ca8ae8497e4ddd602b4e287987b44ad4cdef461316ebbaa2fef93a083760a1"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/SOURCE.md",
+      "upstream_sha256": "4d4a2356a6f559472e0a485b1acfeefd6fa44e7e94d71861bb92986b90b2c6a7"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/agents/openai.yaml",
+      "upstream_sha256": "78f822f8346847bfb509b4343db14e6ee6e61d271484a3db9ab974428225f45e"
+    },
+    {
+      "path": ".agents/skills/domain-modeling/references/domain-glossary-format.md",
+      "upstream_sha256": "eff2863c57b5c576f474fde7bd451b9c80d213e94db215a6987c3ebe6f2f4445"
+    },
+    {
+      "path": ".agents/skills/resolving-merge-conflicts/SKILL.md",
+      "upstream_sha256": "2b501fe9b5f7dafad67d2ad412296a96fb65cb4de69ba28c0c340097eac1d269"
+    },
+    {
+      "path": ".agents/skills/resolving-merge-conflicts/SOURCE.md",
+      "upstream_sha256": "43baf1d55e11ecdf0c97b4d102cc3b44064bd9c9630ae41cabbbbebd47c744e7"
+    },
+    {
+      "path": ".agents/skills/resolving-merge-conflicts/agents/openai.yaml",
+      "upstream_sha256": "8dc63259c7fff2d87dc8b5d6a1eb756bd000dea813ce0431ef6e1bd326dbc05f"
+    },
+    {
+      "path": "scripts/test-harness-skills",
+      "upstream_sha256": "33a785b943a255f06b577b82fcc7ae9f5340e9a6e918c27d6ab30edad656ea77"
+    },
+    {
+      "path": "scripts/validate-harness-sdlc.py",
+      "upstream_sha256": "21a011567c7c70e191d7a4377732138241e345aca75578f2ffbbb67494817f5b"
+    },
+    {
+      "path": "tests/harness/routing-cases.json",
+      "upstream_sha256": "87acdd54145afd51be675052d6c91451eb363c4fda47e6044c491a9a66332eb2"
+    },
+    {
+      "path": "tests/harness/skill-boundaries.json",
+      "upstream_sha256": "1c254da926c11afc6dd392bab89370038f4f578f3f786f0d6ab768e2c4be5ad6"
+    },
+    {
+      "path": "tests/harness/update-cases.json",
+      "upstream_sha256": "88fd3dfd48d5d654a145c410bd838c630e4bfbb8f8b5f993a8a9cf6fb32dcdda"
     }
   ]
 }

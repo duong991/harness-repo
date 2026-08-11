@@ -84,6 +84,17 @@ Choose the first type that accurately captures the requested outcome:
 
 - Let an explicit user constraint override inferred routing. A read-only
   request remains read-only even if a defect is discovered.
+- For Agent-consumed documents or skills, use `writing-for-agents` as the
+  writing discipline after selecting the route.
+- For Architecture, module, seam, or interface design, use `codebase-design`
+  as a supporting discipline without creating a separate workflow.
+- For active domain-vocabulary or domain-model changes, use `domain-modeling`
+  with existing repository documentation authority.
+- For an authorized in-progress merge or rebase conflict, route the resolution
+  as `bounded-change` through `resolving-merge-conflicts`; conflict analysis
+  without mutation remains `read-only-analysis`.
+- `handoff` is explicit-only continuation context and is not part of automatic
+  routing or normal completion flow.
 - Inspect the repository instead of asking for facts already recorded there.
 - Keep a concrete local feature as `bounded-change` when repository evidence can
   supply its domain values, defaults, and interaction pattern. Reclassify it as

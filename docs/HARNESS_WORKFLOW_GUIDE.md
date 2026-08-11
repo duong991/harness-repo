@@ -65,7 +65,7 @@ flowchart TD
     M --> RV
     OM --> CP["Active plan + optional Harness CLI protocol"]
     CP --> M
-    V --> H["Handoff có bằng chứng mới"]
+    V -. "Explicit khi user yêu cầu" .-> H["Handoff có bằng chứng mới"]
 ```
 
 ## 2. Cổng vào bắt buộc
@@ -278,7 +278,7 @@ cần biết route chính xác, đọc
 [`work-router/SKILL.md`](../.agents/skills/work-router/SKILL.md); các section
 dưới đây chỉ giải thích các nguyên tắc mà route áp dụng.
 
-## 6. Skill chain hiện tại
+## 6. Core workflow skills và supporting disciplines
 
 | Skill | Activation | Vai trò |
 | --- | --- | --- |
@@ -294,7 +294,18 @@ dưới đây chỉ giải thích các nguyên tắc mà route áp dụng.
 Nguồn và activation đầy đủ nằm tại
 [`docs/skills/skill-manifest.md`](skills/skill-manifest.md).
 
-Hai Harness-managed core skill không thuộc bộ tám skill trên:
+Supporting disciplines làm rõ một phần công việc sau khi route đã được chọn;
+chúng không tạo work type, lifecycle hay authority mới:
+
+| Skill | Activation | Vai trò |
+| --- | --- | --- |
+| `writing-for-agents` | Auto khi viết agent-consumed docs | Context pointer, information hierarchy và completion criterion rõ ràng |
+| `handoff` | Explicit-only | Context ngắn gọn cho session sau; chỉ link plan/spec/decision hiện có |
+| `codebase-design` | Auto khi cần module/interface/seam design | Vocabulary deep module, seam, depth, leverage và locality |
+| `domain-modeling` | Auto khi thay đổi domain vocabulary | Kiểm tra thuật ngữ, scenario và authority trong `docs/product/` / `docs/decisions/` |
+| `resolving-merge-conflicts` | Auto cho conflict merge/rebase đã được phép xử lý | STATE → INTENT → RESOLVE → VERIFY → CONTINUE, không tự stage/commit/abort |
+
+Hai Harness-managed onboarding skill nằm ngoài workflow/supporting-discipline suite:
 
 - `$onboard-repository`: explicit, first pass read-only để map một brownfield
   repository, trace một operational path và đề xuất improvement dựa trên
@@ -470,6 +481,19 @@ scripts/bin/harness update --dry-run
 - `doctor`: kiểm tra provenance, path safety, merge support và transaction
   health.
 - `update --dry-run`: preview conflict-safe three-way update.
+
+Harness contract validation có hai mode:
+
+```bash
+scripts/test-harness-skills                    # consumer customization hợp lệ
+scripts/test-harness-skills --release-baseline # release baseline phải pristine
+```
+
+Mode mặc định yêu cầu live file tồn tại và base snapshot/hash trong manifest
+nhất quán, nhưng cho phép consumer customization khác base. Mode
+`--release-baseline` mới yêu cầu `LIVE == BASE`; dùng nó trước khi đóng gói
+artifact release. Fixture hiện chỉ kiểm tra three-way merge contract model;
+`harness update --dry-run` và isolated real update vẫn là E2E gate cho updater.
 
 Chỉ chạy `harness update` không có `--dry-run`, `install`, `--continue` hoặc
 `--abort` khi action đó được yêu cầu và target/recovery đã rõ. Không sửa
