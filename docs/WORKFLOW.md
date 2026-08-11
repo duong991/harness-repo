@@ -92,6 +92,17 @@ Use `code-review` when the user asks whether tests are sufficient, correct,
 safe, complete, or approvable. `code-review` may create the digest as context
 before its formal adequacy review.
 
+For large-change comprehension specifically:
+
+1. Run `implementation-walkthrough` through `BASELINE → MAP → TRACE → PROBE →
+   HANDOFF`.
+2. Account for every consequential file in a behavior-based Review Unit or an
+   explicit generated/mechanical/proof/skim classification.
+3. Hand off material test surfaces to `test-walkthrough` and formal questions
+   to `code-review`; do not create findings or mutate git state in the
+   walkthrough. Do not create a parallel review-planning or review-decomposition
+   skill.
+
 Discovery never grants authority to fix what it finds.
 
 ### Bounded Change

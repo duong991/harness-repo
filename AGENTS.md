@@ -52,6 +52,9 @@ stage must run before technical correctness, security, and regression review.
 Use `test-walkthrough` for read-only test comprehension. It explains what tests
 exercise but does not judge adequacy, assign severity, or replace
 `code-review`.
+Use `implementation-walkthrough` for large-change comprehension and Review Unit
+mapping. It is read-only and does not replace `code-review`.
+Do not create a parallel review-planning or review-decomposition skill.
 
 A read-only request remains read-only even when a defect is discovered.
 

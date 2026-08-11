@@ -33,9 +33,13 @@ Choose the first type that accurately captures the requested outcome:
    and report without implementing a fix. For a request to understand a large
    completed implementation, such as “explain these changes”, “organize this
    diff for review”, or “show me what to read first”, use
-   `implementation-walkthrough`. When correctness findings are also requested,
-   run `implementation-walkthrough` first and then `code-review`. Do not edit,
-   create a plan, create a story, or mutate Harness state.
+   `implementation-walkthrough`. Prompts such as “how should these files be
+   reviewed?”, “split this change into reviewable parts”, and “explain
+   implementation before review” use the same route. When correctness findings
+   are also requested for a large target, run
+   `implementation-walkthrough → test-walkthrough when materially useful →
+   code-review`. Do not edit, create a plan, create a story, or mutate Harness
+   state.
    When the user only wants to understand what one or more test files exercise,
    which production symbols they call, or what remains unproven, use
    `test-walkthrough`. It produces a compact per-file digest and stops without

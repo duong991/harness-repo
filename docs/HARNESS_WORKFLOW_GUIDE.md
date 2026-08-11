@@ -41,6 +41,10 @@ flowchart TD
     R --> OM["orchestrated-multi-agent-work"]
 
     RO --> E["Inspect, evidence, report"]
+    RO -->|"Large change comprehension"| IW["implementation-walkthrough"]
+    IW --> RU["Review Units + Critical Path"]
+    RU -. "Material test surface" .-> TW
+    RU -. "Formal review context" .-> RV
     RO -->|"Test comprehension"| TW["test-walkthrough: test comprehension"]
     TW --> TD["Per-file test digest"]
     TD -. "Context only" .-> RV
@@ -120,9 +124,22 @@ symptom/trigger/root cause, rồi báo evidence, unknowns và limitation.
 Giải thích các file test trong thay đổi này.
 Đọc source production liên quan cùng setup/action/assertion và mock behavior.
 Trả về digest theo từng file gồm mục đích, symbol được gọi, hành vi được bảo
-vệ, chưa chứng minh, Strong/Partial/Weak, mức ưu tiên đọc và một kết luận.
+vệ, chưa chứng minh, Direct/Partial/Superficial evidence, mức ưu tiên đọc và
+một kết luận; không đưa ra overall test confidence.
 Không tạo test matrix, Mermaid, severity, approval hoặc formal finding.
 Nếu tôi hỏi test đã đủ chưa, chuyển sang code-review.
+```
+
+#### Large-change comprehension
+
+```text
+Giải thích cách review change lớn này.
+Chạy BASELINE, MAP, TRACE, PROBE và HANDOFF.
+Gom file theo Review Unit, chọn Critical Path, nêu Risk Probe và Invariant,
+phân loại evidence fresh/stale/unavailable, rồi đề xuất review order.
+Không tạo finding, không approve, không tự chia hoặc commit git.
+Nếu test surface lớn, handoff sang test-walkthrough; formal judgement thuộc
+code-review.
 ```
 
 #### Tiny fix
@@ -369,7 +386,7 @@ Chi tiết protocol nằm tại
 | `diagnosing-bugs` | Auto sau routing | Reproduce, evidence, root cause, minimal authorized fix |
 | `tdd` | Auto có điều kiện sau routing | Red → green → refactor qua observable seam |
 | `code-review` | Auto cho review hoặc change vừa/lớn | So patch với accepted authority trước, sau đó review correctness, security, compatibility, regression và evidence |
-| `implementation-walkthrough` | Auto sau routing cho large-change comprehension | Giải thích implementation theo behavior và đề xuất thứ tự đọc trước formal review |
+| `implementation-walkthrough` | Auto sau routing cho large-change comprehension | BASELINE → MAP → TRACE → PROBE → HANDOFF; chia Review Units, trace Critical Path, nêu Risk Probe/Invariant và đề xuất review order |
 | `test-walkthrough` | Auto sau routing cho test comprehension | Nén test theo file thành mục đích, production symbols, behavior được bảo vệ, gap và reading priority |
 | `verification-before-completion` | Auto, bắt buộc | Gate cuối cho mọi positive completion claim |
 
@@ -455,6 +472,26 @@ Test comprehension và test adequacy là hai việc khác nhau. `test-walkthroug
 chỉ tóm tắt code nào được gọi, behavior nào có assertion và gap nào chưa được
 chứng minh. `code-review` mới quyết định gap nào là finding dựa trên authority,
 impact và evidence; một command test pass không tự chứng minh adequacy.
+
+### Final mental model
+
+```text
+implementation-walkthrough
+→ Tôi nên ĐỌC và CHIA change này như thế nào?
+
+test-walkthrough
+→ Test đang thực sự CHỨNG MINH điều gì?
+
+code-review
+→ Implementation này có VẤN ĐỀ gì?
+
+verification-before-completion
+→ Trạng thái hiện tại đã được KIỂM CHỨNG chưa?
+```
+
+`implementation-walkthrough` dùng bốn primitive: `Review Unit`, `Critical
+Path`, `Risk Probe`, và `Invariant`. Không tạo thêm skill riêng cho review
+planning hoặc review decomposition.
 
 | Severity | Ý nghĩa |
 | --- | --- |

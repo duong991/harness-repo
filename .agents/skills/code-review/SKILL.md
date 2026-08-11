@@ -111,12 +111,19 @@ After the compliance pass, inspect:
 
 When the review target contains multiple test files, first use the
 `test-walkthrough` contract to create a compact per-file digest: actual
-production symbols, protected behavior, unproven behavior, Strong/Partial/Weak
-assessment, and reading priority. Treat that digest as review context only.
+production symbols, protected behavior, unproven behavior, Direct/Partial/
+Superficial evidence, and reading priority. Treat that digest as review context
+only.
 Then perform the formal adequacy review and turn consequential gaps into
 findings when authority and evidence support doing so. Do not delegate the
 review decision to `test-walkthrough`, and do not infer adequacy from a passing
 test command alone.
+
+When an `implementation-walkthrough` handoff exists, consume its Review Unit
+map, Critical Path, Risk Probes, Invariants, evidence freshness, and unresolved
+questions as review context. Re-check authority and trace the relevant code
+before creating a finding. A Risk Probe hit, a `Critical` walkthrough risk, or
+`Formal review: Pending code-review` is not itself a finding or approval.
 
 Investigate before asserting a bug. Describe the realistic input, state,
 environment, or sequence needed to reproduce it.

@@ -1,511 +1,310 @@
 ---
 name: implementation-walkthrough
-description: Explain large implemented code changes as behavior-based review units, runtime flows, review order, contract changes, evidence boundaries, and unresolved questions before formal review. Use when a developer asks to understand, navigate, or get an overview of a large diff, commit, branch, or PR. Do not use when the primary request is to find defects, assign severity, judge compliance, or approve the implementation; use code-review instead.
+description: Explain a large implementation by organizing it into behavior-based Review Units, tracing the highest-consequence Critical Path, probing risks and invariants, classifying evidence freshness, and handing off a bounded review order before formal code review. Use for large diffs, commits, branches, PRs, worktrees, or prompts such as “how should these files be reviewed?” or “split this change into reviewable parts”; do not use it to find bugs, assign severity, approve changes, or mutate git state.
 ---
 
 # Implementation Walkthrough
 
-Create a developer-oriented guide to an observed implementation.
+Explain how a developer should read a change. Use exactly five phases:
 
-Explain what changed, how the implementation is organized, how the main
-runtime paths appear to work, and how a reviewer should read the change.
+```text
+BASELINE → MAP → TRACE → PROBE → HANDOFF
+```
 
-Do not:
+This skill is read-only and explanatory. It does not judge correctness,
+security, adequacy, severity, compliance, or approval. Those conclusions belong
+to `code-review`; command execution proof belongs to
+`verification-before-completion`.
 
-- claim that the implementation is correct;
-- approve product, API, security, or permission behavior;
-- replace executable validation;
-- turn potential concerns into formal code-review findings;
-- treat a plan, PR description, test name, or existing code as authority.
+## Routing boundary
 
-Formal correctness, authority compliance, severity assignment, and actionable
-findings belong to `code-review`.
+Use this skill for large-change comprehension and review organization:
 
-## Resolve the target
+- “107 files này nên review thế nào?”
+- “chia change này thành từng phần để review”
+- “giải thích implementation trước khi review”
+- “show me what to read first”
+- a large diff, commit, branch, PR, or worktree needing a bounded review order.
 
-Determine the review target from the user's request.
+Keep a small 2–3 file change lightweight. Do not manufacture eight Review
+Units when the change is one independently reviewable behavior.
 
-- No target:
-  - inspect `git status --short`;
-  - inspect staged changes;
-  - inspect unstaged changes;
-  - inspect relevant untracked files;
-  - exclude ignored and generated files unless they affect the implementation.
-- Commit: inspect `git show <commit>` and relevant parent context.
-- Revision range: inspect `git diff <from>..<to>`.
-- Branch: inspect `git diff <branch>...HEAD`.
-- PR: retrieve its description, commits, and diff using available repository
-  tools.
+When the user asks to find bugs or produce formal findings, run this walkthrough
+first when the target is large, then hand off to `test-walkthrough` when the
+test surface is materially large, and finally to `code-review`. When the user
+asks only what tests prove, route directly to `test-walkthrough`. When the user
+asks to split and commit, propose a decomposition only; git mutation is a
+separate authorized workflow.
 
-Record additions, modifications, deletions, renames, tests, generated or
-mechanical files, dependency and configuration changes, migrations, and
-schemas.
+Do not create or suggest a `review-planner`, `review-decomposition`,
+`security-review`, or `large-change-review` skill.
 
-Inspect complete consequential files rather than relying only on diff hunks.
+## Evidence boundary
 
-For deleted files, inspect the deleted diff or the previous revision when
-needed to explain removed behavior and compatibility impact.
-
-Do not silently expand a bounded diff walkthrough into a repository-wide
-architecture audit.
-
-## Establish the evidence boundary
-
-Before explaining the implementation, distinguish the kinds of information
-being used.
-
-Use these evidence categories where the distinction matters:
+Classify every important statement as one of:
 
 - **Authority**: accepted product, API, security, permission, protocol, or
-  architecture requirements.
-- **Observed**: behavior or structure directly visible in the inspected code,
-  diff, schema, configuration, or tests.
-- **Claimed**: statements made by a plan, PR description, commit message, or
-  previous validation record.
-- **Inference**: a likely runtime consequence derived from observed code but not
+  architecture requirement.
+- **Observed**: structure or behavior visible in the inspected source, diff,
+  configuration, schema, or test.
+- **Claimed**: a plan, PR description, commit message, or previous report.
+- **Inference**: a likely consequence derived from observed material but not
   independently executed.
-- **Verified now**: evidence established by a command or scenario executed
-  during the current walkthrough.
-- **Unverified**: behavior that depends on runtime configuration, deployment,
-  external systems, database topology, framework wiring, or commands not run
-  during the walkthrough.
-
-Do not present an inference or a claim as verified behavior.
-
-Use cautious wording:
-
-- “The implementation appears to route…”
-- “The code configures…”
-- “The related tests cover…”
-- “The plan claims…”
-- “This walkthrough did not independently verify…”
-- “Runtime behavior still depends on…”
-
-Avoid unsupported conclusions such as:
-
-- “This is transactional.”
-- “The files are private.”
-- “The permission is enforced.”
-- “The migration is safe.”
-- “The implementation satisfies the requirement.”
-
-Instead, identify the mechanism observed in code and state what remains
-unverified.
-
-## Resolve plans and authority references
-
-A plan is optional navigation context.
-
-If the user supplies a plan, use it when it relates to the selected target.
-
-Otherwise, inspect `docs/plans/active/` only when a plan would materially help
-explain a large or multi-stage implementation. Ignore
-`docs/plans/active/README.md`.
-
-Rank candidate plans by:
-
-- branch name;
-- commit messages;
-- changed paths;
-- referenced symbols;
-- milestones;
-- stated scope.
-
-If exactly one plan clearly matches, use it as navigation context and state
-which plan was used. Do not stop to request confirmation.
-
-If multiple plans are plausible, mention the ambiguity and continue without
-assuming that any one plan governs the implementation.
-
-If no relevant plan exists, continue with a planless walkthrough. Do not ask
-the user to provide a plan unless the user explicitly requested
-plan-to-implementation traceability.
-
-Do not silently use completed or unrelated plans.
-
-Plans describe intended execution. They do not automatically establish product,
-API, security, permission, or architecture authority.
-
-Read repository instructions and accepted authority needed to explain
-externally observable contracts.
-
-Do not perform a formal authority-compliance review. When observed behavior
-appears inconsistent with accepted authority, record it as a **potential
-mismatch** and hand it off to `code-review`.
-
-If accepted authority sources appear to conflict, do not choose a winner during
-the walkthrough. Record an unresolved authority conflict, name both sources,
-and hand the decision to `code-review` or the responsible authority owner.
-
-## Build the implementation map
-
-Use CodeGraph when the repository has it and the tool is available, after
-reading the repository's CodeGraph instructions.
-
-Use it to discover candidate entry points, callers, callees, consumers,
-interfaces, schemas, handlers, and affected tests.
-
-Read consequential source files directly.
-
-Treat CodeGraph as navigation evidence only, not runtime or permission proof,
-complete impact analysis, deployment proof, or product authority.
-
-Inspect framework wiring that may not appear as ordinary calls, including:
-
-- dependency injection;
-- decorators;
-- guards and interceptors;
-- dynamic modules;
-- events;
-- queues;
-- templates;
-- configuration-based registration;
-- generated clients;
-- schema registration.
-
-Group changes in this order of preference:
-
-1. User-visible behavior or use case.
-2. Runtime call path.
-3. Externally observable contract.
-4. Domain responsibility.
-5. Plan milestone or acceptance criterion.
-6. File location.
-
-Do not use primary groups such as “controllers”, “services”, “repositories”,
-and “tests” when those files jointly implement one behavior.
-
-Classify files as:
-
-- must-read;
-- supporting;
-- proof-read;
-- skim;
-- generated or mechanical.
-
-Do not automatically omit:
-
-- migrations;
-- security configuration;
-- dependency-lock changes;
-- generated contracts with meaningful changes;
-- deleted behavior;
-- compatibility adapters.
-
-## Investigation budget
-
-Default to no more than seven primary behavior groups, fifteen consequential
-source files read deeply, ten supporting or proof files inspected selectively,
-and one primary runtime path before secondary paths.
-
-If the change exceeds this budget, provide a phased walkthrough:
-
-1. Primary behavior and contracts.
-2. Persistence and integration.
-3. Compatibility, deployment, and proof.
-
-State what was not inspected. Do not imply complete coverage.
-
-## Produce the walkthrough
-
-Default to a response in chat.
-
-Write an artifact under `docs/reviews/` only when the user explicitly asks for
-a saved document.
-
-Begin with this boundary or an equivalent statement:
-
-> This walkthrough explains the observed implementation and proposes a review
-> order. It does not establish correctness and does not replace accepted
-> product, API, security, permission, or architecture authority.
-
-Use repository-relative paths by default.
-
-Include symbols or line references where available.
-
-Avoid absolute workstation paths unless the active environment requires them
-to create clickable editor links.
-
-## Default output structure
-
-1. Evidence boundary.
-2. Three-minute overview.
-3. Recommended review order.
-4. Guided behavior groups.
-5. Reference-to-implementation trace.
-6. Potential mismatches and unknowns.
-7. Validation evidence.
-8. Review handoff.
-
-## Three-minute overview
-
-Keep the three-minute overview genuinely compact.
-
-Default limits:
-
-- one short executive summary;
-- one primary diagram;
-- five must-read files;
-- five major behavior groups;
-- five top risks, potential mismatches, or unknowns.
-
-The overview should answer:
-
-1. What changed?
-2. What previous behavior was replaced or retained?
-3. What is the main runtime flow?
-4. Which files should be read first?
-5. Which contracts or deployment assumptions deserve the most attention?
-6. What has not been independently verified?
-
-Place detailed inventories and secondary files in later sections.
-
-## Recommended review order
-
-Separate files into:
-
-### Must-read
-
-Files that establish the primary behavior, externally observable contract,
-or orchestration.
-
-### Supporting
-
-Repositories, adapters, helpers, module wiring, configuration, and secondary
-runtime paths needed to understand the main behavior.
-
-### Proof-read
-
-Tests, fixtures, migration verification, and executable evidence related to
-important claims.
-
-The presence of a test file is not proof that the test passes or covers the
-claimed behavior.
-
-If the change has more than three consequential test files, or contains a
-large generated test set, use `test-walkthrough` to produce a compact digest
-instead of asking the reviewer to read every test. Summarize the handoff only:
-
-```text
-Test digest:
-- 2 file cần đọc
-- 4 file chỉ cần xem tóm tắt
-- 3 behavior chưa được chứng minh
+- **Verified now**: evidence established by a command or scenario in this
+  walkthrough.
+- **Existing evidence**: supplied or previous output inspected but not rerun.
+- **Unverified**: behavior dependent on commands, runtime, environment,
+  deployment, external systems, or topology not checked now.
+
+Never turn a plan, test name, old output, graph result, or code appearance into
+fresh verification. If `HEAD`, staged files, untracked files, or the requested
+target changes during the walkthrough, invalidate the map and rerun BASELINE.
+
+Use a supplied or matching active plan as navigation context only. Apply
+accepted authority from the user request, product/design material, decisions,
+and contracts; a plan or PR claim cannot create missing policy. If authority
+sources conflict, record the conflict for `code-review` rather than choosing a
+winner here.
+
+If `.codegraph/` exists and a live, current CodeGraph capability is available,
+use it only to narrow candidate symbols, callers, and consumers after the
+target is fixed. Read consequential source directly; graph output is not
+authority, a complete impact set, or runtime proof.
+
+## Phase 1 — BASELINE
+
+Identify the exact review target before explaining it:
+
+- worktree, staged diff, unstaged diff, untracked files, branch, commit, range,
+  or PR;
+- fixed commit/range or current `HEAD`;
+- file count, additions/deletions/renames, commits already separated, generated
+  or mechanical surfaces, and consequential files;
+- validation evidence available, with each item marked fresh, stale, failed,
+  unavailable, or unknown.
+
+For a worktree, use read-only inspection such as:
+
+```bash
+git status --short
+git diff --cached --stat
+git diff --cached --name-status
+git diff --cached --numstat
+git diff --stat
+git diff --name-status
 ```
 
-Do not repeat the digest's per-file content here. `implementation-walkthrough`
-explains the implementation; `test-walkthrough` explains the tests; neither
-replaces the formal `code-review` entry point.
+Inspect complete consequential files, not only hunks. Preserve unrelated
+staged, unstaged, and untracked work. Do not reset, checkout, stage, commit,
+split, or rewrite the target.
 
-### Skim
+BASELINE is complete only when the exact target is known and all available
+validation evidence has a freshness classification.
 
-Mechanical DTOs, straightforward mappings, lockfiles, or deleted diff that
-should be checked for scope and compatibility but does not require deep reading.
+## Phase 2 — MAP into Review Units
 
-### Generated or mechanical
-
-Files that are mostly generated or mechanically changed. Call out meaningful
-contract changes even when they occur in generated output.
-
-## Guided behavior groups
-
-For each logical group, explain:
-
-1. **Purpose**
-   What capability or runtime responsibility the group introduces, replaces,
-   or removes.
-2. **Observed entry point**
-   The route, handler, command, event, scheduler, or public method that starts
-   the flow.
-3. **Observed flow**
-   The main calls, transformations, persistence operations, and outputs visible
-   in the implementation.
-4. **Relevant contract**
-   Product, API, schema, security, permission, compatibility, or deployment
-   behavior affected by the group.
-5. **Evidence**
-   Source files and tests related to the behavior.
-6. **Unverified assumptions**
-   Runtime, environment, framework, topology, or deployment behavior not
-   established during the walkthrough.
-7. **Manual review focus**
-   What the developer or formal reviewer should inspect carefully.
-
-Do not assign severity or prescribe a required correction. Those belong to
-`code-review`.
-
-## Runtime and deployment claims
-
-Be especially cautious with claims involving:
-
-- transactions;
-- authentication and authorization enforcement;
-- tenant isolation;
-- private or public storage;
-- event delivery;
-- retries;
-- concurrency;
-- rollback;
-- filesystem containment;
-- database indexes;
-- production configuration;
-- deployment order;
-- compatibility with existing clients.
-
-For example, prefer:
-> The service opens a Mongo session and passes it to repository writes.
-over:
-> Publish is transactional.
-
-Prefer:
-> Blob paths are derived from SHA-256 under the configured blob root.
-over:
-> Blobs cannot be served publicly.
-
-Then state what environment or integration evidence would be needed to verify
-the stronger claim.
-
-## Reference-to-implementation trace
-
-When a relevant plan, claim, existing test, or accepted authority is available,
-include a compact matrix.
-
-Use this shape:
-
-| Reference type | Criterion or claim | Observed implementation | Evidence located | Walkthrough status |
-| -------------- | ------------------ | ----------------------- | ---------------- | ------------------ |
-
-Label every row as `Authority`, `Plan`, `PR claim`, `Existing test`, or
-`Other reference`. Never present a plan or PR claim as accepted authority.
-
-Use only these walkthrough statuses:
-
-- `Observed`
-- `Partially observed`
-- `Potential mismatch`
-- `Not located`
-- `Not independently verified`
-- `Not applicable`
-
-### Status definitions
-
-- **Observed**: the mechanism is visible; correctness is not established.
-- **Partially observed**: only part of the mechanism or runtime path is visible.
-- **Potential mismatch**: observed behavior appears inconsistent with accepted
-  authority; send it to `code-review` for formal assessment.
-- **Not located**: no corresponding mechanism was found in the inspected scope;
-  do not extrapolate this to the whole repository.
-- **Not independently verified**: code or existing evidence suggests the
-  behavior, but required validation was not executed.
-- **Not applicable**: the reference does not apply to the selected change.
-
-Do not use compliance conclusions such as:
-
-- `Satisfied`
-- `Contradicted`
-- `Pass`
-- `Fail`
-- `Correct`
-- `Approved`
-
-Those belong to formal review and validation.
-
-## Potential mismatches and unknowns
-
-Include this section whenever any externally observable behavior, compatibility
-choice, or runtime assumption remains unclear.
-
-Examples include:
-
-- implementation fallback differs from an accepted product policy;
-- publish and revoke notify clients differently;
-- an old client or endpoint is removed without visible migration handling;
-- a transaction is configured but production topology has not been verified;
-- a private storage assumption depends on deployment configuration;
-- permission metadata exists but enforcement wiring has not been traced;
-- event delivery is best-effort and clients require a recovery path;
-- a schema or API change may require ordered deployment;
-- an implementation defaults to behavior not explicitly authorized.
-
-Write each item using this structure:
+Use this canonical definition:
 
 ```text
-Observed:
-What the inspected implementation appears to do.
-
-Authority or expectation:
-The relevant accepted requirement, when available.
-
-Why it needs review:
-The ambiguity, potential mismatch, or external dependency.
-
-Required next check:
-The file, authority source, test, runtime scenario, or deployment evidence
-needed to resolve it.
+Review Unit
+= one independently reviewable behavior, contract, runtime responsibility,
+  or trust boundary.
 ```
 
-Do not assign severity in this section.
+Group consequential files by the behavior they jointly implement, not by
+folder, extension, layer, or file count. For example, do not use `src/auth/*`
+and `src/user/*` as units merely because they share directories. An
+authorization change may instead contain units such as primitives, ability
+construction, route enforcement, resource scope, cache invalidation, policy
+integration, user context, and storage boundaries.
 
-Do not state that the implementation violates authority unless `code-review`
-has performed the authority-compliance assessment.
+Account for every consequential changed file. Each file must belong to a
+Review Unit or be explicitly classified as:
 
-## Validation evidence
+- `generated/mechanical`;
+- `proof/test`;
+- `supporting`;
+- `skim`;
+- `ignored` with a reason.
 
-Distinguish clearly between:
+For every unit, record cross-unit dependencies and keep two dimensions separate:
 
-### Verified now
-Record each command or scenario executed during the current walkthrough with
-its exact command, exit code, scope, and relevant result. Explicitly identify
-important validation that the command did not exercise.
+```text
+Reading priority: Must-read | Supporting | Proof | Skim
+Risk: Critical | High | Medium | Low
+```
 
-### Existing evidence observed
-Test files, previous command output, plan records, CI references, or PR claims
-that were inspected but not reproduced.
+A small change may have one Review Unit. A large change may have as many units
+as independently reviewable responsibilities require, without arbitrary
+rounding or folder-based inflation.
 
-### Validation still required
-Commands or scenarios needed to establish important behavior.
+MAP is complete only when every consequential file is accounted for, every unit
+has one reviewable responsibility, and cross-unit dependencies are identified.
 
-Never treat the following as current proof:
+## Phase 3 — TRACE the Critical Path
 
-- a test file existing;
-- a test name matching the requirement;
-- a plan checkbox;
-- a previous session claiming success;
-- code that appears correct;
-- static graph navigation alone.
+Use this canonical definition:
 
-If only `git diff --check` was run, state exactly that. Do not imply that build,
-type-check, unit tests, integration tests, or runtime behavior were verified.
+```text
+Critical Path
+= the highest-consequence end-to-end runtime path affected by the change.
+```
 
-## Diagrams
+Risk-rank Review Units, then choose the highest-consequence path to trace first.
+Trace the primary path plus the highest-risk negative or exceptional paths for
+the domain. Do not hard-code authorization cases into the core workflow.
 
-Use Mermaid only when it materially clarifies:
+Examples of domain-shaped paths include:
 
-- the primary runtime flow;
-- before-and-after architecture;
-- important deployment or compatibility sequencing.
+```text
+Request → authentication → user context → ability construction
+→ route authorization → resource authorization → scoped query → response
+```
 
-Do not add diagrams merely to decorate the response.
+or:
 
-Default to no more than:
+```text
+Input → validation → persistence → event/queue → retry/recovery → consumer
+```
 
-- one diagram in the three-minute overview;
-- two additional diagrams in the detailed walkthrough.
+For each path, identify entry point, transformations, trust boundaries,
+side-effects, outputs, failure states, and units crossed. Load a domain
+reference only when that risk boundary is materially present; available
+references are linked from this skill's `references/` directory.
 
-Diagram labels should describe runtime responsibilities rather than only class
-names.
+TRACE is complete only when the critical path, its crossed units, and the
+highest-risk negative or exceptional paths are explicitly recorded.
 
-## Review handoff
+## Phase 4 — PROBE risks and invariants
 
-End with a concise handoff appropriate to the observed evidence.
+Use these canonical definitions:
 
-Typical handoff:
+```text
+Risk Probe
+= targeted search or inspection used to locate potentially dangerous
+  implementation sites.
 
-1. Read the implementation in the proposed order.
-2. Send potential mismatches and high-risk paths to `code-review`.
-3. Run fresh executable validation for the affected service or application.
+Invariant
+= an observable property expected to remain true throughout the change.
+```
 
-Do not claim that the implementation is complete or correct.
+Risk Probes may use targeted searches such as:
 
-Do not modify code while producing the walkthrough unless the user separately
-requests implementation work.
+```bash
+rg "authorize|ability|permission|policy" <scope>
+rg "return true|allow|bypass|skip|super_admin" <scope>
+```
+
+Adapt probes to the domain: transaction boundaries, retry/idempotency,
+ordering, destructive operations, external calls, cache invalidation, or
+tenant scope. A Risk Probe hit is discovery evidence, not a finding. Trace the
+hit and send it to `code-review` before anyone judges it.
+
+For each unit, state the invariant it should preserve and the evidence that
+currently supports it. Distinguish supplied/pre-existing evidence from fresh
+verification:
+
+```text
+Known evidence:
+344 operation IDs — supplied/pre-existing
+
+Fresh verification:
+Not run
+```
+
+Never write “route coverage passes 344/344” unless the command was run in the
+current turn and its result was read.
+
+PROBE is complete only when each high-risk unit has targeted probes, observed
+hits are traced or explicitly unresolved, and important invariants are named
+with their evidence boundary.
+
+## Phase 5 — HANDOFF
+
+Create a compact review handoff. Do not repeat entire source files or produce
+formal findings. Use this contract for each Review Unit:
+
+```text
+## RU-03 — Route authorization
+
+Purpose
+What behavior or contract this unit owns.
+
+Risk
+Critical | High | Medium | Low
+
+Failure modes
+What could go wrong if this implementation is incorrect.
+
+Files
+Must-read:
+- ...
+
+Supporting:
+- ...
+
+Proof/test:
+- ...
+
+Dependencies
+RU-01 → RU-02 → RU-03
+
+Observed path
+Request
+→ ...
+
+Architecture questions
+Questions that must be resolved from the codebase.
+
+Risk Probes
+Targeted searches or inspections performed or recommended.
+
+Test evidence
+What is currently demonstrated, with freshness classified.
+
+Unverified
+What evidence is missing or unavailable.
+
+Invariant
+What observable property should remain stable.
+
+Formal review
+Pending code-review
+```
+
+End with:
+
+1. a proposed review order by Critical Path and risk;
+2. a compact progress matrix with `Review Unit`, `Risk`, `Source traced`,
+   `Critical path`, `Test evidence`, `Invariant`, and `Formal review` columns;
+3. the tests that should be handed to `test-walkthrough` when there are more
+   than three consequential test files or a large generated test set;
+4. unresolved questions and validation still required.
+
+Suggested commit decomposition may be included:
+
+```text
+Suggested commit decomposition:
+1. feat(authz): add authorization primitives
+2. feat(authz): build abilities
+3. feat(authz): enforce route authorization
+```
+
+This is a proposal only. Never run `git reset`, `git add`, `git commit`, or
+other repository mutation from this skill.
+
+## Default output order
+
+Keep the response compact and behavior-oriented:
+
+1. Evidence boundary and exact BASELINE target.
+2. Review Unit map and file accounting.
+3. Critical Path and crossed dependencies.
+4. Risk Probes, invariants, and evidence freshness.
+5. Review Unit handoff and recommended reading order.
+6. Test handoff, validation gaps, and unresolved questions.
+
+Use Mermaid only when it materially clarifies a critical runtime path. Do not
+create a test matrix, formal severity finding, approval statement, or line-by-
+line test inventory by default. `code-review` remains the only formal review
+entry point.

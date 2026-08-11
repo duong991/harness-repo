@@ -76,14 +76,14 @@ behavior-mapped test cases when assigning the compact assessment. Exclude
 setup, fixture helpers, duplicate parameters that add no behavior, skipped
 tests, and tests that cannot be mapped to production behavior.
 
-- **Strong**: calls a meaningful boundary, asserts the observable contract
+- **Direct**: calls a meaningful boundary, asserts the observable contract
   directly, covers an important side effect or negative path when relevant,
   and would fail for a realistic implementation error.
 - **Partial**: proves one part of the outcome but leaves a consequential
   detail unasserted, such as error type, state, repository call, event, or
   rollback.
-- **Weak**: mainly checks definedness, generic rejection, no throw, mock call
-  count, or an unexamined snapshot without proving the relevant contract.
+- **Superficial**: mainly checks definedness, generic rejection, no throw, mock
+  call count, or an unexamined snapshot without proving the relevant contract.
 
 Never turn a missing assertion into a confirmed bug. Describe it under
 `Chưa chứng minh`.
@@ -93,8 +93,8 @@ Never turn a missing assertion into a confirmed bug. Describe it under
 Choose priority from risk and proof gaps, not line count or test count:
 
 - **Rất cao**: permission/security, transaction, concurrency, important state
-  transition, persistence, rollback, many Partial/Weak groups, or a mismatch
-  between the test name and its assertions.
+  transition, persistence, rollback, many Partial/Superficial groups, or a
+  mismatch between the test name and its assertions.
 - **Cao**: core business rule, file/package validation, API contract, error
   policy, or primary lifecycle behavior.
 - **Trung bình**: controller boundary, mapping, adapter, serialization, or
@@ -125,8 +125,8 @@ Hành vi được bảo vệ:
 Chưa chứng minh:
 - <Important behavior not established by the group.>
 
-Đánh giá:
-<n> Strong · <n> Partial · <n> Weak
+Bằng chứng:
+<n> Direct · <n> Partial · <n> Superficial
 
 Mức ưu tiên đọc:
 Thấp | Trung bình | Cao | Rất cao
@@ -159,8 +159,8 @@ Hành vi được bảo vệ:
 Chưa chứng minh:
 - <Important behavior not established by this file.>
 
-Đánh giá:
-<n> Strong · <n> Partial · <n> Weak
+Bằng chứng:
+<n> Direct · <n> Partial · <n> Superficial
 
 Mức ưu tiên đọc:
 Rất cao | Cao | Trung bình | Thấp
@@ -173,9 +173,6 @@ End with one shared conclusion:
 
 Các file test đang kiểm tra:
 <Scope of code and behavior.>
-
-Mức độ tin cậy:
-Tốt | Khá | Một phần | Yếu
 
 Khoảng trống quan trọng nhất:
 - <Gap 1>
