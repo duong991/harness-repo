@@ -24,7 +24,7 @@ WORKFLOW_SKILLS = (
 )
 SUPPORTING_SKILLS = (
     "writing-for-agents", "handoff", "codebase-design", "domain-modeling",
-    "resolving-merge-conflicts",
+    "prototype", "resolving-merge-conflicts",
 )
 MANAGED_SKILLS = WORKFLOW_SKILLS + SUPPORTING_SKILLS
 MANAGED_ASSETS = (
@@ -140,7 +140,9 @@ def validate_routing_contract(errors: list[str]) -> None:
         "large-change-comprehension", "test-comprehension", "test-adequacy-review",
         "large-change-findings", "one-line-bug", "review-only",
         "agent-document-maintenance", "design-analysis", "domain-modeling",
-        "merge-conflict-resolution",
+        "merge-conflict-resolution", "prototype-ui-exploration",
+        "prototype-logic-exploration", "prototype-full-stack-implications",
+        "settled-design-no-prototype", "settled-api-no-prototype",
     }
     if {case["id"] for case in cases} != expected_ids:
         errors.append("routing fixture IDs do not match the required contract")

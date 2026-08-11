@@ -1,0 +1,6 @@
+interface:
+  display_name: "Prototype"
+  short_description: "Explore an unresolved design question with a throwaway artifact"
+  default_prompt: "Use $prototype to explore a specific unresolved UI or logic question before implementation."
+policy:
+  allow_implicit_invocation: true

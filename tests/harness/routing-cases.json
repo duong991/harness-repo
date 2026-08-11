@@ -95,5 +95,53 @@
       "work-router": ["in-progress merge or rebase conflict", "resolving-merge-conflicts"],
       "resolving-merge-conflicts": ["STATE → INTENT → RESOLVE → VERIFY → CONTINUE", "Never invent behavior"]
     }
+  },
+  {
+    "id": "prototype-ui-exploration",
+    "prompt": "Show me a few ways this assignment screen could work before we implement it.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "prototype"],
+    "assertions": {
+      "work-router": ["cheap interactive or executable artifact", "UI branch", "Do not prototype settled requirements"],
+      "prototype": ["Interaction, information hierarchy", "does not assume a backend exists"]
+    }
+  },
+  {
+    "id": "prototype-logic-exploration",
+    "prompt": "Try two lifecycle models for exceptions before we implement it in this NestJS service.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "prototype"],
+    "assertions": {
+      "work-router": ["logic branch", "business-rule, state-transition, or data-shape questions"],
+      "prototype": ["state transitions, lifecycle", "does not assume a frontend exists"]
+    }
+  },
+  {
+    "id": "prototype-full-stack-implications",
+    "prompt": "Mock up the admin flow first so we can understand backend requirements.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "prototype"],
+    "assertions": {
+      "work-router": ["backend implications", "does not make UI into API authority"],
+      "prototype": ["UI evidence is not backend API authority", "domain-modeling", "codebase-design"]
+    }
+  },
+  {
+    "id": "settled-design-no-prototype",
+    "prompt": "Implement this supplied design exactly.",
+    "work_type": "bounded-change",
+    "skills": ["work-router"],
+    "assertions": {
+      "work-router": ["Do not prototype settled requirements"]
+    }
+  },
+  {
+    "id": "settled-api-no-prototype",
+    "prompt": "Implement this endpoint according to the accepted specification.",
+    "work_type": "bounded-change",
+    "skills": ["work-router"],
+    "assertions": {
+      "work-router": ["Do not prototype settled requirements"]
+    }
   }
 ]

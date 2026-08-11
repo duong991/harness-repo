@@ -88,6 +88,13 @@ Choose the first type that accurately captures the requested outcome:
   writing discipline after selecting the route.
 - For Architecture, module, seam, or interface design, use `codebase-design`
   as a supporting discipline without creating a separate workflow.
+- For an unresolved design or behavior question that is materially easier to
+  evaluate through a cheap interactive or executable artifact than prose, use
+  `prototype`. Use its UI branch for interaction or information-architecture
+  questions and its logic branch for business-rule, state-transition, or
+  data-shape questions. Do not prototype settled requirements. When validated
+  behavior has backend implications, extract those implications before domain
+  or backend design; `prototype` does not make UI into API authority.
 - For active domain-vocabulary or domain-model changes, use `domain-modeling`
   with existing repository documentation authority.
 - For an authorized in-progress merge or rebase conflict, route the resolution

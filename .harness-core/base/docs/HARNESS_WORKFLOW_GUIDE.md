@@ -290,9 +290,16 @@ dưới đây chỉ giải thích các nguyên tắc mà route áp dụng.
 | `implementation-walkthrough` | Auto sau routing cho large-change comprehension | BASELINE → MAP → TRACE → PROBE → HANDOFF; chia Review Units, trace Critical Path, nêu Risk Probe/Invariant và đề xuất review order |
 | `test-walkthrough` | Auto sau routing cho test comprehension | Nén test theo file thành mục đích, production symbols, behavior được bảo vệ, gap và reading priority |
 | `verification-before-completion` | Auto, bắt buộc | Gate cuối cho mọi positive completion claim |
+| `prototype` | Auto có điều kiện sau routing | Dùng artifact UI/logic throwaway để làm rõ một design question chưa chốt; không thay implementation |
 
 Nguồn và activation đầy đủ nằm tại
 [`docs/skills/skill-manifest.md`](skills/skill-manifest.md).
+
+`prototype` chỉ dùng khi một câu hỏi design/behavior chưa rõ sẽ dễ đánh giá hơn
+qua artifact interactive hoặc executable rẻ. Nó không tạo work type mới, không
+dùng cho requirement đã chốt, và UI chỉ làm lộ backend implications chứ không tự
+quyết định API. Sau khi chọn được behavior, promote quyết định vào authority đang
+có hoặc remove prototype; không để code prototype thành production implementation.
 
 Supporting disciplines làm rõ một phần công việc sau khi route đã được chọn;
 chúng không tạo work type, lifecycle hay authority mới:

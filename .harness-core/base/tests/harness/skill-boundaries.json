@@ -68,6 +68,22 @@
     "policy": "allow_implicit_invocation: true"
   },
   {
+    "skill": "prototype",
+    "must_contain": [
+      "does not own routing",
+      "does not create a new work type",
+      "does not assume a frontend exists",
+      "does not assume a backend exists",
+      "`Node.js` alone is neither a frontend nor a backend indicator",
+      "UI evidence is not backend API authority",
+      "does not create a default findings document",
+      "not production implementation",
+      "does not authorize implementation, product policy, durable documentation, or multi-agent work",
+      "minimum number of materially different variants"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
     "skill": "resolving-merge-conflicts",
     "must_contain": [
       "Never invent behavior",

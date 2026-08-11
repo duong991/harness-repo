@@ -48,7 +48,7 @@
     },
     {
       "path": "docs/HARNESS_WORKFLOW_GUIDE.md",
-      "upstream_sha256": "528b3d2a559216a0d175a394d0ae35040b1d92369089f4b30e5a2548167bcf5a"
+      "upstream_sha256": "e45b3679b583eb8ae0bc45786fe3687e18cf4b6a55ff18a56c7b1a47e05c26b7"
     },
     {
       "path": "docs/README.md",
@@ -84,7 +84,7 @@
     },
     {
       "path": ".agents/skills/work-router/SKILL.md",
-      "upstream_sha256": "41ca82374993501ce48003094443d52911749fb2d769844c77dcaadf58ea5746"
+      "upstream_sha256": "7be95b43028b9deb07271ce712586544365ac8034ad78ecd597386546785c590"
     },
     {
       "path": ".agents/skills/work-router/SOURCE.md",
@@ -275,20 +275,44 @@
       "upstream_sha256": "8dc63259c7fff2d87dc8b5d6a1eb756bd000dea813ce0431ef6e1bd326dbc05f"
     },
     {
+      "path": ".agents/skills/prototype/SKILL.md",
+      "upstream_sha256": "6fd6ff56856437e4628c891ac1a555133e57e55c0942145eb12fa6d21f3bba75"
+    },
+    {
+      "path": ".agents/skills/prototype/UI.md",
+      "upstream_sha256": "6430a17195e7660740ce0e87f153b62ff007df0b3f3b42c0d8ea3af1636ce64d"
+    },
+    {
+      "path": ".agents/skills/prototype/LOGIC.md",
+      "upstream_sha256": "cb5345953d231f1a0924112c1e61507b28f35e775118775505c8611adeb74ecc"
+    },
+    {
+      "path": ".agents/skills/prototype/BACKEND-IMPLICATIONS.md",
+      "upstream_sha256": "567a0c433e7d0751faa8b5ba85cb0f2847ef17af8ba9a5613756a0f7f639939c"
+    },
+    {
+      "path": ".agents/skills/prototype/SOURCE.md",
+      "upstream_sha256": "f64b2a6249082f16982d299c02824114110337929ea729293e8cfdef4ede815f"
+    },
+    {
+      "path": ".agents/skills/prototype/agents/openai.yaml",
+      "upstream_sha256": "9708aec4006afe868a0f5e1bb5cbc0abf106cf03a1d6a49b34e83f9afbe12ab7"
+    },
+    {
       "path": "scripts/test-harness-skills",
       "upstream_sha256": "ded9efba2e3c614c0e0630aa63caccf283c88507970da48dee389a9e0753e4f1"
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
-      "upstream_sha256": "e3bb80e266d75e39f751deb5478cea1878ee9184dd2c07f76ae69fc1a937e7f3"
+      "upstream_sha256": "82528185dace307f434331f303c0dbf1bf6603885b20dfd5264a9ba2d307c358"
     },
     {
       "path": "tests/harness/routing-cases.json",
-      "upstream_sha256": "87acdd54145afd51be675052d6c91451eb363c4fda47e6044c491a9a66332eb2"
+      "upstream_sha256": "c4a68151760cffe01b3c2eae12e0802ae85cf0bdc94621d2baaf628d1cf309cd"
     },
     {
       "path": "tests/harness/skill-boundaries.json",
-      "upstream_sha256": "1c254da926c11afc6dd392bab89370038f4f578f3f786f0d6ab768e2c4be5ad6"
+      "upstream_sha256": "92b52ff8576c2c63bc9e16dfbeb0121c2cbe40c8605559c3124398c87285c0f5"
     },
     {
       "path": "tests/harness/update-cases.json",

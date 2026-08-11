@@ -4,13 +4,14 @@ Date: 2026-08-11
 
 ## Status
 
-Blocked — the local-source migration path is complete, but no matching immutable
-updater artifact is available to publish and prove an isolated release upgrade.
+Blocked — the managed `prototype` discipline and local-source consumer
+migration are complete; only the matching immutable-artifact release gate
+remains.
 
 ## Outcome
 
 The Repository Harness owns and safely distributes its core workflow suite plus
-five reusable supporting disciplines adapted from `mattpocock/skills`, without
+reusable supporting disciplines adapted from `mattpocock/skills`, without
 introducing a second router, documentation hierarchy, or Git authority.
 
 ## Context
@@ -34,6 +35,8 @@ In scope:
 - Expand contract and updater-safety regression coverage.
 - Provide a guarded local-source migration path for legacy consumer repositories
   until the matching immutable artifact is published.
+- Add `prototype` as a generic UI/logic exploration discipline with optional
+  backend-implication extraction, without making UI an API authority.
 
 Out of scope:
 
@@ -51,6 +54,8 @@ Out of scope:
 4. Snapshot all changed managed paths atomically and run focused validation.
 5. Add and prove a source-to-consumer migration script, then apply it to the
    authorized legacy consumer after a reviewed dry-run.
+6. Import and adapt `prototype`, add its constrained router trigger and
+   contract fixtures, then snapshot its complete tree into the updater base.
 
 ## Risks And Recovery
 
@@ -62,6 +67,9 @@ Out of scope:
 - A legacy consumer can have managed skills outside its old manifest. Mitigate
   with conflict reporting by default and recoverable backups before explicit
   adoption/overwrite.
+- A prototype could be mistaken for production code or infer backend API shape
+  from a UI. Mitigate with explicit promote/remove, capability-scope, and
+  backend-implication boundaries plus negative contract cases.
 
 ## Progress
 
@@ -72,6 +80,7 @@ Out of scope:
 - [x] Separate consumer customization validation from pristine release-baseline validation.
 - [x] Add and prove a guarded local-source migration path for legacy consumers.
 - [x] Migrate the authorized `safekid-backend` consumer and record verification.
+- [x] Add, integrate, and validate the generic `prototype` supporting discipline.
 - [ ] Publish a matching immutable updater artifact and prove an isolated upgrade.
 
 ## Decisions
@@ -87,6 +96,9 @@ Out of scope:
 - 2026-08-11: The developer-local bridge requires explicit `--adopt-legacy` for
   unmanaged legacy paths and explicit `--replace-conflict PATH` for a tracked
   three-way conflict; each applied migration retains a timestamped backup.
+- 2026-08-11: `prototype` is a supporting exploration discipline. Task scope
+  outranks repository classification; UI evidence produces only backend
+  implications, with domain and interface design delegated downstream.
 
 ## Validation
 
@@ -99,7 +111,7 @@ Out of scope:
 
 ## Result
 
-Local implementation is complete: the five supporting disciplines are installed
+The original local implementation is complete: the five supporting disciplines are installed
 with the pinned upstream provenance and Harness adaptations; `work-router`
 retains its six work types and only adds downstream triggers; the validator,
 fixtures, base snapshots, and manifest now cover all 13 managed skills plus the
@@ -145,3 +157,23 @@ source, publishing workflow, remote, or immutable next-version artifact. Do
 not change the manifest version alone. Publish a matching artifact externally,
 then run the dry-run and real isolated upgrade before moving this plan to
 `docs/plans/completed/`.
+
+On 2026-08-11, `prototype` was added as the 14th managed runtime/supporting
+skill. Its UI, logic, backend-implications, provenance, and invocation-policy
+files are manifest/base owned; the router adds only a constrained supporting
+trigger. Routing fixtures cover UI exploration, backend-only logic exploration,
+full-stack implication extraction, and settled design/API non-triggers. Boundary
+fixtures prohibit new work types, language-only FE/BE inference, UI-to-API
+authority, default findings documents, production promotion, and variant quotas.
+
+Fresh proof for this addition passed:
+
+- `./scripts/test-harness-skills --release-baseline` (exit 0)
+- `python3 scripts/validate-harness-sdlc.py --require-pristine-baseline` (exit 0)
+- `git diff --check` (exit 0)
+- Safekid consumer `./scripts/test-harness-skills` and `scripts/bin/harness doctor` (exit 0)
+- Safekid local-source bridge dry-run from 81 managed paths (exit 0)
+
+The authorized Safekid consumer was migrated from 75 to 81 managed paths with
+the six `prototype` files and matching baseline snapshots. Its recovery backup
+is `.harness-core/source-sync-backups/20260811T061723Z`.
