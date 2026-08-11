@@ -1,0 +1,34 @@
+[
+  {
+    "skill": "implementation-walkthrough",
+    "must_contain": [
+      "This skill is read-only and explanatory",
+      "Correctness, security, adequacy, severity, compliance, and approval belong to `code-review`",
+      "never changes Git state"
+    ]
+  },
+  {
+    "skill": "test-walkthrough",
+    "must_contain": [
+      "it does not approve the implementation",
+      "do not use for test adequacy findings, approval, severity, or formal review",
+      "code-review"
+    ]
+  },
+  {
+    "skill": "code-review",
+    "must_contain": [
+      "Authority compliance",
+      "Technical correctness",
+      "Keep reviews read-only"
+    ]
+  },
+  {
+    "skill": "verification-before-completion",
+    "must_contain": [
+      "make no positive completion claim without fresh evidence",
+      "Run it fresh",
+      "Exit code"
+    ]
+  }
+]

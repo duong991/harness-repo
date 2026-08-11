@@ -30,3 +30,28 @@ SQLite intake, story, trace, scoring, audit, and proposal commands are optional
 compatibility features. Use them only when explicitly requested or required by
 an external orchestrator.
 <!-- HARNESS:END -->
+
+## Task routing
+
+Use `work-router` before changing repository state. It owns the work-type
+taxonomy and downstream routing table; see
+[`.agents/skills/work-router/SKILL.md`](.agents/skills/work-router/SKILL.md).
+
+Hard invariants:
+
+- A read-only request remains read-only even when a defect is discovered.
+- Downstream skills cannot widen scope, create plans or stories, or introduce
+  orchestration.
+- Formal findings and adequacy judgments belong only to `code-review`.
+- Large-change comprehension belongs to `implementation-walkthrough`; test
+  comprehension belongs to `test-walkthrough`.
+- Do not create parallel review-planning or review-decomposition skills.
+- Any positive completion claim requires fresh evidence through
+  `verification-before-completion`.
+
+## Optional code intelligence
+
+When a task concerns symbols, call paths, routes, dependencies, or code impact
+and CodeGraph is available, read [`docs/tools/codegraph.md`](docs/tools/codegraph.md)
+before using it. CodeGraph remains optional and cannot change task routing,
+authority, scope, Harness state, or the completion evidence required.

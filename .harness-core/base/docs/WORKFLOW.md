@@ -5,6 +5,10 @@ architecture, plans, decisions, code, tests, and runtime signals are the system
 of record. Optimize for reliable agent execution with minimal human attention
 and process overhead.
 
+`work-router` owns the work-type taxonomy and selection rules. This document
+owns the enduring workflow principles; skill-local behavior belongs to the
+relevant skill, not a duplicate routing table.
+
 ## Repository Map
 
 - `AGENTS.md`: small entry map and authority boundary.
@@ -79,6 +83,29 @@ For an answer, explanation, review, diagnosis, plan, or status report:
 2. Use read-only inspection commands when useful.
 3. Do not edit files or mutate Harness state.
 4. Stop when concrete repository evidence supports the answer.
+
+For test comprehension specifically:
+
+1. Inspect the relevant production behavior and symbols.
+2. Inspect test setup, action, assertions, negative assertions, and dependency
+   behavior.
+3. Produce a compact per-file test digest and one conclusion.
+4. Stop without formal findings, adequacy judgment, severity, or approval.
+
+Use `code-review` when the user asks whether tests are sufficient, correct,
+safe, complete, or approvable. `code-review` may create the digest as context
+before its formal adequacy review.
+
+For large-change comprehension specifically:
+
+1. Run `implementation-walkthrough` through `BASELINE → MAP → TRACE → PROBE →
+   HANDOFF`.
+2. Account for every consequential file in a behavior-based Review Unit or an
+   explicit generated/mechanical/proof/skim classification.
+3. Hand off material test surfaces to `test-walkthrough` and formal questions
+   to `code-review`; do not create findings or mutate git state in the
+   walkthrough. Do not create a parallel review-planning or review-decomposition
+   skill.
 
 Discovery never grants authority to fix what it finds.
 

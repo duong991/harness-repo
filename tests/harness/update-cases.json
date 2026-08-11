@@ -1,0 +1,9 @@
+[
+  {
+    "id": "preserve-local-and-apply-upstream",
+    "base": "consumer=base\nkeep=1\nkeep=2\nkeep=3\nkeep=4\npolicy=old\n",
+    "local": "consumer=preserve\nkeep=1\nkeep=2\nkeep=3\nkeep=4\npolicy=old\n",
+    "upstream": "consumer=base\nkeep=1\nkeep=2\nkeep=3\nkeep=4\npolicy=new\n",
+    "must_include": ["policy=new", "consumer=preserve"]
+  }
+]

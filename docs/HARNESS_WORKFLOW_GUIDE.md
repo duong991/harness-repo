@@ -31,7 +31,7 @@ Luồng mặc định:
 
 ```mermaid
 flowchart TD
-    U["Yêu cầu người dùng"] --> G["AGENTS.md task-routing gate"]
+    U["Yêu cầu người dùng"] --> G["AGENTS.md: invariants + pointers"]
     G --> R["work-router: chọn đúng 1 work type"]
     R --> RO["read-only-analysis"]
     R --> TF["tiny-fix"]
@@ -75,14 +75,9 @@ Trước khi thay đổi repository state:
 1. Đọc `AGENTS.md` áp dụng cho thư mục đang làm việc.
 2. Đọc `docs/WORKFLOW.md` và chỉ những nguồn liên quan trực tiếp.
 3. Dùng `work-router` để chọn đúng một work type.
-4. Thông báo ngắn:
-
-   ```text
-   Task type: <one primary type>
-   Workflow: <short route>
-   Validation: <expected proof>
-   ```
-
+4. Với task không tầm thường, thông báo ngắn route đã chọn. Tiny fix hoặc
+   read-only rõ ràng route im lặng; luôn thông báo nếu phải reclassify để mở
+   rộng workflow.
 5. Chỉ sau đó mới chạy downstream skill hoặc thay đổi file/state.
 
 Downstream skill chỉ tinh chỉnh route đã chọn. Nó không được tự mở rộng scope,
@@ -275,107 +270,13 @@ Chọn proof theo behavior bị ảnh hưởng:
 | Reliability/performance | Runtime measurement hoặc profile |
 | Documentation/workflow contract | Parse, link, content assertion và observable command |
 
-## 5. Sáu route chính
+## 5. Routing reference
 
-| Work type | Khi dùng | Artifact mặc định | Route kỹ thuật | Không được tự làm |
-| --- | --- | --- | --- | --- |
-| `read-only-analysis` | Giải thích, review, impact/status, diagnosis không sửa | Không tạo artifact bắt buộc | Inspect → evidence → report; bug cụ thể dùng `diagnosing-bugs` read-only | Edit, plan, story, Harness mutation |
-| `tiny-fix` | Bug cục bộ, surface nhỏ | Patch nhỏ + regression proof | Diagnose → minimal fix → conditional TDD → verify | Grill, active plan, Harness CLI |
-| `bounded-change` | Feature/flow rõ, hoàn thành trong một phiên | Ephemeral plan | Conditional TDD → implement → review nếu vừa/lớn → verify | Active plan chỉ vì có nhiều bước |
-| `ambiguous-product-change` | Còn lựa chọn product/UX/scope/permission materially khác nhau | Confirmed Change/Product Brief | Explicit `grill-me` → confirm → reclassify | Sửa code hoặc tự chọn policy |
-| `multi-session-initiative` | Nhiều phiên, milestone/dependency/recovery | Một active plan | Implement theo milestone → review → verify mọi criterion → complete plan | Nhiều plan/song song story system |
-| `orchestrated-multi-agent-work` | Cần runnable selection, lock, retry, dependency và lifecycle machine-readable | Một active plan + optional CLI state | Discover protocol → schedule guarded work → review → verify | Chọn route chỉ vì task có nhiều bước |
-
-### 5.1 Read-only analysis
-
-1. Xác định câu hỏi và boundary cần đọc.
-2. Thu thập evidence bằng command không mutation.
-3. Với bug: reproduce và tìm root cause bằng `diagnosing-bugs` read-only.
-4. Báo kết quả, evidence, unknown và limitation.
-5. Không sửa vấn đề vừa phát hiện nếu người dùng chưa yêu cầu fix.
-
-Một yêu cầu “hãy lập kế hoạch/đánh giá/giải thích” vẫn là read-only nếu chưa yêu
-cầu triển khai hoặc ghi tài liệu.
-
-### 5.2 Tiny fix
-
-1. Reproduce symptom bằng command/runtime interaction mới.
-2. Phân biệt symptom, trigger và root cause.
-3. Thu nhỏ case và kiểm tra hypothesis; lỗi deterministic rõ có thể nén phase
-   nhưng vẫn phải có causal evidence.
-4. Nếu có automated seam giá trị, tạo regression test đỏ.
-5. Sửa đúng root cause ở boundary nhỏ nhất.
-6. Chạy lại focused test, reproduction gốc và neighboring checks.
-7. Dùng `verification-before-completion` trước khi nói “fixed”.
-
-### 5.3 Bounded change
-
-1. Restate observable outcome.
-2. Đọc authority, code lân cận và test hiện có.
-3. Dùng ephemeral plan; không tạo file dưới `docs/plans/active/` chỉ vì có vài
-   bước.
-4. Dùng TDD khi behavior có seam tự động có giá trị.
-5. Implement vertical slice nhỏ nhất đủ outcome.
-6. Nếu thay đổi vừa/lớn, chạy `code-review`; stage authority
-   compliance bắt buộc chạy trước technical review.
-7. Chạy focused proof và repository-required checks.
-8. Handoff với changed surfaces, evidence và limitation.
-
-### 5.4 Ambiguous product change
-
-1. Chứng minh rằng repository authority không giải được lựa chọn material.
-2. Đề xuất hoặc chờ người dùng gọi `$grill-me`; skill này explicit-only.
-3. Hỏi đúng một câu mỗi lượt, kèm recommendation và lý do.
-4. Chốt objective, user, scope/out-of-scope, flow, edge states, permission,
-   security, data, integration và acceptance criteria.
-5. Trả confirmed brief. Chỉ ghi brief vào repository khi request cho phép.
-6. Trả control về workflow bình thường và reclassify; không implement ngay từ
-   `grill-me`.
-
-### 5.5 Multi-session initiative
-
-1. Tạo hoặc resume đúng một plan từ
-   [`docs/templates/exec-plan.md`](templates/exec-plan.md).
-2. Ghi outcome, context, scope, approach, risks/recovery, progress, task-local
-   decisions và validation.
-3. Implement theo nhóm/milestone độc lập có thể kiểm chứng.
-4. Cập nhật plan khi evidence thay đổi approach.
-5. Promote lasting product/architecture/security decision sang
-   `docs/decisions/`; không giữ nó chỉ trong plan.
-6. Review against accepted authority.
-7. Verify từng milestone và acceptance criterion.
-8. Ghi result rồi chuyển plan từ `active/` sang `completed/`.
-
-### 5.6 Orchestrated multi-agent work
-
-Chỉ chọn khi một orchestrator thật sự cần dependency graph, runnable selection,
-locking/compare-and-set, retry hoặc lifecycle state machine-readable.
-
-1. Giữ một active execution plan làm working memory cho con người/agent.
-2. Xác nhận `scripts/bin/harness-cli` tồn tại và external orchestrator được xác
-   định.
-3. Chạy discovery read-only trước mọi mutation:
-
-   ```bash
-   scripts/bin/harness-cli query contract --json
-   ```
-
-4. Kiểm tra protocol version, database state và từng capability cần dùng.
-5. Nếu scheduling dựa trên graph, dùng một consistent read:
-
-   ```bash
-   scripts/bin/harness-cli query work-graph --json
-   ```
-
-6. Mutation phải dùng documented guard/expected state; conflict không được
-   retry mù.
-7. Sau timeout mutation, coi outcome là unknown, rediscover và query state trước
-   khi retry.
-8. Story/trace/score/DB state chỉ là coordination evidence; nó không thay test,
-   runtime proof hoặc acceptance verification.
-
-Chi tiết protocol nằm tại
-[`docs/contracts/harness-orchestration-v1.md`](contracts/harness-orchestration-v1.md).
+`work-router` là nguồn duy nhất cho sáu work type, trigger, artifact mặc định,
+route kỹ thuật và những hành vi bị cấm. Guide này không lặp taxonomy đó. Khi
+cần biết route chính xác, đọc
+[`work-router/SKILL.md`](../.agents/skills/work-router/SKILL.md); các section
+dưới đây chỉ giải thích các nguyên tắc mà route áp dụng.
 
 ## 6. Skill chain hiện tại
 
@@ -552,8 +453,10 @@ lasting decision được promote sang `docs/decisions/`.
 
 ## 11. Core maintenance
 
-Binary `scripts/bin/harness` quản lý cấu trúc Harness core, không quản lý product
-behavior của consumer repository.
+Binary `scripts/bin/harness` quản lý mọi file Harness-owned đã khai báo trong
+`.harness-core/manifest.json`, gồm workflow skills và core documentation; nó
+không quản lý product behavior của consumer repository. `SOURCE.md` ghi lại
+provenance, không phải update mechanism.
 
 Các kiểm tra read-only thường dùng:
 

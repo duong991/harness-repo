@@ -5,6 +5,10 @@ architecture, plans, decisions, code, tests, and runtime signals are the system
 of record. Optimize for reliable agent execution with minimal human attention
 and process overhead.
 
+`work-router` owns the work-type taxonomy and selection rules. This document
+owns the enduring workflow principles; skill-local behavior belongs to the
+relevant skill, not a duplicate routing table.
+
 ## Repository Map
 
 - `AGENTS.md`: small entry map and authority boundary.

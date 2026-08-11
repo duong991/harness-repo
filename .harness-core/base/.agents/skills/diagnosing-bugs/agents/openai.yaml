@@ -1,0 +1,6 @@
+interface:
+  display_name: "Diagnosing Bugs"
+  short_description: "Find root causes before applying minimal fixes"
+  default_prompt: "Use $diagnosing-bugs to reproduce this failure, prove the root cause, and apply only an authorized minimal fix."
+policy:
+  allow_implicit_invocation: true

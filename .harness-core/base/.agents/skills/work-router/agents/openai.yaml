@@ -1,0 +1,6 @@
+interface:
+  display_name: "Work Router"
+  short_description: "Route Harness work to the lightest safe flow"
+  default_prompt: "Use $work-router to classify this repository task and select the lightest safe workflow."
+policy:
+  allow_implicit_invocation: true

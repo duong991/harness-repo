@@ -1,0 +1,6 @@
+interface:
+  display_name: "Code Review"
+  short_description: "Review changes against accepted authority"
+  default_prompt: "Use $code-review to review the selected changes against accepted authority, technical correctness, security, regression risk, and validation evidence."
+policy:
+  allow_implicit_invocation: true

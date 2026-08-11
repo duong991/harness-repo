@@ -99,9 +99,9 @@ Choose the first type that accurately captures the requested outcome:
 - Do not require grilling, TDD, a durable plan, or a full review when the
   selected work type does not justify it.
 
-## Brief routing notice
+## Routing notice
 
-Before acting, tell the user only:
+For non-trivial work, briefly state the selected route before acting:
 
 ```text
 Task type: <one primary type>
@@ -109,5 +109,6 @@ Workflow: <short route>
 Validation: <expected proof>
 ```
 
-Keep the internal routing analysis private. If evidence changes the work type,
-state the reclassification and why before widening the workflow.
+For tiny fixes and obvious read-only work, route silently. Keep the internal
+routing analysis private. If evidence changes the work type, state the
+reclassification and why before widening the workflow.

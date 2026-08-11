@@ -1,0 +1,59 @@
+[
+  {
+    "id": "large-change-comprehension",
+    "prompt": "Review 107 changed files and show me what to read first.",
+    "work_type": "read-only-analysis",
+    "skills": ["implementation-walkthrough"],
+    "assertions": {
+      "implementation-walkthrough": ["large-change comprehension", "BASELINE → MAP → TRACE → PROBE → HANDOFF"]
+    }
+  },
+  {
+    "id": "test-comprehension",
+    "prompt": "File test này kiểm tra gì và gọi production code nào?",
+    "work_type": "read-only-analysis",
+    "skills": ["test-walkthrough"],
+    "assertions": {
+      "test-walkthrough": ["what a test file checks", "does not approve the implementation"]
+    }
+  },
+  {
+    "id": "test-adequacy-review",
+    "prompt": "Các test này đã đủ để release chưa?",
+    "work_type": "read-only-analysis",
+    "skills": ["work-router", "code-review"],
+    "assertions": {
+      "work-router": ["whether tests are sufficient"],
+      "code-review": ["Authority compliance"]
+    }
+  },
+  {
+    "id": "large-change-findings",
+    "prompt": "Find bugs in these 107 files without modifying them.",
+    "work_type": "read-only-analysis",
+    "skills": ["implementation-walkthrough", "code-review"],
+    "assertions": {
+      "implementation-walkthrough": ["request to find bugs or formal findings"],
+      "code-review": ["Then perform the formal adequacy review"]
+    }
+  },
+  {
+    "id": "one-line-bug",
+    "prompt": "Fix this one-line bug and add a regression test if useful.",
+    "work_type": "tiny-fix",
+    "skills": ["diagnosing-bugs", "verification-before-completion"],
+    "assertions": {
+      "diagnosing-bugs": ["root cause"],
+      "verification-before-completion": ["fresh evidence"]
+    }
+  },
+  {
+    "id": "review-only",
+    "prompt": "Review this patch only; do not modify files.",
+    "work_type": "read-only-analysis",
+    "skills": ["code-review"],
+    "assertions": {
+      "code-review": ["Keep reviews read-only"]
+    }
+  }
+]

@@ -1,9 +1,11 @@
 # Repository Skill Manifest
 
-This manifest covers the eight supplemental workflow skills installed for this
-consumer repository. Harness-managed `onboard-repository` and
-`audit-onboarding-proposal` remain part of Harness core and are not members of
-this eight-skill suite.
+This manifest covers the eight workflow skills installed for this consumer
+repository. They are Harness-managed: their complete file trees have a base
+snapshot and hash entry in `.harness-core/manifest.json`, so the updater can
+perform a deterministic three-way update. Harness-managed
+`onboard-repository` and `audit-onboarding-proposal` remain separate core
+skills and are not members of this eight-skill suite.
 
 | Skill                            | Source                                                            | Commit                                     | Activation                                        | Local changes                                                                                                                                   | Owner | Last reviewed |
 | -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ------------- |
@@ -32,5 +34,11 @@ Harness core workflow.
 
 Update external skills only from an immutable commit or release. Read each
 skill's `SOURCE.md`, compare upstream changes, preserve local Harness authority
-and activation rules, and rerun the workflow validation suite before replacing
-the pinned revision.
+and activation rules, update the corresponding `.harness-core/base/` snapshot
+and manifest hash atomically, then run:
+
+```bash
+scripts/test-harness-skills
+```
+
+`SOURCE.md` remains provenance only; it is not an alternative update mechanism.

@@ -33,33 +33,21 @@ an external orchestrator.
 
 ## Task routing
 
-Before changing repository state, classify the request as exactly one of:
+Use `work-router` before changing repository state. It owns the work-type
+taxonomy and downstream routing table; see
+[`.agents/skills/work-router/SKILL.md`](.agents/skills/work-router/SKILL.md).
 
-- read-only-analysis
-- tiny-fix
-- bounded-change
-- ambiguous-product-change
-- multi-session-initiative
-- orchestrated-multi-agent-work
+Hard invariants:
 
-Use `work-router` to select the lightest safe workflow.
-
-Downstream skills refine the selected workflow. They must not independently
-widen scope, create plans, create stories, or introduce orchestration.
-
-Use `code-review` as the only review entry point. Its authority-compliance
-stage must run before technical correctness, security, and regression review.
-Use `test-walkthrough` for read-only test comprehension. It explains what tests
-exercise but does not judge adequacy, assign severity, or replace
-`code-review`.
-Use `implementation-walkthrough` for large-change comprehension and Review Unit
-mapping. It is read-only and does not replace `code-review`.
-Do not create a parallel review-planning or review-decomposition skill.
-
-A read-only request remains read-only even when a defect is discovered.
-
-Before any positive completion claim, apply
-`verification-before-completion` using fresh evidence.
+- A read-only request remains read-only even when a defect is discovered.
+- Downstream skills cannot widen scope, create plans or stories, or introduce
+  orchestration.
+- Formal findings and adequacy judgments belong only to `code-review`.
+- Large-change comprehension belongs to `implementation-walkthrough`; test
+  comprehension belongs to `test-walkthrough`.
+- Do not create parallel review-planning or review-decomposition skills.
+- Any positive completion claim requires fresh evidence through
+  `verification-before-completion`.
 
 ## Optional code intelligence
 
