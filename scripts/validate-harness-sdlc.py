@@ -28,14 +28,18 @@ SUPPORTING_SKILLS = (
 )
 MANAGED_SKILLS = WORKFLOW_SKILLS + SUPPORTING_SKILLS
 MANAGED_ASSETS = (
+    "docs/HARNESS_WORKFLOW_GUIDE.md",
     "scripts/test-harness-skills",
+    "scripts/sync-harness-source.py",
     "scripts/validate-harness-sdlc.py",
     "tests/harness/routing-cases.json",
     "tests/harness/skill-boundaries.json",
     "tests/harness/update-cases.json",
+    "tests/harness/test-sync-harness-source.py",
 )
 MANAGED_EXECUTABLES = (
     "scripts/test-harness-skills",
+    "scripts/sync-harness-source.py",
 )
 WORK_TYPES = (
     "read-only-analysis", "tiny-fix", "bounded-change", "ambiguous-product-change",

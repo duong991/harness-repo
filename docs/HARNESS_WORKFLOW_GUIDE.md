@@ -495,6 +495,31 @@ nhất quán, nhưng cho phép consumer customization khác base. Mode
 artifact release. Fixture hiện chỉ kiểm tra three-way merge contract model;
 `harness update --dry-run` và isolated real update vẫn là E2E gate cho updater.
 
+Khi một consumer legacy chưa thể nhận artifact mới, source repository có bridge
+tạm thời `scripts/sync-harness-source.py`. Luôn chạy dry-run trước; chỉ dùng
+`--adopt-legacy --apply` khi đã chấp nhận backup-and-replace các Harness file
+cũ không có merge base:
+
+```bash
+# Preview: no consumer file is changed.
+scripts/sync-harness-source.py \
+  --target /absolute/path/to/consumer \
+  --adopt-legacy
+
+# Apply only after reviewing the preview.
+scripts/sync-harness-source.py \
+  --target /absolute/path/to/consumer \
+  --adopt-legacy \
+  --apply
+```
+
+Bridge này merge ba chiều các file đã có base, không stage/commit, và lưu backup
+trong `.harness-core/source-sync-backups/`. Nếu file manifest-tracked bị
+three-way conflict, bridge dừng không đổi file; chỉ dùng
+`--replace-conflict relative/path --apply` sau khi đã quyết định rõ bản source
+được quyền thay thế file đó. Nó là đường migration developer-local, không thay
+thế immutable artifact hoặc `harness update` dài hạn.
+
 Chỉ chạy `harness update` không có `--dry-run`, `install`, `--continue` hoặc
 `--abort` khi action đó được yêu cầu và target/recovery đã rõ. Không sửa
 `.harness-core/manifest.json` để che một consumer customization; nội dung local
