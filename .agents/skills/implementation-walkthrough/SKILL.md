@@ -282,6 +282,21 @@ important claims.
 The presence of a test file is not proof that the test passes or covers the
 claimed behavior.
 
+If the change has more than three consequential test files, or contains a
+large generated test set, use `test-walkthrough` to produce a compact digest
+instead of asking the reviewer to read every test. Summarize the handoff only:
+
+```text
+Test digest:
+- 2 file cần đọc
+- 4 file chỉ cần xem tóm tắt
+- 3 behavior chưa được chứng minh
+```
+
+Do not repeat the digest's per-file content here. `implementation-walkthrough`
+explains the implementation; `test-walkthrough` explains the tests; neither
+replaces the formal `code-review` entry point.
+
 ### Skim
 
 Mechanical DTOs, straightforward mappings, lockfiles, or deleted diff that

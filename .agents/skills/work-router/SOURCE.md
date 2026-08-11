@@ -6,4 +6,6 @@
 - Upstream: None
 - Owner: Project maintainers
 - Local modifications: backed routing with a mandatory repository `AGENTS.md` gate that prevents downstream scope, plan, story, or orchestration widening; defined read-only bug diagnosis and the multi-session review/verification/plan-close sequence; optional CodeGraph discovery that cannot change classification, scope, authority, or proof.
-- Update method: change only with corresponding routing scenario tests.
+- Update method: change only with corresponding routing scenario tests,
+  including the boundary between `test-walkthrough` comprehension and
+  `code-review` adequacy.

@@ -41,6 +41,9 @@ flowchart TD
     R --> OM["orchestrated-multi-agent-work"]
 
     RO --> E["Inspect, evidence, report"]
+    RO -->|"Test comprehension"| TW["test-walkthrough: test comprehension"]
+    TW --> TD["Per-file test digest"]
+    TD -. "Context only" .-> RV
     TF --> D["diagnosing-bugs"]
     D --> F["Minimal fix + conditional TDD"]
     F --> V["verification-before-completion"]
@@ -109,6 +112,17 @@ Hãy kiểm tra vì sao focused test này thất bại: <test/error/input>.
 Chỉ chẩn đoán, chưa sửa file hoặc Harness state.
 Đọc authority và code liên quan, reproduce bằng command mới, phân biệt
 symptom/trigger/root cause, rồi báo evidence, unknowns và limitation.
+```
+
+#### Test comprehension
+
+```text
+Giải thích các file test trong thay đổi này.
+Đọc source production liên quan cùng setup/action/assertion và mock behavior.
+Trả về digest theo từng file gồm mục đích, symbol được gọi, hành vi được bảo
+vệ, chưa chứng minh, Strong/Partial/Weak, mức ưu tiên đọc và một kết luận.
+Không tạo test matrix, Mermaid, severity, approval hoặc formal finding.
+Nếu tôi hỏi test đã đủ chưa, chuyển sang code-review.
 ```
 
 #### Tiny fix
@@ -355,12 +369,14 @@ Chi tiết protocol nằm tại
 | `diagnosing-bugs` | Auto sau routing | Reproduce, evidence, root cause, minimal authorized fix |
 | `tdd` | Auto có điều kiện sau routing | Red → green → refactor qua observable seam |
 | `code-review` | Auto cho review hoặc change vừa/lớn | So patch với accepted authority trước, sau đó review correctness, security, compatibility, regression và evidence |
+| `implementation-walkthrough` | Auto sau routing cho large-change comprehension | Giải thích implementation theo behavior và đề xuất thứ tự đọc trước formal review |
+| `test-walkthrough` | Auto sau routing cho test comprehension | Nén test theo file thành mục đích, production symbols, behavior được bảo vệ, gap và reading priority |
 | `verification-before-completion` | Auto, bắt buộc | Gate cuối cho mọi positive completion claim |
 
 Nguồn và activation đầy đủ nằm tại
 [`docs/skills/skill-manifest.md`](skills/skill-manifest.md).
 
-Hai Harness-managed core skill không thuộc bộ bảy skill trên:
+Hai Harness-managed core skill không thuộc bộ tám skill trên:
 
 - `$onboard-repository`: explicit, first pass read-only để map một brownfield
   repository, trace một operational path và đề xuất improvement dựa trên
@@ -373,7 +389,7 @@ Hai Harness-managed core skill không thuộc bộ bảy skill trên:
 
 CodeGraph là lớp code-intelligence tùy chọn cho repository có codebase đủ lớn.
 Nó giúp map symbol, caller/callee, route, dependency và candidate impact surface;
-nó không phải workflow thứ bảy và không phải authority.
+nó không phải một workflow skill bổ sung và không phải authority.
 
 ```text
 Harness policy / authority / routing
@@ -434,6 +450,11 @@ thật làm test chậm, nondeterministic, unsafe hoặc impractical.
 Review là read-only. Reviewer kiểm tra requirement, scope, UX/edge states,
 architecture, security/permission, API/data mapping, behavioral tests, fresh
 evidence, docs drift, regression và maintainability.
+
+Test comprehension và test adequacy là hai việc khác nhau. `test-walkthrough`
+chỉ tóm tắt code nào được gọi, behavior nào có assertion và gap nào chưa được
+chứng minh. `code-review` mới quyết định gap nào là finding dựa trên authority,
+impact và evidence; một command test pass không tự chứng minh adequacy.
 
 | Severity | Ý nghĩa |
 | --- | --- |

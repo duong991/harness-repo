@@ -36,6 +36,12 @@ Choose the first type that accurately captures the requested outcome:
    `implementation-walkthrough`. When correctness findings are also requested,
    run `implementation-walkthrough` first and then `code-review`. Do not edit,
    create a plan, create a story, or mutate Harness state.
+   When the user only wants to understand what one or more test files exercise,
+   which production symbols they call, or what remains unproven, use
+   `test-walkthrough`. It produces a compact per-file digest and stops without
+   formal findings. When the user asks whether tests are sufficient, correct,
+   safe, complete, or approvable, use `code-review` as the review entry point;
+   `code-review` may create a test digest before judging adequacy.
    For a request asking for findings, implementation compliance, review against
    requirements, or review against authority, use `code-review`; its mandatory
    authority-compliance stage runs before its technical review.

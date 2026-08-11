@@ -80,6 +80,18 @@ For an answer, explanation, review, diagnosis, plan, or status report:
 3. Do not edit files or mutate Harness state.
 4. Stop when concrete repository evidence supports the answer.
 
+For test comprehension specifically:
+
+1. Inspect the relevant production behavior and symbols.
+2. Inspect test setup, action, assertions, negative assertions, and dependency
+   behavior.
+3. Produce a compact per-file test digest and one conclusion.
+4. Stop without formal findings, adequacy judgment, severity, or approval.
+
+Use `code-review` when the user asks whether tests are sufficient, correct,
+safe, complete, or approvable. `code-review` may create the digest as context
+before its formal adequacy review.
+
 Discovery never grants authority to fix what it finds.
 
 ### Bounded Change

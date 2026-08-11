@@ -109,6 +109,15 @@ After the compliance pass, inspect:
 - **Performance:** report only concrete risks such as unbounded quadratic work,
   N+1 access, or blocking I/O on a demonstrated hot path.
 
+When the review target contains multiple test files, first use the
+`test-walkthrough` contract to create a compact per-file digest: actual
+production symbols, protected behavior, unproven behavior, Strong/Partial/Weak
+assessment, and reading priority. Treat that digest as review context only.
+Then perform the formal adequacy review and turn consequential gaps into
+findings when authority and evidence support doing so. Do not delegate the
+review decision to `test-walkthrough`, and do not infer adequacy from a passing
+test command alone.
+
 Investigate before asserting a bug. Describe the realistic input, state,
 environment, or sequence needed to reproduce it.
 
