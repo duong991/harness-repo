@@ -88,6 +88,12 @@ Choose the first type that accurately captures the requested outcome:
   writing discipline after selecting the route.
 - For Architecture, module, seam, or interface design, use `codebase-design`
   as a supporting discipline without creating a separate workflow.
+- For authorized implementation whose solution shape is not fixed by accepted
+  authority, use `minimal-implementation` after comprehension of the affected
+  flow to select the smallest sufficient implementation. Do not invoke it for
+  pure explanation or read-only comprehension. When accepted authority fixes an
+  implementation choice, `minimal-implementation` must not override it. Do not
+  use this discipline to route code review; use `code-review` independently.
 - For an unresolved design or behavior question that is materially easier to
   evaluate through a cheap interactive or executable artifact than prose, use
   `prototype`. Use its UI branch for interaction or information-architecture

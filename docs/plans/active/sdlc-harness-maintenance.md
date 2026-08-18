@@ -4,9 +4,8 @@ Date: 2026-08-11
 
 ## Status
 
-Blocked — the managed `prototype` discipline and local-source consumer
-migration are complete; only the matching immutable-artifact release gate
-remains.
+Blocked — the native `minimal-implementation` supporting discipline is complete;
+only the matching immutable-artifact release gate remains.
 
 ## Outcome
 
@@ -37,6 +36,9 @@ In scope:
   until the matching immutable artifact is published.
 - Add `prototype` as a generic UI/logic exploration discipline with optional
   backend-implication extraction, without making UI an API authority.
+- Add `minimal-implementation` as a native supporting discipline informed only
+  by Ponytail's implementation-minimalism concepts, without importing its
+  plugin lifecycle or control plane.
 
 Out of scope:
 
@@ -56,6 +58,8 @@ Out of scope:
    authorized legacy consumer after a reviewed dry-run.
 6. Import and adapt `prototype`, add its constrained router trigger and
    contract fixtures, then snapshot its complete tree into the updater base.
+7. Add the native `minimal-implementation` discipline, bounded routing trigger,
+   fixture coverage, provenance, and updater baseline entries.
 
 ## Risks And Recovery
 
@@ -81,6 +85,8 @@ Out of scope:
 - [x] Add and prove a guarded local-source migration path for legacy consumers.
 - [x] Migrate the authorized `safekid-backend` consumer and record verification.
 - [x] Add, integrate, and validate the generic `prototype` supporting discipline.
+- [x] Add, integrate, and validate the native `minimal-implementation`
+  supporting discipline.
 - [ ] Publish a matching immutable updater artifact and prove an isolated upgrade.
 
 ## Decisions
@@ -99,6 +105,10 @@ Out of scope:
 - 2026-08-11: `prototype` is a supporting exploration discipline. Task scope
   outranks repository classification; UI evidence produces only backend
   implications, with domain and interface design delegated downstream.
+- 2026-08-18: `minimal-implementation` is a native supporting discipline, not
+  a Ponytail installation. It may select an implementation rung only after
+  flow comprehension and only when accepted authority leaves the solution
+  shape open; it cannot displace Harness authority or owner skills.
 
 ## Validation
 
@@ -177,3 +187,17 @@ Fresh proof for this addition passed:
 The authorized Safekid consumer was migrated from 75 to 81 managed paths with
 the six `prototype` files and matching baseline snapshots. Its recovery backup
 is `.harness-core/source-sync-backups/20260811T061723Z`.
+
+On 2026-08-18, `minimal-implementation` was added as the 15th managed
+workflow/supporting skill. Its three-file tree, constrained `work-router`
+trigger, validator registration, routing/boundary contracts, provenance, and
+base/manifest digests preserve the existing routing, authority, review, and
+verification owners. It imports no Ponytail plugin files, modes, lifecycle
+hooks, slash commands, or control-plane behavior.
+
+Fresh strict proof for this addition passed:
+
+- `scripts/test-harness-skills --release-baseline` (exit 0)
+- `python3 scripts/validate-harness-sdlc.py --require-pristine-baseline`
+  (exit 0)
+- `git diff --check` (exit 0)

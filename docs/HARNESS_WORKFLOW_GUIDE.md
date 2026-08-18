@@ -309,8 +309,16 @@ chúng không tạo work type, lifecycle hay authority mới:
 | `writing-for-agents` | Auto khi viết agent-consumed docs | Context pointer, information hierarchy và completion criterion rõ ràng |
 | `handoff` | Explicit-only | Context ngắn gọn cho session sau; chỉ link plan/spec/decision hiện có |
 | `codebase-design` | Auto khi cần module/interface/seam design | Vocabulary deep module, seam, depth, leverage và locality |
+| `minimal-implementation` | Auto sau routing khi implementation đã được phép và solution shape còn mở | Chọn rung nhỏ nhất đủ dùng: YAGNI → reuse → standard library → native platform → dependency đã cài → direct code → custom code tối thiểu |
 | `domain-modeling` | Auto khi thay đổi domain vocabulary | Kiểm tra thuật ngữ, scenario và authority trong `docs/product/` / `docs/decisions/` |
 | `resolving-merge-conflicts` | Auto cho conflict merge/rebase đã được phép xử lý | STATE → INTENT → RESOLVE → VERIFY → CONTINUE, không tự stage/commit/abort |
+
+`minimal-implementation` chỉ chạy sau khi đã hiểu affected flow và khi accepted
+authority chưa quy định implementation choice. Nó không có quyền thay authority,
+route review, hay cắt giảm correctness, trust-boundary validation, authorization,
+security, accessibility, error handling, compatibility hoặc meaningful
+validation; xem [`minimal-implementation/SKILL.md`](../.agents/skills/minimal-implementation/SKILL.md)
+để biết ràng buộc đầy đủ.
 
 Hai Harness-managed onboarding skill nằm ngoài workflow/supporting-discipline suite:
 

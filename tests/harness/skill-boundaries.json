@@ -92,5 +92,17 @@
       "cannot stage the entire repository"
     ],
     "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "minimal-implementation",
+    "must_contain": [
+      "does not own routing",
+      "does not create a new work type",
+      "Comprehension precedes minimization",
+      "formal findings and adequacy belong only to `code-review`",
+      "does not own completion",
+      "cannot independently spawn sub-agents"
+    ],
+    "policy": "allow_implicit_invocation: true"
   }
 ]

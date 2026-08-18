@@ -143,5 +143,34 @@
     "assertions": {
       "work-router": ["Do not prototype settled requirements"]
     }
+  },
+  {
+    "id": "bounded-implementation-minimalism",
+    "prompt": "Implement the accepted behavior; the solution shape is still open.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "minimal-implementation"],
+    "assertions": {
+      "work-router": ["authorized implementation", "minimal-implementation"],
+      "minimal-implementation": ["Comprehension precedes minimization", "minimum custom implementation"]
+    }
+  },
+  {
+    "id": "avoid-unnecessary-dependency",
+    "prompt": "Add the feature without introducing a package if the repository or platform already supports it.",
+    "work_type": "bounded-change",
+    "skills": ["work-router", "minimal-implementation"],
+    "assertions": {
+      "work-router": ["authorized implementation", "minimal-implementation"],
+      "minimal-implementation": ["already-installed dependencies", "Do not add a dependency"]
+    }
+  },
+  {
+    "id": "accepted-design-preserved",
+    "prompt": "Implement the accepted design exactly; do not substitute a different implementation approach.",
+    "work_type": "bounded-change",
+    "skills": ["work-router"],
+    "assertions": {
+      "work-router": ["must not override it"]
+    }
   }
 ]
