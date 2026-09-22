@@ -1,0 +1,6 @@
+interface:
+  display_name: "Flutter Architecture Best Practices"
+  short_description: "Architect Flutter applications using layered approach"
+  default_prompt: "Use $flutter-apply-architecture-best-practices to structure Flutter features and layers."
+policy:
+  allow_implicit_invocation: true

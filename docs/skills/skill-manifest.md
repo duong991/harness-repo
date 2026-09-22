@@ -30,6 +30,7 @@ skills outside the workflow/supporting-discipline suite.
 | `improve-harness`                | `hoangnb24/repository-harness` — `.agents/skills/improve-harness`  | `e765792b635b4d5e3e5fc0578f82f9ca5dea2681` | Explicit-only                                      | Baseline preservation, earliest gap analysis, smallest intervention, required fresh rerun | gnoud | 2026-09-22    |
 | `grill-with-docs`                | `mattpocock/skills` — `skills/engineering/grill-with-docs`        | `c55ee46073ed923f86ce59a5eb3b6d895095d1b7` | Explicit-only                                      | Combines `grill-me` with `domain-modeling`; records decisions in `docs/decisions/` and `docs/GLOSSARY.md`; no direct code edits | gnoud | 2026-09-22    |
 | `improve-codebase-architecture`  | `mattpocock/skills` — `skills/engineering/improve-codebase-architecture` | `c55ee46073ed923f86ce59a5eb3b6d895095d1b7` | Explicit-only                                      | Scans hotspots for shallow modules; renders visual HTML report to `$TMPDIR`; grills deepening decisions; gates execution through `docs/plans/active/` | gnoud | 2026-09-22    |
+| `flutter-apply-architecture-best-practices` | `flutter/agent-plugins` — `skills/flutter-apply-architecture-best-practices` | `e89522a8b0c23d282e0acc9538dd0b2cd164358b` | Model-invoked                                      | Layered MVVM + Repository architecture for Flutter; bound to Harness work-router and verification-before-completion | gnoud | 2026-09-22    |
 
 ## Installation contract
 

@@ -155,5 +155,13 @@
       "docs/plans/active/"
     ],
     "policy": "allow_implicit_invocation: false"
+  },
+  {
+    "skill": "flutter-apply-architecture-best-practices",
+    "must_contain": [
+      "does not own routing",
+      "verification-before-completion"
+    ],
+    "policy": "allow_implicit_invocation: true"
   }
 ]

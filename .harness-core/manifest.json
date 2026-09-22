@@ -344,7 +344,7 @@
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
-      "upstream_sha256": "241aa467c70ecf67de63e422cad8c826a636a973e4388784fdd60f10ede0cabf"
+      "upstream_sha256": "dd73a64f3155c72e8448c68a0822874425217b9ea8b34b93de12e523c6b57822"
     },
     {
       "path": "tests/harness/routing-cases.json",
@@ -352,7 +352,7 @@
     },
     {
       "path": "tests/harness/skill-boundaries.json",
-      "upstream_sha256": "ef21ac551231f7c38b9c64fd26486a0e5d6d8b8d546f0ce5f783edecb9f85203"
+      "upstream_sha256": "95ddf0d4a6ef181cd548f4a45c389c2fadb9cecc591bd1ba161a0d645a63cdc2"
     },
     {
       "path": "tests/harness/update-cases.json",
@@ -429,6 +429,18 @@
     {
       "path": ".agents/skills/improve-codebase-architecture/agents/openai.yaml",
       "upstream_sha256": "c8cb20f68ebf0edb4e497bc11ae5fcaa196004e661cd189015b04f4109ced7f1"
+    },
+    {
+      "path": ".agents/skills/flutter-apply-architecture-best-practices/SKILL.md",
+      "upstream_sha256": "041d782d4bd2d5b0cecd2bf142342e6392ffb64933f032cae8edd784e4c320be"
+    },
+    {
+      "path": ".agents/skills/flutter-apply-architecture-best-practices/SOURCE.md",
+      "upstream_sha256": "ebde77862c06d3e9e1104e1a7ca462ede7d11b0cc25fafafd503a77e9728f235"
+    },
+    {
+      "path": ".agents/skills/flutter-apply-architecture-best-practices/agents/openai.yaml",
+      "upstream_sha256": "f066d2f93bc2d59e6c89383da01f08ebd3fe09372b9cc30642c0200bb162d37e"
     }
   ]
 }
