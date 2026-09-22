@@ -30,9 +30,8 @@ code, and validation material relevant to the task.
 - Claim completion only with relevant executable or observable evidence. Report
   the outcome, important changed surfaces, validation, and unresolved risks.
 
-SQLite intake, story, trace, scoring, audit, and proposal commands are optional
-compatibility features. Use them only when explicitly requested or required by
-an external orchestrator.
+Harness has no task database or orchestration lifecycle. Use repository plans
+and behavior-level proof; do not create parallel control-plane state.
 <!-- HARNESS:END -->
 
 ## Task routing

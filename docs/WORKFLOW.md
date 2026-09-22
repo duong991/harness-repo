@@ -200,15 +200,3 @@ A change is complete only when:
 Git history, pull-request discussion, test artifacts, screenshots, videos,
 logs, metrics, and plan progress are preferred evidence because they arise from
 the work. Manual descriptions may add context but do not replace observed proof.
-
-## Compatibility Control Plane
-
-The Rust CLI and SQLite durable layer remain supported for historical state and
-optional external orchestration. Their intake, story, matrix, trace, scoring,
-audit, intervention, proposal, snapshot, and changeset commands are not part of
-the default repository workflow.
-
-Use those commands only when a user explicitly requests them, a maintenance task
-targets that compatibility surface, or an external orchestrator's documented
-contract requires them. Compatibility documents are references, not authority
-to reintroduce mandatory control-plane writes.

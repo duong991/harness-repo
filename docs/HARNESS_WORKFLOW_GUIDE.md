@@ -568,22 +568,13 @@ Việc CodeGraph không có mặt không phải là Harness failure và không �
 workflow chính. Chi tiết policy consumer-owned nằm ở
 [`docs/tools/codegraph.md`](tools/codegraph.md).
 
-## 13. Compatibility control plane
+## 13. Kết thúc Protocol v1 và SQLite CLI
 
-Các lệnh `harness-cli init`, `migrate`, `import`, `intake`, `story`, `decision`,
-`backlog`, `trace`, `score-*`, `audit`, `propose` và `db` vẫn được hỗ trợ, nhưng
-không thuộc default workflow.
-
-Chỉ dùng khi:
-
-- người dùng yêu cầu trực tiếp;
-- task bảo trì chính compatibility surface;
-- external orchestrator đã xác định có documented contract.
-
-Không tạo `harness.db`, intake row, story, trace, score hoặc proposal cho một
-bounded change thông thường. [`docs/FEATURE_INTAKE.md`](FEATURE_INTAKE.md) và
-[`docs/IMPROVEMENT_PROTOCOL.md`](IMPROVEMENT_PROTOCOL.md) là compatibility
-references, không được dùng để tái áp đặt lifecycle cũ lên default workflow.
+Repository đã hoàn tất chuyển đổi sang Git-native protocol thuần túy. Binary
+`harness-cli` và SQLite control plane đã được loại bỏ hoàn toàn khỏi repo.
+Các tài liệu lịch sử liên quan đến intake, story, matrix, trace, scoring, audit
+và proposal chỉ đóng vai trò tham khảo quá khứ (reference documents), không còn
+lệnh thực thi hay database tương ứng trong runtime.
 
 ## 14. Handoff chuẩn
 
