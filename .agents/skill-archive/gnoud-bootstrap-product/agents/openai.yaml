@@ -1,6 +1,0 @@
-interface:
-  display_name: "Bootstrap Product"
-  short_description: "Route product work from repo to validation"
-  default_prompt: "Use $gnoud-bootstrap-product to route this product change from repository discovery through the smallest validated implementation."
-policy:
-  allow_implicit_invocation: false
