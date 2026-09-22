@@ -73,6 +73,27 @@ Choose proof from the affected behavior:
 Harness rows, proof flags, trace tiers, context scores, and entropy scores do not
 prove product behavior by themselves.
 
+### Does The Work Encode An Invariant?
+
+For architecture, reliability, security, or quality boundaries:
+
+1. Find an accepted repository authority that states the required boundary.
+   Conventions, code patterns, tests, defaults, and undocumented preferences do
+   not establish policy. Stop when authority is absent or materially ambiguous.
+2. Reuse the repository's native validation owner and command. Add the smallest
+   mechanical check that covers the accepted scope and emits a diagnostic naming
+   the violation, rule, and next action.
+3. Require positive proof that allowed behavior passes and negative proof that
+   the targeted forbidden behavior fails for the intended reason.
+4. Report enforcement precisely: a local command is available or passed; a hook
+   is optional developer convenience; CI either invokes the check or does not;
+   branch protection is externally configured or unverified. Source or CI
+   presence alone does not prove merge blocking.
+
+Do not install hooks or change CI, merge, or branch-protection settings unless
+separately authorized. Use the [invariant encoding pattern](patterns/encoding-invariants.md)
+for the complete method.
+
 ## Task Flows
 
 ### Read-Only Request
@@ -134,6 +155,36 @@ is required.
 
 The plan is working memory, not a prediction frozen at intake. Update it when
 evidence changes the approach.
+
+### Operate The Application
+
+When a task requires the real application:
+
+1. Find the consumer-owned runbook and verify prerequisites and ownership.
+2. Start only an isolated instance, prove readiness, and create known state.
+3. Reproduce through the real interface and inspect correlated runtime evidence.
+4. Validate through that interface, then stop only resources this run owns.
+
+If no verified runbook exists, inspect current repository authority and report
+or propose the missing guidance. Do not invent commands, credentials, product
+policy, or cleanup obligations. The application-runbook template supplies
+proposal structure, not proof that the application is operable.
+
+### Improve The Harness
+
+During ordinary work, report reusable agent friction without changing the
+Harness for that new purpose. When the user explicitly invokes
+`$improve-harness`, use `docs/templates/harness-improvement.md` to:
+
+1. preserve the observed baseline and human intervention;
+2. locate the earliest missing context, capability, owner, authority, proof, or
+   environment boundary;
+3. make the smallest authorized change at that owner;
+4. run native proof and require a materially equivalent fresh-agent rerun; and
+5. decide to keep, revise, or remove the intervention.
+
+Do not claim improvement when the rerun did not retrieve or exercise the
+intervention. Keep the record active while fresh-rerun evidence is pending.
 
 ## Completion Standard
 

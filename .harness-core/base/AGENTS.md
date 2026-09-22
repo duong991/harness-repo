@@ -20,6 +20,10 @@ code, and validation material relevant to the task.
 - Before editing, identify repository authority for each new externally
   observable policy. If materially different choices remain open, stop before
   edits; configurable defaults are not authority.
+- For architecture, reliability, security, or quality invariant work, read
+  `docs/patterns/encoding-invariants.md` and enforce only accepted rules.
+- Report reusable agent friction. Change guidance, tools, runbooks, or validation
+  for that purpose only when explicitly asked to use `$improve-harness`.
 - Also pause when product intent remains ambiguous, an action is difficult to
   recover, validation would be weakened, or the request does not authorize the
   needed action.

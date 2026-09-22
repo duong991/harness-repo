@@ -106,6 +106,11 @@ Choose the first type that accurately captures the requested outcome:
 - For an authorized in-progress merge or rebase conflict, route the resolution
   as `bounded-change` through `resolving-merge-conflicts`; conflict analysis
   without mutation remains `read-only-analysis`.
+- For converting accepted architecture, reliability, security, or quality rules
+  into repository-native validation, route through `encode-invariant` with positive
+  and negative proof.
+- `improve-harness` is an explicit-only experiment workflow invoked via
+  `$improve-harness` after observed reusable agent friction, requiring a fresh rerun.
 - `handoff` is explicit-only continuation context and is not part of automatic
   routing or normal completion flow.
 - Inspect the repository instead of asking for facts already recorded there.

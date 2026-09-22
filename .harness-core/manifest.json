@@ -32,7 +32,7 @@
     },
     {
       "path": "AGENTS.md",
-      "upstream_sha256": "14aeef722fa93241e640dbcc76f99a0e2e177d99841e422da90835d1f54e4447"
+      "upstream_sha256": "aa2d030b00046bad6c86ea5ba786750c8fbcadf5a617a05432d80d8892d7b4af"
     },
     {
       "path": ".agents/skills/audit-onboarding-proposal/SKILL.md",
@@ -48,7 +48,7 @@
     },
     {
       "path": ".agents/skills/onboard-repository/SKILL.md",
-      "upstream_sha256": "6e74d8918d352e66cfbfb3f74afd16a832917fe3f360bd983f381c2429550b51"
+      "upstream_sha256": "220302bec89ebe70f983fd515bdffd3e417a652c0777fe8ba8d34a0197cf6f3e"
     },
     {
       "path": ".agents/skills/onboard-repository/agents/openai.yaml",
@@ -72,11 +72,11 @@
     },
     {
       "path": "docs/WORKFLOW.md",
-      "upstream_sha256": "d7f5881f19ca7b33a90b8b180a7ea8b686a17f11abbd99511aec012a82882b92"
+      "upstream_sha256": "32c42c09e580c8db879a7d76f280231ed46ee8e896c3d6a1a4dfc55fc885897d"
     },
     {
       "path": "docs/HARNESS_WORKFLOW_GUIDE.md",
-      "upstream_sha256": "c9ea7145765f61f63afeae4d1f0c8a161326720149dc75f7f385d9c33aa8a60c"
+      "upstream_sha256": "f5cf5b9a405a40e82ecab7e617b3b17b875fae92a89b301c89c72c727b8754cd"
     },
     {
       "path": "docs/README.md",
@@ -112,7 +112,7 @@
     },
     {
       "path": ".agents/skills/work-router/SKILL.md",
-      "upstream_sha256": "aed5ca86f274287a2e341f1a1ae1ec79d1be16f6e5e3d6fe232b36b1f962f690"
+      "upstream_sha256": "a1e5fc0092ce06364aa136d727febe90e0f91086da9be84b80b06aca84236e16"
     },
     {
       "path": ".agents/skills/work-router/SOURCE.md",
@@ -344,7 +344,7 @@
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
-      "upstream_sha256": "06aa6e4a8bcfb107321f3e0c3b9132170fbe3c4743b5aaa7bba3ff9cbc127424"
+      "upstream_sha256": "72e416fb7de37079197f1ebe793fc5405805c70d94e25e924b7e95c004121285"
     },
     {
       "path": "tests/harness/routing-cases.json",
@@ -352,7 +352,7 @@
     },
     {
       "path": "tests/harness/skill-boundaries.json",
-      "upstream_sha256": "c10fc1fa9384d3a93dafd7f81f5899dca2215ab824bca3b495ad477cdfb0e09b"
+      "upstream_sha256": "d7e79993f5a8e16a054566a80a7a4155532f875280fff11f467e3c261109109a"
     },
     {
       "path": "tests/harness/update-cases.json",
@@ -365,6 +365,42 @@
     {
       "path": "tests/harness/test-sync-harness-source.py",
       "upstream_sha256": "7cbc8b110319625f12c3f089336b6af52a09babb9456f9518305c3b8501c9104"
+    },
+    {
+      "path": ".agents/skills/encode-invariant/SKILL.md",
+      "upstream_sha256": "cd2742df488a1046b049fae868094df7b2f882ff98488fd76579468c3b41e606"
+    },
+    {
+      "path": ".agents/skills/encode-invariant/agents/openai.yaml",
+      "upstream_sha256": "480be69346c2af2d8f6f381692add09a71593dc6746b8b1cd603412e40e75f2a"
+    },
+    {
+      "path": ".agents/skills/encode-invariant/SOURCE.md",
+      "upstream_sha256": "ffb6aaac90debb877c347b43fee9ed927bd6dda0f0eec29be3f3afbd3e2325b2"
+    },
+    {
+      "path": ".agents/skills/improve-harness/SKILL.md",
+      "upstream_sha256": "1061235593bc7f9564671d2912bccc0b45397ced9a2193d8695c8fafc4b3cfe6"
+    },
+    {
+      "path": ".agents/skills/improve-harness/agents/openai.yaml",
+      "upstream_sha256": "77982c7e2c70c3becb5076c2ce10eefb49ada39f53ed01da930f092fe6d263c5"
+    },
+    {
+      "path": ".agents/skills/improve-harness/SOURCE.md",
+      "upstream_sha256": "b61019e4862d3dfefe578245afa2c6c6fe055678270786e8163b82d8f74fcd91"
+    },
+    {
+      "path": "docs/patterns/encoding-invariants.md",
+      "upstream_sha256": "c49f7fe5c5995e11f095c70791f731874c8cb8e1cdabef36d26581aa0a25ffd5"
+    },
+    {
+      "path": "docs/templates/application-runbook.md",
+      "upstream_sha256": "1e87f2189066dd0469555406c9ef63c3939e53adfcb23494d2f13f0b9552a72d"
+    },
+    {
+      "path": "docs/templates/harness-improvement.md",
+      "upstream_sha256": "cbdab1aefab8a38840cc408ce512e16f63acbbcdb0acacf271599e149a5ea608"
     }
   ]
 }

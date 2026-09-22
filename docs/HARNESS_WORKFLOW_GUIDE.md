@@ -313,6 +313,8 @@ chúng không tạo work type, lifecycle hay authority mới:
 | `domain-modeling` | Auto khi thay đổi domain vocabulary | Kiểm tra thuật ngữ, scenario và authority trong `docs/product/` / `docs/decisions/` |
 | `resolving-merge-conflicts` | Auto cho conflict merge/rebase đã được phép xử lý | STATE → INTENT → RESOLVE → VERIFY → CONTINUE, không tự stage/commit/abort |
 | `teach` | Explicit-only | Học concept hoặc module qua lesson ngắn và retrieval practice trong teaching workspace được duyệt; không ghi vào repo root hay sửa code/test/Git |
+| `encode-invariant` | Auto sau routing | Chuyển rules đã chấp nhận thành validation nhỏ nhất với positive/negative proof |
+| `improve-harness` | Explicit-only | Thử nghiệm cải tiến Harness sau khi quan sát thấy friction; cần fresh rerun |
 
 `minimal-implementation` chỉ chạy sau khi đã hiểu affected flow và khi accepted
 authority chưa quy định implementation choice. Nó không có quyền thay authority,

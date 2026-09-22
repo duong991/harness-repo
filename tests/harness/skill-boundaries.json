@@ -118,5 +118,23 @@
       "coverage alone is not evidence of learning"
     ],
     "policy": "allow_implicit_invocation: false"
+  },
+  {
+    "skill": "encode-invariant",
+    "must_contain": [
+      "Turn an accepted rule into a focused guard without creating new product policy",
+      "Stop before edits if authority is absent or materially ambiguous",
+      "Do not promote conventions, code patterns, tests, defaults, tool behavior, or undocumented preferences into policy"
+    ],
+    "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "improve-harness",
+    "must_contain": [
+      "Confirm the request authorizes changing Harness behavior",
+      "Do not copy consumer commands or policy into a generic upstream template",
+      "Require A Fresh Rerun"
+    ],
+    "policy": "allow_implicit_invocation: false"
   }
 ]
