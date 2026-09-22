@@ -344,7 +344,7 @@
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
-      "upstream_sha256": "72e416fb7de37079197f1ebe793fc5405805c70d94e25e924b7e95c004121285"
+      "upstream_sha256": "241aa467c70ecf67de63e422cad8c826a636a973e4388784fdd60f10ede0cabf"
     },
     {
       "path": "tests/harness/routing-cases.json",
@@ -352,7 +352,7 @@
     },
     {
       "path": "tests/harness/skill-boundaries.json",
-      "upstream_sha256": "d7e79993f5a8e16a054566a80a7a4155532f875280fff11f467e3c261109109a"
+      "upstream_sha256": "ef21ac551231f7c38b9c64fd26486a0e5d6d8b8d546f0ce5f783edecb9f85203"
     },
     {
       "path": "tests/harness/update-cases.json",
@@ -401,6 +401,34 @@
     {
       "path": "docs/templates/harness-improvement.md",
       "upstream_sha256": "cbdab1aefab8a38840cc408ce512e16f63acbbcdb0acacf271599e149a5ea608"
+    },
+    {
+      "path": ".agents/skills/grill-with-docs/SKILL.md",
+      "upstream_sha256": "c722e8aad49ca8806e684a42d0cca201a14c9180f791187c90139757f7cb7126"
+    },
+    {
+      "path": ".agents/skills/grill-with-docs/SOURCE.md",
+      "upstream_sha256": "bbcc6659ce922b462a07ddcbc8c0acbc8fad69bc70df0a5476efb1c8cf55f2c5"
+    },
+    {
+      "path": ".agents/skills/grill-with-docs/agents/openai.yaml",
+      "upstream_sha256": "49b76aa76c903eefb0a87be0ffd62d8937d6eafcc381732d0115e57e4e060a49"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/HTML-REPORT.md",
+      "upstream_sha256": "581e8bb5a521e46bbda8ca7e19b15948bed882187108092ebb90c62513b77528"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/SKILL.md",
+      "upstream_sha256": "c0535179861fe7f14aea565b6c5bb9512520a41ee0f5af511dffa4a9e96739f9"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/SOURCE.md",
+      "upstream_sha256": "7572de3321df764c423c759887f9bc18a6b46e46c1a3ad593cc01e73dd493c0b"
+    },
+    {
+      "path": ".agents/skills/improve-codebase-architecture/agents/openai.yaml",
+      "upstream_sha256": "c8cb20f68ebf0edb4e497bc11ae5fcaa196004e661cd189015b04f4109ced7f1"
     }
   ]
 }

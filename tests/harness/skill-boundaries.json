@@ -136,5 +136,24 @@
       "Require A Fresh Rerun"
     ],
     "policy": "allow_implicit_invocation: false"
+  },
+  {
+    "skill": "grill-with-docs",
+    "must_contain": [
+      "Run an explicit, one-question-at-a-time interview",
+      "docs/decisions/",
+      "docs/templates/decision.md",
+      "does not authorize implementation"
+    ],
+    "policy": "allow_implicit_invocation: false"
+  },
+  {
+    "skill": "improve-codebase-architecture",
+    "must_contain": [
+      "does not authorize refactoring",
+      "codebase-design",
+      "docs/plans/active/"
+    ],
+    "policy": "allow_implicit_invocation: false"
   }
 ]
