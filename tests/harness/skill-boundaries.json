@@ -104,5 +104,19 @@
       "cannot independently spawn sub-agents"
     ],
     "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "teach",
+    "must_contain": [
+      "This is an explicit-only productivity skill",
+      "does not own routing",
+      "Do not write teaching artifacts into a repository root",
+      "Do not modify product code, tests, CI, dependencies, Harness state, or Git state",
+      "implementation-walkthrough",
+      "test-walkthrough",
+      "The teaching workspace is not repository authority",
+      "coverage alone is not evidence of learning"
+    ],
+    "policy": "allow_implicit_invocation: false"
   }
 ]

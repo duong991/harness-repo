@@ -87,6 +87,8 @@ Out of scope:
 - [x] Add, integrate, and validate the generic `prototype` supporting discipline.
 - [x] Add, integrate, and validate the native `minimal-implementation`
   supporting discipline.
+- [x] Add, integrate, and validate the explicit-only `teach` productivity
+  skill, including its approved-workspace guard and consumer sync.
 - [ ] Publish a matching immutable updater artifact and prove an isolated upgrade.
 
 ## Decisions
@@ -201,3 +203,20 @@ Fresh strict proof for this addition passed:
 - `python3 scripts/validate-harness-sdlc.py --require-pristine-baseline`
   (exit 0)
 - `git diff --check` (exit 0)
+
+On 2026-08-24, `teach` was added as the 16th managed explicit-only
+productivity skill. Its seven-file tree preserves the upstream lesson,
+resource, glossary, mission, and learning-record model while preventing writes
+to a repository root and keeping teaching state outside product/code authority.
+The source-to-consumer bridge synced 91 managed paths to the authorized Safekid
+consumer and created a recoverable backup at
+`.harness-core/source-sync-backups/20260824T014701Z/`.
+
+Fresh proof for this addition passed:
+
+- source `./scripts/test-harness-skills --release-baseline` (exit 0)
+- Safekid `./scripts/test-harness-skills` (exit 0)
+- Safekid `scripts/bin/harness doctor` (exit 0)
+- Safekid `git diff --check` (exit 0)
+- Safekid migration files restored from their initial index state and compared
+  byte-for-byte (exit 0)

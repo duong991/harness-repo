@@ -3,6 +3,34 @@
   "core_version": "0.1.7",
   "files": [
     {
+      "path": ".agents/skills/teach/GLOSSARY-FORMAT.md",
+      "upstream_sha256": "98a1025dff7fe6eb13b8a60c9f1035471fb7ebc1dc9bd02d9d33059413aa4500"
+    },
+    {
+      "path": ".agents/skills/teach/LEARNING-RECORD-FORMAT.md",
+      "upstream_sha256": "1fbcfcf8c45023d87f96ef560748bed67333d2915cb2d6cb848a594deb069c65"
+    },
+    {
+      "path": ".agents/skills/teach/MISSION-FORMAT.md",
+      "upstream_sha256": "a5a208c2ca80bb50d9b1f85e6b227f5e9a8f5b2d395405709de1d626d02e9ffd"
+    },
+    {
+      "path": ".agents/skills/teach/RESOURCES-FORMAT.md",
+      "upstream_sha256": "8aca6ceb913e88324462a54dc2b80785ed6e2677e1657c2a510b8c7c6bbf607e"
+    },
+    {
+      "path": ".agents/skills/teach/SKILL.md",
+      "upstream_sha256": "992d65f1ac9bc840ba2d45fd81727efa62f466948ac5398959377a412a6f2132"
+    },
+    {
+      "path": ".agents/skills/teach/SOURCE.md",
+      "upstream_sha256": "d5b984c5fbc4219eb6c0a11e93be45cfdc5af9f84be2a1d4b2e0583eaa09c673"
+    },
+    {
+      "path": ".agents/skills/teach/agents/openai.yaml",
+      "upstream_sha256": "bf3dbdf17502f3866021aa5a5b54414415c03ee578238bc16ad067fe34fb8507"
+    },
+    {
       "path": "AGENTS.md",
       "upstream_sha256": "14aeef722fa93241e640dbcc76f99a0e2e177d99841e422da90835d1f54e4447"
     },
@@ -48,7 +76,7 @@
     },
     {
       "path": "docs/HARNESS_WORKFLOW_GUIDE.md",
-      "upstream_sha256": "f4f5225744ed92e086f95bd87ee5f71fd4eb05ba7df49e975ac788594ff31679"
+      "upstream_sha256": "c9ea7145765f61f63afeae4d1f0c8a161326720149dc75f7f385d9c33aa8a60c"
     },
     {
       "path": "docs/README.md",
@@ -316,7 +344,7 @@
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
-      "upstream_sha256": "bc731a27a89656c5fd0987fbac0aa80a904667103762965f116c59eab243f24d"
+      "upstream_sha256": "06aa6e4a8bcfb107321f3e0c3b9132170fbe3c4743b5aaa7bba3ff9cbc127424"
     },
     {
       "path": "tests/harness/routing-cases.json",
@@ -324,7 +352,7 @@
     },
     {
       "path": "tests/harness/skill-boundaries.json",
-      "upstream_sha256": "5946a82fb8fe96f39121d4e027e0fca1b359444f1ff0aa8da6bf00c41edc0a28"
+      "upstream_sha256": "c10fc1fa9384d3a93dafd7f81f5899dca2215ab824bca3b495ad477cdfb0e09b"
     },
     {
       "path": "tests/harness/update-cases.json",

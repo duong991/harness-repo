@@ -1,0 +1,6 @@
+interface:
+  display_name: "Teach"
+  short_description: "Learn concepts and modules through progressive lessons"
+  default_prompt: "Use $teach to teach me this concept or repository module through short lessons and retrieval practice in an approved teaching workspace."
+policy:
+  allow_implicit_invocation: false

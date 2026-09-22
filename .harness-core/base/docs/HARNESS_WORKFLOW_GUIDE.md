@@ -312,6 +312,7 @@ chúng không tạo work type, lifecycle hay authority mới:
 | `minimal-implementation` | Auto sau routing khi implementation đã được phép và solution shape còn mở | Chọn rung nhỏ nhất đủ dùng: YAGNI → reuse → standard library → native platform → dependency đã cài → direct code → custom code tối thiểu |
 | `domain-modeling` | Auto khi thay đổi domain vocabulary | Kiểm tra thuật ngữ, scenario và authority trong `docs/product/` / `docs/decisions/` |
 | `resolving-merge-conflicts` | Auto cho conflict merge/rebase đã được phép xử lý | STATE → INTENT → RESOLVE → VERIFY → CONTINUE, không tự stage/commit/abort |
+| `teach` | Explicit-only | Học concept hoặc module qua lesson ngắn và retrieval practice trong teaching workspace được duyệt; không ghi vào repo root hay sửa code/test/Git |
 
 `minimal-implementation` chỉ chạy sau khi đã hiểu affected flow và khi accepted
 authority chưa quy định implementation choice. Nó không có quyền thay authority,
@@ -319,6 +320,11 @@ route review, hay cắt giảm correctness, trust-boundary validation, authoriza
 security, accessibility, error handling, compatibility hoặc meaningful
 validation; xem [`minimal-implementation/SKILL.md`](../.agents/skills/minimal-implementation/SKILL.md)
 để biết ràng buộc đầy đủ.
+
+`teach` không thay thế `implementation-walkthrough` hoặc `test-walkthrough`.
+Nó dùng các nguồn đó hoặc repository code/tests làm nguyên liệu giải thích khi
+người dùng muốn học module qua nhiều phiên; dữ liệu học tập phải nằm trong
+teaching workspace đã được duyệt, không phải repo root hay authority của repo.
 
 Hai Harness-managed onboarding skill nằm ngoài workflow/supporting-discipline suite:
 

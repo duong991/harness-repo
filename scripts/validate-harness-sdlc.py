@@ -24,7 +24,7 @@ WORKFLOW_SKILLS = (
 )
 SUPPORTING_SKILLS = (
     "writing-for-agents", "handoff", "codebase-design", "domain-modeling",
-    "prototype", "resolving-merge-conflicts", "minimal-implementation",
+    "prototype", "resolving-merge-conflicts", "minimal-implementation", "teach",
 )
 MANAGED_SKILLS = WORKFLOW_SKILLS + SUPPORTING_SKILLS
 MANAGED_ASSETS = (
