@@ -37,6 +37,11 @@ def main() -> int:
         source = root / "source"
         target = root / "target"
         write(source / "scripts" / "test-harness-skills", "#!/usr/bin/env bash\nexit 0\n", executable=True)
+        write(
+            source / "scripts" / "link-claude-skills.py",
+            (ROOT / "scripts" / "link-claude-skills.py").read_text(encoding="utf-8"),
+            executable=True,
+        )
         manifest(
             source,
             {
@@ -56,6 +61,9 @@ def main() -> int:
         write(target / "managed.txt", "one=old\nstable=1\nkeep=local\n")
         write(target / "conflict.txt", "state=target\n")
         write(target / "legacy.txt", "legacy=local\n")
+        write(target / ".agents" / "skills" / "demo" / "SKILL.md", "---\nname: demo\n---\n")
+        (target / ".claude" / "skills").mkdir(parents=True)
+        os.symlink("../../.agents/skills/removed", target / ".claude" / "skills" / "removed")
 
         blocked = subprocess.run(
             [str(TOOL), "--source", str(source), "--target", str(target)],
@@ -102,7 +110,15 @@ def main() -> int:
             raise AssertionError("target manifest was not replaced by source manifest")
         if not list((target / ".harness-core" / "source-sync-backups").iterdir()):
             raise AssertionError("migration did not retain a recoverable backup")
-    print("Harness source sync integration passed: refusal, merge, explicit replacement, legacy adoption, and backup.")
+        demo_link = target / ".claude" / "skills" / "demo"
+        if not demo_link.is_symlink() or not (demo_link / "SKILL.md").is_file():
+            raise AssertionError("migration did not link target skills into .claude/skills")
+        if (target / ".claude" / "skills" / "removed").is_symlink():
+            raise AssertionError("migration did not prune a stale Claude skill link")
+    print(
+        "Harness source sync integration passed: refusal, merge, explicit replacement, "
+        "legacy adoption, backup, and Claude skill links."
+    )
     return 0
 
 

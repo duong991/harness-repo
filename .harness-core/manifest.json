@@ -76,7 +76,7 @@
     },
     {
       "path": "docs/HARNESS_WORKFLOW_GUIDE.md",
-      "upstream_sha256": "b7e80e55804eb40b81813a75f2e6fefe80a545cbd6c9e21f2099db89e7345eeb"
+      "upstream_sha256": "48625301082b57ee72623737cc0a51b602aee5277610d110bb4cc28bfaa64707"
     },
     {
       "path": "docs/README.md",
@@ -344,7 +344,7 @@
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
-      "upstream_sha256": "241aa467c70ecf67de63e422cad8c826a636a973e4388784fdd60f10ede0cabf"
+      "upstream_sha256": "4a3eaff011412c75123749d45c73f101cf79412d7f0c57eefbb6800935d58609"
     },
     {
       "path": "tests/harness/routing-cases.json",
@@ -360,11 +360,11 @@
     },
     {
       "path": "scripts/sync-harness-source.py",
-      "upstream_sha256": "8739322509ec2ed8317ab39743af769e9d61a18dfd75c27779f2c3bad041711e"
+      "upstream_sha256": "23c143c53cdd003647bd76639000eefce4820c4b11efbd0fad29cd5b12bc5b80"
     },
     {
       "path": "tests/harness/test-sync-harness-source.py",
-      "upstream_sha256": "7cbc8b110319625f12c3f089336b6af52a09babb9456f9518305c3b8501c9104"
+      "upstream_sha256": "0675212fee9d7116672babbb1ff93acf7cd599c21013d424d91848e2e9a6e537"
     },
     {
       "path": ".agents/skills/encode-invariant/SKILL.md",
@@ -429,6 +429,10 @@
     {
       "path": ".agents/skills/improve-codebase-architecture/agents/openai.yaml",
       "upstream_sha256": "c8cb20f68ebf0edb4e497bc11ae5fcaa196004e661cd189015b04f4109ced7f1"
+    },
+    {
+      "path": "scripts/link-claude-skills.py",
+      "upstream_sha256": "d550304dc9765a200b124413454a4d1853cf4df4d9d933e601b524b35dae6a08"
     }
   ]
 }

@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / ".agents" / "skills"
 BASE_DIR = ROOT / ".harness-core" / "base"
 MANIFEST_PATH = ROOT / ".harness-core" / "manifest.json"
+CLAUDE_SKILLS_DIR = ROOT / ".claude" / "skills"
 ROUTER_PATH = SKILLS_DIR / "work-router" / "SKILL.md"
 WORKFLOW_SKILLS = (
     "work-router", "grill-me", "diagnosing-bugs", "tdd", "code-review",
@@ -32,6 +33,7 @@ MANAGED_ASSETS = (
     "docs/HARNESS_WORKFLOW_GUIDE.md",
     "scripts/test-harness-skills",
     "scripts/sync-harness-source.py",
+    "scripts/link-claude-skills.py",
     "scripts/validate-harness-sdlc.py",
     "tests/harness/routing-cases.json",
     "tests/harness/skill-boundaries.json",
@@ -41,6 +43,7 @@ MANAGED_ASSETS = (
 MANAGED_EXECUTABLES = (
     "scripts/test-harness-skills",
     "scripts/sync-harness-source.py",
+    "scripts/link-claude-skills.py",
 )
 WORK_TYPES = (
     "read-only-analysis", "tiny-fix", "bounded-change", "ambiguous-product-change",
@@ -129,6 +132,17 @@ def validate_managed_executables(errors: list[str], require_pristine_baseline: b
             errors.append(f"managed executable is not executable: {relative}")
         if require_pristine_baseline and base_path.is_file() and not os.access(base_path, os.X_OK):
             errors.append(f"baseline executable is not executable: {relative}")
+
+
+def validate_claude_skill_links(errors: list[str]) -> None:
+    """Every managed skill must be exposed to Claude Code via `.claude/skills/<skill>`."""
+    expected_root = SKILLS_DIR.resolve()
+    for skill in MANAGED_SKILLS:
+        link = CLAUDE_SKILLS_DIR / skill
+        if not link.is_symlink():
+            errors.append(f"missing Claude skill link .claude/skills/{skill} (run scripts/link-claude-skills.py)")
+        elif link.resolve() != expected_root / skill:
+            errors.append(f"Claude skill link .claude/skills/{skill} does not point to .agents/skills/{skill}")
 
 
 def validate_routing_contract(errors: list[str]) -> None:
@@ -272,6 +286,7 @@ def main() -> int:
     validate_managed_assets(errors, args.require_pristine_baseline)
     validate_manifest_entries(errors, args.require_pristine_baseline)
     validate_managed_executables(errors, args.require_pristine_baseline)
+    validate_claude_skill_links(errors)
     validate_routing_contract(errors)
     validate_boundaries(errors)
     validate_ownership_docs(errors)
@@ -282,7 +297,7 @@ def main() -> int:
             print(f"- {error}", file=sys.stderr)
         return 1
     mode = "pristine release baseline" if args.require_pristine_baseline else "consumer customization"
-    print(f"Harness SDLC validation passed ({mode}): managed skills and assets, routing, boundaries, ownership docs, and three-way merge contract model.")
+    print(f"Harness SDLC validation passed ({mode}): managed skills and assets, Claude skill links, routing, boundaries, ownership docs, and three-way merge contract model.")
     return 0
 
 

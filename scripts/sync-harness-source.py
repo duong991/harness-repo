@@ -216,6 +216,17 @@ def apply_sync(
     return backup
 
 
+def link_claude_skills(source: Path, target: Path) -> None:
+    """Expose the target's `.agents/skills` to Claude Code via `.claude/skills` symlinks."""
+    linker = source / "scripts" / "link-claude-skills.py"
+    if not linker.is_file():
+        print(f"skip-claude-links (source has no {linker.name})")
+        return
+    result = subprocess.run([sys.executable, str(linker), "--root", str(target)], check=False)
+    if result.returncode:
+        fail("Claude skill link sync reported conflicts in target .claude/skills")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target", required=True, type=Path, help="consumer repository root")
@@ -277,6 +288,7 @@ def main() -> int:
         return 0
     backup = apply_sync(source, target, source_manifest, source_entries, operations)
     print(f"Applied {len(operations)} operations. Backup: {backup}")
+    link_claude_skills(source, target)
     print("No target files were staged or committed. Run target validation and review its Git diff before committing.")
     return 0
 

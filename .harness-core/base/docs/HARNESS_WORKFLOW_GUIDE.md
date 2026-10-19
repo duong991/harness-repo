@@ -515,7 +515,17 @@ scripts/test-harness-skills --release-baseline # release baseline phải pristin
 Mode mặc định yêu cầu live file tồn tại và base snapshot/hash trong manifest
 nhất quán, nhưng cho phép consumer customization khác base. Mode
 `--release-baseline` mới yêu cầu `LIVE == BASE`; dùng nó trước khi đóng gói
-artifact release. Fixture hiện chỉ kiểm tra three-way merge contract model;
+artifact release. Cả hai mode cũng yêu cầu mỗi managed skill có symlink
+`.claude/skills/<skill>` → `../../.agents/skills/<skill>` để Claude Code thấy
+cùng bộ skill; `.agents/skills/` vẫn là source of truth duy nhất. Sau khi thêm,
+xoá hoặc đổi tên skill, chạy:
+
+```bash
+scripts/link-claude-skills.py          # tạo link thiếu, prune link stale
+scripts/link-claude-skills.py --check  # chỉ báo drift, không đổi file
+```
+
+Fixture hiện chỉ kiểm tra three-way merge contract model;
 `harness update --dry-run` và isolated real update vẫn là E2E gate cho updater.
 
 Khi một consumer legacy chưa thể nhận artifact mới, source repository có bridge
@@ -537,7 +547,8 @@ scripts/sync-harness-source.py \
 ```
 
 Bridge này merge ba chiều các file đã có base, không stage/commit, và lưu backup
-trong `.harness-core/source-sync-backups/`. Nếu file manifest-tracked bị
+trong `.harness-core/source-sync-backups/`. Sau `--apply`, nó chạy
+`link-claude-skills.py` trên consumer để đồng bộ `.claude/skills/`. Nếu file manifest-tracked bị
 three-way conflict, bridge dừng không đổi file; chỉ dùng
 `--replace-conflict relative/path --apply` sau khi đã quyết định rõ bản source
 được quyền thay thế file đó. Nó là đường migration developer-local, không thay
