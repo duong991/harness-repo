@@ -1,0 +1,6 @@
+interface:
+  display_name: "System Log Tracer"
+  short_description: "Read-only runtime evidence across logs, Redis, Mongo, Kafka"
+  default_prompt: "Use $system-log-tracer to collect read-only runtime evidence for this symptom and hand off to diagnosing-bugs."
+policy:
+  allow_implicit_invocation: true

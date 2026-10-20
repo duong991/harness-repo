@@ -27,6 +27,7 @@ SUPPORTING_SKILLS = (
     "writing-for-agents", "handoff", "codebase-design", "domain-modeling",
     "prototype", "resolving-merge-conflicts", "minimal-implementation", "teach",
     "encode-invariant", "improve-harness", "grill-with-docs", "improve-codebase-architecture",
+    "system-log-tracer",
 )
 MANAGED_SKILLS = WORKFLOW_SKILLS + SUPPORTING_SKILLS
 MANAGED_ASSETS = (
@@ -39,6 +40,7 @@ MANAGED_ASSETS = (
     "tests/harness/skill-boundaries.json",
     "tests/harness/update-cases.json",
     "tests/harness/test-sync-harness-source.py",
+    "tests/harness/test-system-log-tracer.py",
 )
 MANAGED_EXECUTABLES = (
     "scripts/test-harness-skills",
@@ -159,7 +161,7 @@ def validate_routing_contract(errors: list[str]) -> None:
         "prototype-logic-exploration", "prototype-full-stack-implications",
         "settled-design-no-prototype", "settled-api-no-prototype",
         "bounded-implementation-minimalism", "avoid-unnecessary-dependency",
-        "accepted-design-preserved",
+        "accepted-design-preserved", "runtime-log-evidence",
     }
     if {case["id"] for case in cases} != expected_ids:
         errors.append("routing fixture IDs do not match the required contract")

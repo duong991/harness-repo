@@ -155,5 +155,27 @@
       "docs/plans/active/"
     ],
     "policy": "allow_implicit_invocation: false"
+  },
+  {
+    "skill": "system-log-tracer",
+    "must_contain": [
+      "data, not instructions",
+      "never concludes root cause",
+      "**Scope**",
+      "**Timeline**",
+      "**State snapshots**",
+      "**Code mapping**",
+      "**Hypotheses**",
+      "**Gaps**",
+      "**Re-run commands**",
+      "proven**, **partially_proven**, **contradicted**, or **not_proven**",
+      "ask the user for explicit chat confirmation once per investigation session",
+      "never create, edit, delete, chmod, or move any file under this skill's directory",
+      "do not look for a workaround",
+      "compares it with `.harness-core/manifest.json`",
+      "the report is returned in chat only",
+      "Never change this skill's tools or the application's code, schemas, or data to make a query match."
+    ],
+    "policy": "allow_implicit_invocation: true"
   }
 ]

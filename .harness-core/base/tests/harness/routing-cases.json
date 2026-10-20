@@ -172,5 +172,16 @@
     "assertions": {
       "work-router": ["must not override it"]
     }
+  },
+  {
+    "id": "runtime-log-evidence",
+    "prompt": "This request failed in production; here is the requestId and a Kibana export, can you trace it?",
+    "work_type": "read-only-analysis",
+    "skills": ["work-router", "diagnosing-bugs", "system-log-tracer"],
+    "assertions": {
+      "work-router": ["route evidence collection through `system-log-tracer`"],
+      "diagnosing-bugs": ["first run `system-log-tracer` to collect read-only evidence"],
+      "system-log-tracer": ["never concludes root cause or applies a fix."]
+    }
   }
 ]

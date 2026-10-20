@@ -7,4 +7,5 @@ if [[ ${1:-} == "--release-baseline" ]]; then
   set -- --require-pristine-baseline "$@"
 fi
 python3 "$root/scripts/validate-harness-sdlc.py" "$@"
-exec python3 "$root/tests/harness/test-sync-harness-source.py"
+python3 "$root/tests/harness/test-sync-harness-source.py"
+exec python3 "$root/tests/harness/test-system-log-tracer.py"

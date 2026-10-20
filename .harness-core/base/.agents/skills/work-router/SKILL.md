@@ -111,6 +111,11 @@ Choose the first type that accurately captures the requested outcome:
   and negative proof.
 - `improve-harness` is an explicit-only experiment workflow invoked via
   `$improve-harness` after observed reusable agent friction, requiring a fresh rerun.
+- For a runtime investigation symptom carrying a request/trace ID, a Kibana
+  export, a service log or stack trace, or Redis/Mongo/Kafka state questions,
+  route evidence collection through `system-log-tracer` before
+  `diagnosing-bugs` reasons about root cause. `system-log-tracer` remains
+  read-only-analysis even when it surfaces a concrete defect.
 - `handoff` is explicit-only continuation context and is not part of automatic
   routing or normal completion flow.
 - Inspect the repository instead of asking for facts already recorded there.

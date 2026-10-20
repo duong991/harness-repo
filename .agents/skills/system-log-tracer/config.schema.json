@@ -1,0 +1,108 @@
+{
+  "$id": "system-log-tracer/config.schema.json",
+  "description": "Schema for <repo-root>/.agents/config/system-log-tracer.json. Validated by a small stdlib-only validator in tools/common.py and tools/config.js (no third-party JSON Schema library). Only the subset of JSON Schema keywords actually used below is implemented: type, required, properties, items, enum, additionalProperties, minItems.",
+  "type": "object",
+  "required": ["environments", "services", "nodeResolveFrom"],
+  "additionalProperties": true,
+  "properties": {
+    "environments": {
+      "type": "object",
+      "description": "Map of environment name -> connection profile. Must contain at least one environment with isProduction=false.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["isProduction"],
+        "properties": {
+          "isProduction": { "type": "boolean" },
+          "elasticsearch": {
+            "type": "object",
+            "properties": {
+              "url": { "type": "string" }
+            }
+          },
+          "kibana": {
+            "type": "object",
+            "properties": {
+              "url": { "type": "string" }
+            }
+          },
+          "indexPattern": { "type": "string" },
+          "timeField": { "type": "string" },
+          "redis": {
+            "type": "object",
+            "properties": {
+              "host": { "type": "string" },
+              "port": { "type": "number" }
+            }
+          },
+          "mongo": {
+            "type": "object",
+            "properties": {
+              "dbs": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "kafka": {
+            "type": "object",
+            "properties": {
+              "brokers": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "services": {
+      "type": "object",
+      "description": "Map of service name -> { path, packages } used for stack-trace to source mapping.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["path"],
+        "properties": {
+          "path": { "type": "string" },
+          "packages": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "kafkaTopics": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "stackTracePathRewrites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["containerPrefix", "repoPrefix"],
+        "properties": {
+          "containerPrefix": { "type": "string" },
+          "repoPrefix": { "type": "string" }
+        }
+      }
+    },
+    "redactionFields": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "nodeResolveFrom": {
+      "type": "string",
+      "description": "Workspace path (relative to repo root) whose node_modules resolve kafkajs/mongodb, e.g. 'apps/example-service'."
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "maxHits": { "type": "number" },
+        "maxDocuments": { "type": "number" },
+        "defaultFields": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

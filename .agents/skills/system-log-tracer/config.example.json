@@ -1,0 +1,56 @@
+{
+  "$schema": "./config.schema.json",
+  "environments": {
+    "local": {
+      "isProduction": false,
+      "elasticsearch": { "url": "http://localhost:9200" },
+      "kibana": { "url": "http://localhost:5601" },
+      "indexPattern": "app-logs-*",
+      "timeField": "@timestamp",
+      "redis": { "host": "127.0.0.1", "port": 6379 },
+      "mongo": { "dbs": ["example_app_db"] },
+      "kafka": { "brokers": ["localhost:9092"] }
+    },
+    "staging": {
+      "isProduction": false,
+      "elasticsearch": { "url": "https://es.staging.example.internal" },
+      "kibana": { "url": "https://kibana.staging.example.internal" },
+      "indexPattern": "app-logs-*",
+      "timeField": "@timestamp",
+      "redis": { "host": "redis.staging.example.internal", "port": 6379 },
+      "mongo": { "dbs": ["example_app_db"] },
+      "kafka": { "brokers": ["kafka-1.staging.example.internal:9092"] }
+    },
+    "production": {
+      "isProduction": true,
+      "elasticsearch": { "url": "https://es.prod.example.internal" },
+      "kibana": { "url": "https://kibana.prod.example.internal" },
+      "indexPattern": "app-logs-*",
+      "timeField": "@timestamp",
+      "redis": { "host": "redis.prod.example.internal", "port": 6379 },
+      "mongo": { "dbs": ["example_app_db"] },
+      "kafka": { "brokers": ["kafka-1.prod.example.internal:9092"] }
+    }
+  },
+  "services": {
+    "example-service": {
+      "path": "apps/example-service/src",
+      "packages": ["packages/shared"]
+    },
+    "example-worker": {
+      "path": "apps/example-worker/src",
+      "packages": ["packages/shared", "packages/queue-client"]
+    }
+  },
+  "kafkaTopics": ["example-events", "example-audit-log"],
+  "stackTracePathRewrites": [
+    { "containerPrefix": "/app/", "repoPrefix": "apps/" }
+  ],
+  "redactionFields": ["customApiSecret"],
+  "nodeResolveFrom": "apps/example-service",
+  "limits": {
+    "maxHits": 100,
+    "maxDocuments": 50,
+    "defaultFields": ["@timestamp", "service", "level", "message", "requestId"]
+  }
+}
