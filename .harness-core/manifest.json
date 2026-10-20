@@ -436,11 +436,11 @@
     },
     {
       "path": ".agents/skills/system-log-tracer/SKILL.md",
-      "upstream_sha256": "88d7d9a00de58082ac1f566843a8e6eb56c188a7de7cc4c35c403178e03aba8a"
+      "upstream_sha256": "8bfbc9c8a5eb0af23b05a31aea5f89c96e86d94baa8b20dba254c7f084be357d"
     },
     {
       "path": ".agents/skills/system-log-tracer/SOURCE.md",
-      "upstream_sha256": "3b5f82d271925f954d9ceb4028524649925db38c48de39330ea499ed87808c47"
+      "upstream_sha256": "0d7a18be504dbdf6d54879c440671e8757cf0822fa59734cb84724482ae10e06"
     },
     {
       "path": ".agents/skills/system-log-tracer/agents/openai.yaml",
@@ -448,23 +448,19 @@
     },
     {
       "path": ".agents/skills/system-log-tracer/config.example.json",
-      "upstream_sha256": "fdb620a7d16be565ace04e94d8a5bb77fdf5eabf79f1a93c6e30bb84dd22ff23"
+      "upstream_sha256": "710cc89498c0b88985783628dc491914de09c9b9b061d92af1e3a39abaf1508f"
     },
     {
       "path": ".agents/skills/system-log-tracer/config.schema.json",
-      "upstream_sha256": "398ccb4d2fd39ff5c2e579be1096898e2588d74e24fd938de14db57d6f1691ea"
+      "upstream_sha256": "8a355ae505f15cf2e016564df819b4f661bc3b52ac2a63ab53235dbf80e531a4"
     },
     {
       "path": ".agents/skills/system-log-tracer/references/tools.md",
-      "upstream_sha256": "f269fdc2856c2dafbe7d872a62f54b8d24d39241f5531fdb2c2870e5be40e1d8"
+      "upstream_sha256": "990c115df06353115509eb0694aaacc2d2db709a2a8f85baee0e68a7f9dccb2f"
     },
     {
       "path": ".agents/skills/system-log-tracer/tools/common.py",
-      "upstream_sha256": "d2f178b511ddbdd5fb746fbb14b8e6135855adec5e0dc373a84802d1f86453d2"
-    },
-    {
-      "path": ".agents/skills/system-log-tracer/tools/config.js",
-      "upstream_sha256": "50622a9366a494810891b97effcc16c4d4e8c1d7e5ec1e98748742ff334867de"
+      "upstream_sha256": "1112b62b4238d4ea71d0d5ab95ecc07fcf7cef2e72bd4f97f7c6f711c31ade8b"
     },
     {
       "path": ".agents/skills/system-log-tracer/tools/esql.py",
@@ -480,23 +476,23 @@
     },
     {
       "path": ".agents/skills/system-log-tracer/tools/healthcheck.py",
-      "upstream_sha256": "8f915073b10ed3c4042bf5c5f9f7bb144b8a0298a12b0a8579f922fe47b344d3"
+      "upstream_sha256": "b4afb84d4ff896c43bc8b17eddba80f0fab38a809d345500a08132bee9cf052a"
     },
     {
-      "path": ".agents/skills/system-log-tracer/tools/inspect_mongo.js",
-      "upstream_sha256": "4abe1ec0a197818af7df04bde545722bc0e91189c5c4f6457529bb4e04ce7f0f"
+      "path": ".agents/skills/system-log-tracer/tools/inspect_mongo.py",
+      "upstream_sha256": "049d6561e77e64613e7ce4a1a4513a945d00d9c06615e813d7e9a6bc8bd78f12"
     },
     {
       "path": ".agents/skills/system-log-tracer/tools/inspect_redis.py",
       "upstream_sha256": "83e05f6c6c7c7b95b3679f832197162ee4b39e6142b32161e25a0637ac59f302"
     },
     {
-      "path": ".agents/skills/system-log-tracer/tools/kafka_guard.js",
-      "upstream_sha256": "b8c410aef680af7cad4594368c1990378ae0d6d62189457aaa32a18583c2a414"
+      "path": ".agents/skills/system-log-tracer/tools/kafka_guard.py",
+      "upstream_sha256": "b84e54a5a81da0169a9375de2243f5dc17a75d9babd563c79e0b8793a855ced7"
     },
     {
-      "path": ".agents/skills/system-log-tracer/tools/mongo_guard.js",
-      "upstream_sha256": "971a1a992f5232f173ce7995c591c2647428ee0853db1b10a16d26e351a31d4b"
+      "path": ".agents/skills/system-log-tracer/tools/mongo_guard.py",
+      "upstream_sha256": "dc2ee17786e0293b36ac3daa2999d97fb1db236a8390714bcf52a72fde30c835"
     },
     {
       "path": ".agents/skills/system-log-tracer/tools/parse_export.py",
@@ -507,20 +503,16 @@
       "upstream_sha256": "cda282b9206f5b9829c3f86cce89d5ccaf87e3711bfbfd151c5cf8dd6b881897"
     },
     {
-      "path": ".agents/skills/system-log-tracer/tools/redact.js",
-      "upstream_sha256": "8dded8c2718fd9ccc968dfac58bff8225682ccdb58ac3e0e6c40d3e8612aa499"
-    },
-    {
       "path": ".agents/skills/system-log-tracer/tools/router.py",
-      "upstream_sha256": "fbf642cb048eb88dd0f1cf5081fa46778b47f0352872753597a220f4cb4ac6ec"
+      "upstream_sha256": "bdd60e0c22525a3b75694bad837d4dbc0d86656a4f56db840ebd0aebc674e05e"
     },
     {
       "path": ".agents/skills/system-log-tracer/tools/search_logs.py",
       "upstream_sha256": "71e75d0703881371f1e12b3eabf8db1aa23de7a13f9c35d1e6d62d38374c0227"
     },
     {
-      "path": ".agents/skills/system-log-tracer/tools/trace_kafka.js",
-      "upstream_sha256": "15c059dbcf2426b16122679b15fea0747933fd3b07927f70590c2a264a971ce4"
+      "path": ".agents/skills/system-log-tracer/tools/trace_kafka.py",
+      "upstream_sha256": "c53cea9210528630c299412653532b23c8efa01cdfe080be712bb08e8dc48c80"
     },
     {
       "path": ".agents/skills/system-log-tracer/tools/trace_request.py",
@@ -528,11 +520,7 @@
     },
     {
       "path": "tests/harness/test-system-log-tracer.py",
-      "upstream_sha256": "43176799ea715ef2b64bd70444646456b1009aa17809fce9201ce05036764c4a"
-    },
-    {
-      "path": ".agents/skills/system-log-tracer/tools/mongo_ejson.js",
-      "upstream_sha256": "a7a125f83c90a7790458cc59e9c6be4f511c7c063398cc1ad417ca928a493309"
+      "upstream_sha256": "196c26d0eb88a935de3e47c46e43ed035bb2b78b20f7374ad6adb4248cb07066"
     }
   ]
 }

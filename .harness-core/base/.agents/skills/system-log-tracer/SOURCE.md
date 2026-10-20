@@ -28,11 +28,11 @@
 - Closed read-only gaps the origin left as prose-only conventions: Mongo now
   code-enforces an allow-list of `find`/`countDocuments`/`distinct`/`aggregate`
   and recursively rejects `$out`/`$merge` in aggregation pipelines
-  (`tools/mongo_guard.js`); Elasticsearch/Kibana calls are validated against
+  (`tools/mongo_guard.py`); Elasticsearch/Kibana calls are validated against
   an allow-list of read endpoints before the HTTP request is sent
-  (`tools/common.py`); Kafka's ephemeral consumer now enforces `autoCommit:
-  false` through a guard function (`tools/kafka_guard.js`) instead of only a
-  code comment.
+  (`tools/common.py`); Kafka's ephemeral consumer now enforces
+  `enable.auto.commit: False` and `enable.auto.offset.store: False` through a
+  guard function (`tools/kafka_guard.py`) instead of only a code comment.
 - Removed the origin's `~/.Trash` "smart recovery" from `parse_export.py`
   entirely; an empty/near-empty export now always fails with a message to
   widen the Kibana time window and re-export.
@@ -40,12 +40,16 @@
   references, index/topic names, default Mongo URIs/DB names) from the
   tools; equivalent values now live only as illustrative examples in
   `config.example.json`.
-- Switched Node driver resolution from a bundled `node_modules/.pnpm`
-  heuristic to `module.createRequire` against a configurable
-  `nodeResolveFrom` workspace, with a clear error when the workspace does not
-  depend on the driver. Split the pure guard/validation logic
-  (`tools/mongo_guard.js`, `tools/kafka_guard.js`) into driver-independent
-  modules so it is testable without `kafkajs`/`mongodb` installed.
+- Ported every Node tool to Python so policy (config load/schema validation,
+  `.env` refusal, the production gate, the integrity check, and redaction)
+  has exactly one implementation in `tools/common.py`. `tools/inspect_mongo.py`
+  and `tools/trace_kafka.py` declare pinned dependencies (`pymongo==4.10.1`,
+  `confluent-kafka==2.6.1`) in a PEP 723 inline script header and run via
+  `uv run --script`, resolved from PyPI (or a warm `uv` cache) instead of a
+  consumer workspace's `node_modules`; `nodeResolveFrom` and all JavaScript
+  are removed. The pure guard/validation logic (`tools/mongo_guard.py`,
+  `tools/kafka_guard.py`) stays importable without either driver so it is
+  testable offline.
 - Extended redaction to also mask emails, phone numbers, and precise
   coordinate pairs, plus any field name listed in config `redactionFields`.
 - Rewrote `SKILL.md` around a fixed 7-section evidence report, an explicit

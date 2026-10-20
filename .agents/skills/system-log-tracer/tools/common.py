@@ -250,7 +250,7 @@ def load_config(repo_root: Path) -> dict:
         raise ConfigError(
             f"Config not found at {path}. Copy "
             f"{skill_dir() / 'config.example.json'} there and edit it for your "
-            "environments, services, and nodeResolveFrom."
+            "environments and services."
         )
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -422,7 +422,6 @@ def cfg(env: "str | None" = None, root: "str | Path | None" = None, confirm_prod
         "kafka_topics": config.get("kafkaTopics") or [],
         "stack_trace_rewrites": config.get("stackTracePathRewrites") or [],
         "redaction_fields": config.get("redactionFields") or [],
-        "node_resolve_from": config.get("nodeResolveFrom"),
         # Elasticsearch / Kibana
         "es_url": (es.get("url") or "").rstrip("/"),
         "es_api_key": pick("ELASTICSEARCH_API_KEY"),
@@ -502,7 +501,14 @@ def _redact_value(data, pattern):
     if isinstance(data, dict):
         out = {}
         for k, v in data.items():
-            if isinstance(k, str) and pattern.search(k):
+            # Type-preserving Extended JSON wrappers ({"$oid"}, {"$date"})
+            # carry identifiers and timestamps, never personal data: keep
+            # them intact even though "oid"/"date" are not sensitive key
+            # names themselves, so the string value is never mangled by the
+            # phone/email/coordinate patterns below.
+            if k in ("$oid", "$date") and isinstance(v, str):
+                out[k] = v
+            elif isinstance(k, str) and pattern.search(k):
                 out[k] = "[REDACTED]"
             else:
                 out[k] = _redact_value(v, pattern)

@@ -1,8 +1,8 @@
 {
   "$id": "system-log-tracer/config.schema.json",
-  "description": "Schema for <repo-root>/.agents/config/system-log-tracer.json. Validated by a small stdlib-only validator in tools/common.py and tools/config.js (no third-party JSON Schema library). Only the subset of JSON Schema keywords actually used below is implemented: type, required, properties, items, enum, additionalProperties, minItems.",
+  "description": "Schema for <repo-root>/.agents/config/system-log-tracer.json. Validated by a small stdlib-only validator in tools/common.py (no third-party JSON Schema library; this skill is Python-only). Only the subset of JSON Schema keywords actually used below is implemented: type, required, properties, items, enum, additionalProperties, minItems.",
   "type": "object",
-  "required": ["environments", "services", "nodeResolveFrom"],
+  "required": ["environments", "services"],
   "additionalProperties": true,
   "properties": {
     "environments": {
@@ -88,10 +88,6 @@
     "redactionFields": {
       "type": "array",
       "items": { "type": "string" }
-    },
-    "nodeResolveFrom": {
-      "type": "string",
-      "description": "Workspace path (relative to repo root) whose node_modules resolve kafkajs/mongodb, e.g. 'apps/example-service'."
     },
     "limits": {
       "type": "object",

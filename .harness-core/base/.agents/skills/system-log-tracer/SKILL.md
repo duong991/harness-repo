@@ -45,9 +45,10 @@ Every tool enforces read-only behavior in code, not just by convention:
   `FROM`/`ROW`/`SHOW`/`META` statements are allowed; `_bulk`, `_update`,
   `_doc`, `_delete_by_query`, and similar write/administrative paths are
   rejected before the HTTP request is sent.
-- Kafka: an ephemeral, per-run consumer group, `autoCommit: false` enforced
-  by `tools/kafka_guard.js`, and no code path calls `commitOffsets` or
-  `produce`/`send`.
+- Kafka: an ephemeral, per-run consumer group, `enable.auto.commit: False`
+  and `enable.auto.offset.store: False` enforced by `tools/kafka_guard.py`,
+  and no code path calls `.commit(`, `.store_offsets(`, or creates a
+  `Producer`.
 
 ## No self-modification
 
@@ -68,24 +69,28 @@ manifest hash), never through an investigation.
 
 1. Copy `config.example.json` to `<repo-root>/.agents/config/system-log-tracer.json`
    and edit `environments`, `services`, `kafkaTopics`,
-   `stackTracePathRewrites`, `redactionFields`, `nodeResolveFrom`, and
-   `limits` for this repository. It is validated against
-   `config.schema.json` by a small stdlib-only validator (no third-party
-   JSON Schema library) in `tools/common.py` / `tools/config.js`.
+   `stackTracePathRewrites`, `redactionFields`, and `limits` for this
+   repository. It is validated against `config.schema.json` by a small
+   stdlib-only validator (no third-party JSON Schema library) in
+   `tools/common.py`.
 2. Store per-environment secrets (API keys, Mongo URI, Redis password, Kafka
    broker credentials) at `~/.config/system-log-tracer/<env>.env`, mode
    `600`. A broader mode is a warning (Python) that should be tightened
    immediately. `SLT_CREDENTIALS_DIR` overrides the directory for tests.
    Plain process environment variables are also read as a fallback.
-3. Set `nodeResolveFrom` to a workspace path (e.g. `apps/<service>`) whose
-   `node_modules` resolves `kafkajs` and `mongodb`; `inspect_mongo.js` and
-   `trace_kafka.js` resolve those drivers with
-   `module.createRequire(path.join(root, nodeResolveFrom, 'package.json'))`
-   and fail with a clear, actionable error if that workspace doesn't depend
-   on the driver. The pure guard logic (`tools/mongo_guard.js`,
-   `tools/kafka_guard.js`) is importable without either driver.
-4. All Python tools are stdlib-only (`python3`, no pip install needed).
-5. The skill **refuses to run** if a `.env` file exists in this skill's own
+3. Every tool in this skill is Python. Most require only `python3` (stdlib,
+   no `pip install` needed): `router.py`, `parse_export.py`,
+   `trace_request.py`, `search_logs.py`, `find_around.py`, `get_mapping.py`,
+   `raw_search.py`, `esql.py`, `inspect_redis.py`, `healthcheck.py`. The
+   MongoDB and Kafka tools (`inspect_mongo.py`, `trace_kafka.py`) declare
+   their pinned dependency (`pymongo==4.10.1`, `confluent-kafka==2.6.1`) in a
+   PEP 723 inline script header and require **`uv`** (<https://docs.astral.sh/uv/>)
+   plus Python >= 3.10: run them as `uv run --script tools/inspect_mongo.py ...`
+   / `uv run --script tools/trace_kafka.py ...`. The first run fetches the
+   pinned packages from PyPI into `uv`'s cache; later runs reuse that cache
+   offline. The pure guard/evidence logic (`tools/mongo_guard.py`,
+   `tools/kafka_guard.py`) is importable without either driver.
+4. The skill **refuses to run** if a `.env` file exists in this skill's own
    directory, or if a `.env` / `system-log-tracer*.env` file exists under
    `<repo-root>/.agents/config/`. Those are the only two locations this
    skill treats as in-repository credential leakage risk for itself; other
@@ -140,8 +145,8 @@ above), and confirm the prod gate if needed.
 | Raw Query DSL body | `tools/raw_search.py --file <query.json>` |
 | Read-only ES\|QL (`FROM`/`ROW`/`SHOW`/`META`) | `tools/esql.py --query <esql>` |
 | Session/cache/TTL/rate-limit state | `tools/inspect_redis.py --cmd GET --key <key>` |
-| Document/collection state, quotas, entitlements | `node tools/inspect_mongo.js --db <db> --collection <c> --filter <json>` |
-| Async events, consumer lag, stream state | `node tools/trace_kafka.js --topic <topic> --limit <n>` |
+| Document/collection state, quotas, entitlements | `uv run --script tools/inspect_mongo.py --db <db> --collection <c> --filter <json>` |
+| Async events, consumer lag, stream state | `uv run --script tools/trace_kafka.py --topic <topic> --limit <n>` |
 | Connectivity across all five subsystems | `tools/healthcheck.py` |
 | Unclear — ask the router | `tools/router.py "<symptom text>"` |
 
@@ -208,8 +213,8 @@ Deliver exactly these 7 sections in chat only; no tool writes report files:
 
 ## Redaction
 
-All tool output passes through `redact_sensitive()` (Python:
-`tools/common.py`; Node: `tools/redact.js`), which masks tokens, passwords,
+All tool output passes through `redact_sensitive()` in `tools/common.py`,
+which masks tokens, passwords,
 authorization headers, session keys, emails, phone numbers, and precise
 coordinate pairs, plus any field name listed in config `redactionFields`.
 Always state the redaction scope in report section 6.

@@ -47,7 +47,6 @@
     { "containerPrefix": "/app/", "repoPrefix": "apps/" }
   ],
   "redactionFields": ["customApiSecret"],
-  "nodeResolveFrom": "apps/example-service",
   "limits": {
     "maxHits": 100,
     "maxDocuments": 50,

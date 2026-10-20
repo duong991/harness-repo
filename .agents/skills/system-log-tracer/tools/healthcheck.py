@@ -5,12 +5,15 @@ Kibana, Redis, MongoDB, and Kafka for the selected environment.
 """
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 from common import add_common_args, cfg, es, kb, dump
 from inspect_redis import ReadOnlyRedisClient
+
+UV = shutil.which("uv")
 
 
 def check_es(c):
@@ -44,28 +47,44 @@ def check_redis(c):
         return {"ok": False, "host": f"{host}:{port}", "error": str(exc)}
 
 
-def check_mongo(c):
-    tool_path = Path(__file__).resolve().with_name("inspect_mongo.js")
+def _run_uv_script(tool_name, extra_args, timeout=20):
+    """Invoke a `uv run --script` Mongo/Kafka tool with a short timeout. This
+    deliberately does not import pymongo/confluent-kafka itself: uv resolves
+    the pinned dependency (from each tool's PEP 723 header) in its own
+    isolated environment, so healthcheck.py stays importable without either
+    driver installed."""
+    tool_path = Path(__file__).resolve().with_name(tool_name)
+    command = f"uv run --script {tool_path} {' '.join(extra_args)}".strip()
+    if not UV:
+        return {
+            "ok": None,
+            "note": f"`uv` is not on PATH; run manually to check this subsystem: {command}",
+        }
     try:
-        proc = subprocess.run(["node", str(tool_path), "--list-collections"], capture_output=True, text=True, timeout=5)
+        proc = subprocess.run(["uv", "run", "--script", str(tool_path), *extra_args], capture_output=True, text=True, timeout=timeout)
         if proc.returncode == 0:
-            parsed = json.loads(proc.stdout)
-            return {"ok": True, "database": parsed.get("database"), "collections_count": len(parsed.get("collections", []))}
-        return {"ok": False, "error": proc.stderr.strip()}
+            return {"ok": True, "output": json.loads(proc.stdout)}
+        return {"ok": False, "error": proc.stderr.strip() or proc.stdout.strip(), "command": command}
+    except subprocess.TimeoutExpired:
+        return {"ok": False, "error": f"timed out after {timeout}s", "command": command}
     except Exception as exc:
-        return {"ok": False, "error": str(exc)}
+        return {"ok": False, "error": str(exc), "command": command}
+
+
+def check_mongo(c):
+    result = _run_uv_script("inspect_mongo.py", ["--list-collections"])
+    if result.get("ok") is True:
+        parsed = result.pop("output")
+        result.update({"database": parsed.get("database"), "collections_count": len(parsed.get("collections", []))})
+    return result
 
 
 def check_kafka(c):
-    tool_path = Path(__file__).resolve().with_name("trace_kafka.js")
-    try:
-        proc = subprocess.run(["node", str(tool_path), "--list-topics"], capture_output=True, text=True, timeout=5)
-        if proc.returncode == 0:
-            parsed = json.loads(proc.stdout)
-            return {"ok": True, "brokers": parsed.get("brokers"), "topics_count": parsed.get("count", 0)}
-        return {"ok": False, "error": proc.stderr.strip()}
-    except Exception as exc:
-        return {"ok": False, "error": str(exc)}
+    result = _run_uv_script("trace_kafka.py", ["--list-topics"])
+    if result.get("ok") is True:
+        parsed = result.pop("output")
+        result.update({"brokers": parsed.get("brokers"), "topics_count": parsed.get("count", 0)})
+    return result
 
 
 def main():

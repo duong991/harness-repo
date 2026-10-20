@@ -40,17 +40,17 @@ ROUTING_RULES = [
     {
         "id": "mongo_state",
         "target": "MongoDB Document State",
-        "tool": "tools/inspect_mongo.js",
+        "tool": "tools/inspect_mongo.py",
         "pattern": r'\bmongo\b|mongodb|collection|document|quota|subscription|entitlement|record|isdeleted',
-        "template": 'node .agents/skills/system-log-tracer/tools/inspect_mongo.js --collection {collection} --filter \'{filter}\'',
+        "template": "uv run --script .agents/skills/system-log-tracer/tools/inspect_mongo.py --collection {collection} --filter '{filter}'",
         "rationale": "Root cause requires verifying persistent database state.",
     },
     {
         "id": "kafka_stream",
         "target": "Kafka Event Stream",
-        "tool": "tools/trace_kafka.js",
+        "tool": "tools/trace_kafka.py",
         "pattern": r'\bkafka\b|topic|event.?stream|message.?queue|producer|consumer|worker',
-        "template": 'node .agents/skills/system-log-tracer/tools/trace_kafka.js --topic {topic} --limit 10',
+        "template": "uv run --script .agents/skills/system-log-tracer/tools/trace_kafka.py --topic {topic} --limit 10",
         "rationale": "Incident involves asynchronous messaging, event publishing/consumption, or background workers.",
     },
     {

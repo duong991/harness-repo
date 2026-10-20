@@ -40,8 +40,8 @@ In scope:
   `config.example.json` + JSON schema); credentials in
   `~/.config/system-log-tracer/<env>.env` (mode 600) or environment variables;
   refuse when a `.env` exists in the skill directory or repository.
-- Node tools resolve `kafkajs`/`mongodb` via `createRequire` from config field
-  `nodeResolveFrom`.
+- MongoDB and Kafka tools are Python, run with `uv run --script` (PEP 723
+  inline, pinned `pymongo` and `confluent-kafka`); no JavaScript remains.
 - Remove `~/.Trash` recovery from `parse_export.py`; remove SafeKid hardcoding.
 - 7-section chat evidence report; AAS additions 1–7 and 9 from the brief.
 - Harness integration: `SOURCE.md` (with Influences), base snapshot, manifest
@@ -119,6 +119,18 @@ Out of scope:
   segments (Python and Node). `SKILL.md` states that type mismatches are
   evidence and forbids changing tools, application code, schemas, or data to
   make a query match.
+- 2026-10-20: Supersedes Q13 at the user's request — port everything to
+  Python so policy (config, prod gate, integrity, redaction) has one
+  implementation. Mongo/Kafka tools use `uv run --script` with exact pins
+  (`pymongo`, `confluent-kafka`); all JavaScript and `nodeResolveFrom` are
+  removed. Accepted trade-off: drivers differ from the services' Node drivers,
+  and first run needs `uv` plus PyPI (or a warm uv cache).
+- 2026-10-20: Port review hardening — aggregate gets a server-side `$limit`
+  (was materializing every result before slicing); `distinct` output capped
+  at 100 values with the total reported; `bson.SON` and other dict subclasses
+  are recursed instead of stringified; Kafka message key and headers are
+  redacted (headers carry authorization/tokens) and messages are ordered by
+  broker timestamp with an ISO time.
 
 ## Validation
 
@@ -135,14 +147,16 @@ Out of scope:
 consumer smoke test.
 
 - `scripts/test-harness-skills` and `--release-baseline`: both exit 0;
-  57 offline `system-log-tracer` tests pass (including tamper tests on a
-  copied install and ObjectId/Date handling with a stand-in ObjectId class).
+  70 offline `system-log-tracer` tests pass (tamper tests, ObjectId/Date
+  handling with a stand-in ObjectId, Kafka evidence redaction, bounded reads).
+- `uv run --script tools/inspect_mongo.py --help` and `trace_kafka.py --help`
+  resolve the pinned `pymongo==4.10.1` / `confluent-kafka==2.6.1` and exit 0.
 - Not proven: behavior against real Elasticsearch/Kibana/Redis/MongoDB/Kafka,
   real `kafkajs`/`mongodb` driver resolution in a pnpm consumer, and MongoDB
   `find` field projection defaults (only limits are enforced).
-- Not proven: ObjectId handling against the real `bson` ObjectId class (tests
-  use a stand-in exposing `_bsontype` and `toHexString`, which real `bson`
-  provides); phone numbers glued to a word by `-` (e.g. `tel-0912345678`) are
+- Not proven: queries against a real MongoDB/Kafka (only `--help` was run
+  under uv); ObjectId detection is exercised with a stand-in class, while
+  production passes the real `bson.ObjectId`; phone numbers glued to a word by `-` (e.g. `tel-0912345678`) are
   no longer masked by the free-text pattern — key-based redaction of `phone`
   fields still applies.
 - Residual risk: the integrity check is tamper-evident, not tamper-proof — an
