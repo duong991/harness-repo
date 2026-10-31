@@ -340,7 +340,7 @@
     },
     {
       "path": "scripts/test-harness-skills",
-      "upstream_sha256": "76d2e6fd224a94574775239f5da89edcbc9b58ba22dd9ac10fe8410e0354c820"
+      "upstream_sha256": "9d2f3a1cf510528ce0d7c07bc2da458e093dc2f07fd8e6f5f3db22c83dbdfae2"
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
@@ -360,7 +360,7 @@
     },
     {
       "path": "scripts/sync-harness-source.py",
-      "upstream_sha256": "23c143c53cdd003647bd76639000eefce4820c4b11efbd0fad29cd5b12bc5b80"
+      "upstream_sha256": "4f292ab07d4b801c56d8b78d2aaee558646037cc1fd3db57344bdce7e35b1e3c"
     },
     {
       "path": "tests/harness/test-sync-harness-source.py",

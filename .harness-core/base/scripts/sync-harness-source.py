@@ -13,6 +13,7 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -21,6 +22,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -69,7 +71,8 @@ def validate_source(source: Path) -> tuple[dict[str, object], dict[str, str]]:
     validator = source / "scripts" / "test-harness-skills"
     if not validator.is_file():
         fail(f"source validation command is missing: {validator}")
-    result = subprocess.run([str(validator), "--release-baseline"], cwd=source, check=False)
+    env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
+    result = subprocess.run([str(validator), "--release-baseline"], cwd=source, env=env, check=False)
     if result.returncode:
         fail("source does not pass pristine release-baseline validation")
     manifest, entries = read_manifest(source)
@@ -222,14 +225,16 @@ def link_claude_skills(source: Path, target: Path) -> None:
     if not linker.is_file():
         print(f"skip-claude-links (source has no {linker.name})")
         return
-    result = subprocess.run([sys.executable, str(linker), "--root", str(target)], check=False)
+    env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
+    result = subprocess.run([sys.executable, str(linker), "--root", str(target)], env=env, check=False)
     if result.returncode:
         fail("Claude skill link sync reported conflicts in target .claude/skills")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", required=True, type=Path, help="consumer repository root")
+    parser.add_argument("--target", type=Path, default=None, help="consumer repository root")
+    parser.add_argument("target_path", nargs="?", type=Path, default=None, help="consumer repository root (fallback for --target)")
     parser.add_argument("--source", type=Path, default=ROOT, help="Harness source root")
     parser.add_argument("--apply", action="store_true", help="write the planned migration")
     parser.add_argument(
@@ -248,8 +253,11 @@ def main() -> int:
         ),
     )
     args = parser.parse_args()
+    target_raw = args.target or args.target_path
+    if not target_raw:
+        fail("missing target repository: specify --target <PATH> or <PATH>")
     source = args.source.resolve()
-    target = args.target.resolve()
+    target = target_raw.resolve()
     replace_conflicts = set(args.replace_conflict)
     for relative in replace_conflicts:
         safe_path(relative)
@@ -289,6 +297,14 @@ def main() -> int:
     backup = apply_sync(source, target, source_manifest, source_entries, operations)
     print(f"Applied {len(operations)} operations. Backup: {backup}")
     link_claude_skills(source, target)
+    target_validator = target / "scripts" / "test-harness-skills"
+    if target_validator.is_file():
+        env = {**os.environ, "PYTHONDONTWRITEBYTECODE": "1"}
+        target_check = subprocess.run([str(target_validator)], cwd=target, env=env, check=False)
+        if target_check.returncode == 0:
+            print("Target harness validation passed.")
+        else:
+            print("Target validation reported issues; review target diff.", file=sys.stderr)
     print("No target files were staged or committed. Run target validation and review its Git diff before committing.")
     return 0
 
