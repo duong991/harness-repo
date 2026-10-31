@@ -46,8 +46,7 @@ Hard invariants:
 - Downstream skills cannot widen scope, create plans or stories, or introduce
   orchestration.
 - Formal findings and adequacy judgments belong only to `code-review`.
-- Large-change comprehension belongs to `implementation-walkthrough`; test
-  comprehension belongs to `test-walkthrough`.
+- Large-change comprehension belongs to `implementation-walkthrough`.
 - Do not create parallel review-planning or review-decomposition skills.
 - Any positive completion claim requires fresh evidence through
   `verification-before-completion`.

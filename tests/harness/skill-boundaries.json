@@ -8,14 +8,6 @@
     ]
   },
   {
-    "skill": "test-walkthrough",
-    "must_contain": [
-      "it does not approve the implementation",
-      "do not use for test adequacy findings, approval, severity, or formal review",
-      "code-review"
-    ]
-  },
-  {
     "skill": "code-review",
     "must_contain": [
       "Authority compliance",
@@ -94,18 +86,6 @@
     "policy": "allow_implicit_invocation: true"
   },
   {
-    "skill": "minimal-implementation",
-    "must_contain": [
-      "does not own routing",
-      "does not create a new work type",
-      "Comprehension precedes minimization",
-      "formal findings and adequacy belong only to `code-review`",
-      "does not own completion",
-      "cannot independently spawn sub-agents"
-    ],
-    "policy": "allow_implicit_invocation: true"
-  },
-  {
     "skill": "teach",
     "must_contain": [
       "This is an explicit-only productivity skill",
@@ -113,7 +93,6 @@
       "Do not write teaching artifacts into a repository root",
       "Do not modify product code, tests, CI, dependencies, Harness state, or Git state",
       "implementation-walkthrough",
-      "test-walkthrough",
       "The teaching workspace is not repository authority",
       "coverage alone is not evidence of learning"
     ],

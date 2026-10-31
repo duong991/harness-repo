@@ -1,6 +1,6 @@
 ---
 name: teach
-description: Teach the user a skill, concept, or repository module over multiple sessions in an explicitly approved teaching workspace. Use only when the user invokes $teach or explicitly asks for a teaching flow; use implementation-walkthrough for a one-off large implementation explanation and test-walkthrough for test comprehension.
+description: Teach the user a skill, concept, or repository module over multiple sessions in an explicitly approved teaching workspace. Use only when the user invokes $teach or explicitly asks for a teaching flow; use implementation-walkthrough for a one-off large implementation explanation.
 ---
 
 # Teach
@@ -28,8 +28,7 @@ product authority, implementation, review, or completion proof.
   repository workflow.
 - Do not create a new work type, parallel router, plan system, review system,
   or orchestration lifecycle. For a large completed implementation, hand off to
-  `implementation-walkthrough`; for test comprehension, hand off to
-  `test-walkthrough`.
+  `implementation-walkthrough`.
 
 ## Teaching workspace
 

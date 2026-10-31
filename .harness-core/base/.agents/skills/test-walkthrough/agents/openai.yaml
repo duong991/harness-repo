@@ -1,6 +1,0 @@
-interface:
-  display_name: "Test Walkthrough"
-  short_description: "Summarize test behavior by file"
-  default_prompt: "Use $test-walkthrough to explain what the selected test files exercise, what they call, and what remains unproven."
-policy:
-  allow_implicit_invocation: true

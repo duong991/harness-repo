@@ -4,8 +4,7 @@ Date: 2026-08-11
 
 ## Status
 
-Blocked — the native `minimal-implementation` supporting discipline is complete;
-only the matching immutable-artifact release gate remains.
+Blocked — only the matching immutable-artifact release gate remains.
 
 ## Outcome
 

@@ -20,7 +20,7 @@
     },
     {
       "path": ".agents/skills/teach/SKILL.md",
-      "upstream_sha256": "992d65f1ac9bc840ba2d45fd81727efa62f466948ac5398959377a412a6f2132"
+      "upstream_sha256": "719c94a19f1d9b736880c71f73c391ea9cd40025dfa13d45ccd5cdc13d50aa46"
     },
     {
       "path": ".agents/skills/teach/SOURCE.md",
@@ -32,7 +32,7 @@
     },
     {
       "path": "AGENTS.md",
-      "upstream_sha256": "0dcf84923466e65491140b9de9cd3a533b7524ec58216c7ad0998a5fe7e9070d"
+      "upstream_sha256": "8fe775d4720b906b3da6fe13401186ede34476286b2f5fbfad225501453916a6"
     },
     {
       "path": ".agents/skills/audit-onboarding-proposal/SKILL.md",
@@ -72,11 +72,11 @@
     },
     {
       "path": "docs/WORKFLOW.md",
-      "upstream_sha256": "74956de099c9289d05fc7db8a347bf2aab55b6aa9a688971faa7a3a85ebaad24"
+      "upstream_sha256": "d334c6262957a2288cb805e56bbfc6a03de87c7920a31810379a6855603082e0"
     },
     {
       "path": "docs/HARNESS_WORKFLOW_GUIDE.md",
-      "upstream_sha256": "48625301082b57ee72623737cc0a51b602aee5277610d110bb4cc28bfaa64707"
+      "upstream_sha256": "cc4470419aeb064e551872a3d105755e03a32da4d50800d0fb92908159392e93"
     },
     {
       "path": "docs/README.md",
@@ -112,7 +112,7 @@
     },
     {
       "path": ".agents/skills/work-router/SKILL.md",
-      "upstream_sha256": "2302d0733d88062173807ff565cde73d773427d54e7b0eb1eebf5d6712607439"
+      "upstream_sha256": "833551226692d393cd1b7c067191fb9e26d13428f32f4a8e50ba912626f22179"
     },
     {
       "path": ".agents/skills/work-router/SOURCE.md",
@@ -203,18 +203,6 @@
       "upstream_sha256": "e506efd6f844b7e5b4f4ad046678e59cf6d5d4d365cccd667d57271c25e001a8"
     },
     {
-      "path": ".agents/skills/test-walkthrough/SKILL.md",
-      "upstream_sha256": "233c711f48042d59c05b7b58a4fc4ca3b317ef1b5c300569e0246b58236a0b7f"
-    },
-    {
-      "path": ".agents/skills/test-walkthrough/SOURCE.md",
-      "upstream_sha256": "0dbe4ee43e32eddb9e5c5a12bb35ad740604876d8f8f13351b89e0b76d9826e8"
-    },
-    {
-      "path": ".agents/skills/test-walkthrough/agents/openai.yaml",
-      "upstream_sha256": "e635e34add217d66a87a45b578f72e69521805fa673ba82ce52c936314d45310"
-    },
-    {
       "path": ".agents/skills/verification-before-completion/SKILL.md",
       "upstream_sha256": "2e3a47707b14a5acee8e482a8463786d4263a8be1d8a5e063b3055380a206d5f"
     },
@@ -275,18 +263,6 @@
       "upstream_sha256": "2a2000d317e996fae6cdb55ac1db837ebc9781e6915b41afb9223ef475726d87"
     },
     {
-      "path": ".agents/skills/minimal-implementation/SKILL.md",
-      "upstream_sha256": "5676963b7494069fc09b850246d63cce897eec0b2471a7cccf6ab4ef3b86f0c5"
-    },
-    {
-      "path": ".agents/skills/minimal-implementation/SOURCE.md",
-      "upstream_sha256": "3e612757368e741a9e9ce7a39a36ad0be67277df8673981bb3f25b74d0b70788"
-    },
-    {
-      "path": ".agents/skills/minimal-implementation/agents/openai.yaml",
-      "upstream_sha256": "e0fff45c4b80177e9c431a6b7a668e0576d6144f64da94ce0c212709def1a11b"
-    },
-    {
       "path": ".agents/skills/domain-modeling/SKILL.md",
       "upstream_sha256": "b8ca8ae8497e4ddd602b4e287987b44ad4cdef461316ebbaa2fef93a083760a1"
     },
@@ -344,15 +320,15 @@
     },
     {
       "path": "scripts/validate-harness-sdlc.py",
-      "upstream_sha256": "5bb8cd79b1489bdc6c2ae1fb0d63781231d6ec3f0235c13309dc4bf205263ea3"
+      "upstream_sha256": "a2c167d574ed0151ec8ab34d0e931e5828fb12c9d1bc182ff1c83f6b19407b2f"
     },
     {
       "path": "tests/harness/routing-cases.json",
-      "upstream_sha256": "1d846ec8d6bc382aae1a6d99a60e88a0eb9a5f2829ccc2af962caef7e25d6e7e"
+      "upstream_sha256": "8847f083c7ac8350e7c59b6ddb9c5d8f2ec945ecb57caf9b766e9d8f61ba0b1a"
     },
     {
       "path": "tests/harness/skill-boundaries.json",
-      "upstream_sha256": "243c258d159f464263b6280f8f284c922cc1ec3f2a26f75c9dc0cd13a7d96eb6"
+      "upstream_sha256": "f5c756d411b60d6d6427157e148fd6e2f85fb253a9a069b52690d8caf20e53b7"
     },
     {
       "path": "tests/harness/update-cases.json",

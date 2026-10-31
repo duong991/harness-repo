@@ -21,11 +21,11 @@ CLAUDE_SKILLS_DIR = ROOT / ".claude" / "skills"
 ROUTER_PATH = SKILLS_DIR / "work-router" / "SKILL.md"
 WORKFLOW_SKILLS = (
     "work-router", "grill-me", "diagnosing-bugs", "tdd", "code-review",
-    "implementation-walkthrough", "test-walkthrough", "verification-before-completion",
+    "implementation-walkthrough", "verification-before-completion",
 )
 SUPPORTING_SKILLS = (
     "writing-for-agents", "handoff", "codebase-design", "domain-modeling",
-    "prototype", "resolving-merge-conflicts", "minimal-implementation", "teach",
+    "prototype", "resolving-merge-conflicts", "teach",
     "encode-invariant", "improve-harness", "grill-with-docs", "improve-codebase-architecture",
     "system-log-tracer",
 )
@@ -154,14 +154,13 @@ def validate_routing_contract(errors: list[str]) -> None:
             errors.append(f"router is missing work type {work_type}")
     cases = load_json("tests/harness/routing-cases.json")
     expected_ids = {
-        "large-change-comprehension", "test-comprehension", "test-adequacy-review",
+        "large-change-comprehension", "test-adequacy-review",
         "large-change-findings", "one-line-bug", "review-only",
         "agent-document-maintenance", "design-analysis", "domain-modeling",
         "merge-conflict-resolution", "prototype-ui-exploration",
         "prototype-logic-exploration", "prototype-full-stack-implications",
         "settled-design-no-prototype", "settled-api-no-prototype",
-        "bounded-implementation-minimalism", "avoid-unnecessary-dependency",
-        "accepted-design-preserved", "runtime-log-evidence",
+        "runtime-log-evidence",
     }
     if {case["id"] for case in cases} != expected_ids:
         errors.append("routing fixture IDs do not match the required contract")

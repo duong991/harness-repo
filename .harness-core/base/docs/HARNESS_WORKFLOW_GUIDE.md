@@ -43,11 +43,7 @@ flowchart TD
     RO --> E["Inspect, evidence, report"]
     RO -->|"Large change comprehension"| IW["implementation-walkthrough"]
     IW --> RU["Review Units + Critical Path"]
-    RU -. "Material test surface" .-> TW
     RU -. "Formal review context" .-> RV
-    RO -->|"Test comprehension"| TW["test-walkthrough: test comprehension"]
-    TW --> TD["Per-file test digest"]
-    TD -. "Context only" .-> RV
     TF --> D["diagnosing-bugs"]
     D --> F["Minimal fix + conditional TDD"]
     F --> V["verification-before-completion"]
@@ -133,8 +129,7 @@ Chạy BASELINE, MAP, TRACE, PROBE và HANDOFF.
 Gom file theo Review Unit, chọn Critical Path, nêu Risk Probe và Invariant,
 phân loại evidence fresh/stale/unavailable, rồi đề xuất review order.
 Không tạo finding, không approve, không tự chia hoặc commit git.
-Nếu test surface lớn, handoff sang test-walkthrough; formal judgement thuộc
-code-review.
+Formal judgement thuộc code-review.
 ```
 
 #### Tiny fix
@@ -288,7 +283,6 @@ dưới đây chỉ giải thích các nguyên tắc mà route áp dụng.
 | `tdd` | Auto có điều kiện sau routing | Red → green → refactor qua observable seam |
 | `code-review` | Auto cho review hoặc change vừa/lớn | So patch với accepted authority trước, sau đó review correctness, security, compatibility, regression và evidence |
 | `implementation-walkthrough` | Auto sau routing cho large-change comprehension | BASELINE → MAP → TRACE → PROBE → HANDOFF; chia Review Units, trace Critical Path, nêu Risk Probe/Invariant và đề xuất review order |
-| `test-walkthrough` | Auto sau routing cho test comprehension | Nén test theo file thành mục đích, production symbols, behavior được bảo vệ, gap và reading priority |
 | `verification-before-completion` | Auto, bắt buộc | Gate cuối cho mọi positive completion claim |
 | `prototype` | Auto có điều kiện sau routing | Dùng artifact UI/logic throwaway để làm rõ một design question chưa chốt; không thay implementation |
 
@@ -309,21 +303,13 @@ chúng không tạo work type, lifecycle hay authority mới:
 | `writing-for-agents` | Auto khi viết agent-consumed docs | Context pointer, information hierarchy và completion criterion rõ ràng |
 | `handoff` | Explicit-only | Context ngắn gọn cho session sau; chỉ link plan/spec/decision hiện có |
 | `codebase-design` | Auto khi cần module/interface/seam design | Vocabulary deep module, seam, depth, leverage và locality |
-| `minimal-implementation` | Auto sau routing khi implementation đã được phép và solution shape còn mở | Chọn rung nhỏ nhất đủ dùng: YAGNI → reuse → standard library → native platform → dependency đã cài → direct code → custom code tối thiểu |
 | `domain-modeling` | Auto khi thay đổi domain vocabulary | Kiểm tra thuật ngữ, scenario và authority trong `docs/product/` / `docs/decisions/` |
 | `resolving-merge-conflicts` | Auto cho conflict merge/rebase đã được phép xử lý | STATE → INTENT → RESOLVE → VERIFY → CONTINUE, không tự stage/commit/abort |
 | `teach` | Explicit-only | Học concept hoặc module qua lesson ngắn và retrieval practice trong teaching workspace được duyệt; không ghi vào repo root hay sửa code/test/Git |
 | `encode-invariant` | Auto sau routing | Chuyển rules đã chấp nhận thành validation nhỏ nhất với positive/negative proof |
 | `improve-harness` | Explicit-only | Thử nghiệm cải tiến Harness sau khi quan sát thấy friction; cần fresh rerun |
 
-`minimal-implementation` chỉ chạy sau khi đã hiểu affected flow và khi accepted
-authority chưa quy định implementation choice. Nó không có quyền thay authority,
-route review, hay cắt giảm correctness, trust-boundary validation, authorization,
-security, accessibility, error handling, compatibility hoặc meaningful
-validation; xem [`minimal-implementation/SKILL.md`](../.agents/skills/minimal-implementation/SKILL.md)
-để biết ràng buộc đầy đủ.
-
-`teach` không thay thế `implementation-walkthrough` hoặc `test-walkthrough`.
+`teach` không thay thế `implementation-walkthrough`.
 Nó dùng các nguồn đó hoặc repository code/tests làm nguyên liệu giải thích khi
 người dùng muốn học module qua nhiều phiên; dữ liệu học tập phải nằm trong
 teaching workspace đã được duyệt, không phải repo root hay authority của repo.
@@ -403,19 +389,14 @@ Review là read-only. Reviewer kiểm tra requirement, scope, UX/edge states,
 architecture, security/permission, API/data mapping, behavioral tests, fresh
 evidence, docs drift, regression và maintainability.
 
-Test comprehension và test adequacy là hai việc khác nhau. `test-walkthrough`
-chỉ tóm tắt code nào được gọi, behavior nào có assertion và gap nào chưa được
-chứng minh. `code-review` mới quyết định gap nào là finding dựa trên authority,
-impact và evidence; một command test pass không tự chứng minh adequacy.
+`code-review` quyết định gap nào là finding dựa trên authority, impact và
+evidence; một command test pass không tự chứng minh adequacy.
 
 ### Final mental model
 
 ```text
 implementation-walkthrough
 → Tôi nên ĐỌC và CHIA change này như thế nào?
-
-test-walkthrough
-→ Test đang thực sự CHỨNG MINH điều gì?
 
 code-review
 → Implementation này có VẤN ĐỀ gì?

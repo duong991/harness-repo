@@ -123,10 +123,9 @@ For large-change comprehension specifically:
    HANDOFF`.
 2. Account for every consequential file in a behavior-based Review Unit or an
    explicit generated/mechanical/proof/skim classification.
-3. Hand off material test surfaces to `test-walkthrough` and formal questions
-   to `code-review`; do not create findings or mutate git state in the
-   walkthrough. Do not create a parallel review-planning or review-decomposition
-   skill.
+3. Hand off formal questions to `code-review`; do not create findings or mutate
+   git state in the walkthrough. Do not create a parallel review-planning or
+   review-decomposition skill.
 
 Discovery never grants authority to fix what it finds.
 

@@ -37,15 +37,11 @@ Choose the first type that accurately captures the requested outcome:
    reviewed?”, “split this change into reviewable parts”, and “explain
    implementation before review” use the same route. When correctness findings
    are also requested for a large target, run
-   `implementation-walkthrough → test-walkthrough when materially useful →
-   code-review`. Do not edit, create a plan, create a story, or mutate Harness
-   state.
-   When the user only wants to understand what one or more test files exercise,
-   which production symbols they call, or what remains unproven, use
-   `test-walkthrough`. It produces a compact per-file digest and stops without
-   formal findings. When the user asks whether tests are sufficient, correct,
-   safe, complete, or approvable, use `code-review` as the review entry point;
-   `code-review` may create a test digest before judging adequacy.
+   `implementation-walkthrough → code-review`. Do not edit, create a plan, create
+   a story, or mutate Harness state.
+   When the user asks whether tests are sufficient, correct, safe, complete, or
+   approvable, use `code-review` as the review entry point; `code-review` may
+   create a test digest before judging adequacy.
    For a request asking for findings, implementation compliance, review against
    requirements, or review against authority, use `code-review`; its mandatory
    authority-compliance stage runs before its technical review.
@@ -88,12 +84,6 @@ Choose the first type that accurately captures the requested outcome:
   writing discipline after selecting the route.
 - For Architecture, module, seam, or interface design, use `codebase-design`
   as a supporting discipline without creating a separate workflow.
-- For authorized implementation whose solution shape is not fixed by accepted
-  authority, use `minimal-implementation` after comprehension of the affected
-  flow to select the smallest sufficient implementation. Do not invoke it for
-  pure explanation or read-only comprehension. When accepted authority fixes an
-  implementation choice, `minimal-implementation` must not override it. Do not
-  use this discipline to route code review; use `code-review` independently.
 - For an unresolved design or behavior question that is materially easier to
   evaluate through a cheap interactive or executable artifact than prose, use
   `prototype`. Use its UI branch for interaction or information-architecture

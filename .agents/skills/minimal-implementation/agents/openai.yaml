@@ -1,6 +1,0 @@
-interface:
-  display_name: "Minimal Implementation"
-  short_description: "Choose the smallest sufficient implementation"
-  default_prompt: "Use $minimal-implementation to choose the smallest sufficient implementation after understanding the affected flow and accepted authority."
-policy:
-  allow_implicit_invocation: true
