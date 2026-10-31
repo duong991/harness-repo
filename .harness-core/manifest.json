@@ -76,7 +76,7 @@
     },
     {
       "path": "docs/HARNESS_WORKFLOW_GUIDE.md",
-      "upstream_sha256": "cc4470419aeb064e551872a3d105755e03a32da4d50800d0fb92908159392e93"
+      "upstream_sha256": "609c6ce4bc4e805f3a7ea91b0c72bd55fdfb6dcb39db49318226fff0322b7de9"
     },
     {
       "path": "docs/README.md",
@@ -112,7 +112,7 @@
     },
     {
       "path": ".agents/skills/work-router/SKILL.md",
-      "upstream_sha256": "833551226692d393cd1b7c067191fb9e26d13428f32f4a8e50ba912626f22179"
+      "upstream_sha256": "c076c9911f63fbe5c9fddfc0400eac2273ed70aafc90c4856f8100bdd87f04fc"
     },
     {
       "path": ".agents/skills/work-router/SOURCE.md",
@@ -148,7 +148,7 @@
     },
     {
       "path": ".agents/skills/tdd/SKILL.md",
-      "upstream_sha256": "77e526a302b89515633b476bca30199c1e99d648559b0d00272b60f07915f5ae"
+      "upstream_sha256": "afb4e41d70f636d5f79de0202e95e9f26f16a71e90fc163bed0482c60d1a2016"
     },
     {
       "path": ".agents/skills/tdd/SOURCE.md",

@@ -373,6 +373,11 @@ hoặc thêm fallback chỉ để che symptom.
 deterministic algorithm và regression bug. Không ép TDD cho color/spacing,
 one-off prototype hoặc visual-only behavior thiếu test harness đáng tin.
 
+Không ép TDD máy móc cho glue code, CRUD đơn giản, hoặc I/O wiring (database,
+queue, network client) nơi việc viết test trước tạo ra Mock Hell vô nghĩa và dễ vỡ
+khi refactor. Đối với các luồng này, code trực tiếp và kiểm chứng bằng lệnh chạy
+thực tế qua `verification-before-completion`.
+
 ```text
 Red: test nhỏ nhất fail đúng lý do
 Green: code nhỏ nhất làm test pass

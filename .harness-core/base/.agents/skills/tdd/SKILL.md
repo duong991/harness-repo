@@ -14,8 +14,14 @@ commands before choosing a seam.
 Prefer TDD for business rules, mappers, state machines, permissions, API
 contracts, deterministic algorithms, and regression bugs. Skip it for pure
 color/spacing changes, disposable prototypes, and visual-only behavior without
-a credible automated harness. When skipping, state the reason and choose a
-more direct visual or runtime validation.
+a credible automated harness.
+
+Skip TDD ceremony for glue code, simple CRUD, and heavy I/O wiring (database,
+message queues, network clients) where test-first requires mock-heavy scaffolding.
+Mocks break on refactoring while proving nothing about real behavior. In those
+cases, write the direct implementation and verify with fresh executable checks
+under `verification-before-completion`. When skipping, state the reason and choose
+direct runtime validation.
 
 Test through a public interface or stable observable boundary. Do not ask the
 user to choose a seam that repository evidence already establishes. Stop for a

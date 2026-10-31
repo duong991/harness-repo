@@ -53,9 +53,9 @@ Choose the first type that accurately captures the requested outcome:
    existing-domain filter, that can be completed coherently in one session.
    Discover minor details from repository authority and adjacent behavior; do
    not promote missing implementation detail into product ambiguity. Use an
-   ephemeral plan, conditional TDD, implementation, `code-review` when the
-   change is medium-sized, and
-   `verification-before-completion`. Do not create an active plan merely
+   ephemeral plan, conditional TDD (skip for mock-heavy glue code/CRUD; verify
+   directly), implementation, `code-review` when the change is medium-sized,
+   and `verification-before-completion`. Do not create an active plan merely
    because the work has several steps.
 4. **ambiguous-product-change** — materially different user outcomes, UX flows,
    permission policies, scope boundaries, or acceptance contracts remain open.
