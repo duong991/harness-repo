@@ -540,6 +540,31 @@ three-way conflict, bridge dừng không đổi file; chỉ dùng
 được quyền thay thế file đó. Nó là đường migration developer-local, không thay
 thế immutable artifact hoặc `harness update` dài hạn.
 
+### Quản lý và đồng bộ kỹ năng (Skills Layer)
+
+Repo hiện tại đóng vai trò là repository chuẩn (Source of Trust) cho toàn bộ các Agent Skills. Để quét và đồng bộ sang consumer repository khác có sự tham gia và kiểm soát của người dùng, sử dụng công cụ bổ trợ `scripts/sync-skills.py` hoặc kỹ năng `sync-repo-skills`:
+
+```bash
+# 1. Quét so sánh hiện trạng giữa chuẩn và repo đích (Dry-run)
+scripts/sync-skills.py --target /absolute/path/to/consumer --scan
+
+# 2. Xuất dữ liệu JSON có cấu trúc cho Agent phân tích
+scripts/sync-skills.py --target /absolute/path/to/consumer --json
+
+# 3. Đồng bộ toàn bộ skill mới và cập nhật sau khi người dùng phê duyệt
+scripts/sync-skills.py --target /absolute/path/to/consumer --apply --sync-all
+
+# 4. Hoặc chỉ đồng bộ có chọn lọc một số kỹ năng cụ thể
+scripts/sync-skills.py --target /absolute/path/to/consumer --apply --sync dsh-worker-orchestration
+
+# 5. Dọn dẹp các kỹ năng lỗi thời đã bị xoá ở chuẩn (khi được đồng ý)
+scripts/sync-skills.py --target /absolute/path/to/consumer --apply --prune minimal-implementation,test-walkthrough
+```
+
+Quy trình chuẩn hóa:
+- Script là công cụ cơ học an toàn: luôn tạo backup tại `.harness-core/source-sync-backups/`, tự động chuẩn hoá symlink `.claude/skills/` qua `link-claude-skills.py`.
+- Agent tổng hợp bảng so sánh 4 nhóm (Mới, Khác biệt, Riêng của target, Lỗi thời), hỏi xác nhận người dùng trước khi áp dụng, không tự ý ghi đè mù quáng.
+
 Chỉ chạy `harness update` không có `--dry-run`, `install`, `--continue` hoặc
 `--abort` khi action đó được yêu cầu và target/recovery đã rõ. Không sửa
 `.harness-core/manifest.json` để che một consumer customization; nội dung local

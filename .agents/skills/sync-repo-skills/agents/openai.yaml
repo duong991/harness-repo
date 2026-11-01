@@ -1,0 +1,6 @@
+interface:
+  display_name: "Sync Repo Skills"
+  short_description: "Scan and synchronize skills from canonical repository to consumer repositories"
+  default_prompt: "Scan target repository against canonical skills, present comparison findings, and ask user for confirmation before syncing."
+policy:
+  allow_implicit_invocation: true
