@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: ambiguous-policy-stops
+expected_outcome: |
+  docs/product/slugs.md does not say whether Vietnamese diacritics should be stripped to ASCII (xin-chao-viet-nam) or kept as Unicode (xin-chào-việt-nam). Claude asks the user to choose before dispatching any worker.
+context:
+  scaffold_script: place-files.sh

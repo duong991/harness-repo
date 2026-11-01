@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: review-request-no-worker
+expected_outcome: |
+  This is a read-only review request. Headless dsh cannot be restricted to read-only, so Claude reviews the file itself (it does not collapse repeated spaces or trim edges, per docs/product/slugs.md and the failing tests), explains why no dsh worker was used, and changes nothing.
+context:
+  scaffold_script: place-files.sh

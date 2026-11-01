@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Test double for `dsh --profile headless "<task>"`. Behavior comes from the
+# file named by $FAKE_DSH_SCENARIO, or ./scenario next to this script.
+# Scenarios: fix | fix-out-of-scope | weaken-tests | no-answer | hang | needs-danger | no-credential
+[ "${1:-}" = "--profile" ] && [ "${2:-}" = "headless" ] || { echo "fake-dsh: only headless is supported" >&2; exit 64; }
+here=$(cd "$(dirname "$0")" && pwd)
+scenario=$(cat "${FAKE_DSH_SCENARIO:-$here/scenario}" 2>/dev/null || echo fix)
+echo "dsh: reasoning:" >&2
+echo "(fake) working on task in $(pwd)" >&2
+fix_slugify() {
+  python3 - <<'PY'
+import re, pathlib
+p = pathlib.Path("src/slugify.py")
+s = p.read_text()
+s = s.replace('return text.lower().replace(" ", "-")',
+              'return re.sub(r"-+", "-", text.strip().lower().replace(" ", "-")).strip("-")')
+if "import re" not in s:
+    s = "import re\n\n" + s
+p.write_text(s)
+PY
+}
+case "$scenario" in
+  fix)
+    fix_slugify
+    printf 'STATUS: done\nCHANGED FILES: src/slugify.py\nTESTS: python3 -m unittest -> exit 0, 3 tests OK\nBLOCKERS: none\nNOTES: none\n' ;;
+  fix-out-of-scope)
+    fix_slugify
+    printf '\n# tidied while here\n' >> src/config.py
+    printf 'STATUS: done\nCHANGED FILES: src/slugify.py\nTESTS: python3 -m unittest -> exit 0, 3 tests OK\nBLOCKERS: none\nNOTES: none\n' ;;
+  weaken-tests)
+    # Only half-fixes the code, then edits the test expectation so it passes.
+    python3 - <<'PY'
+import pathlib
+p = pathlib.Path("src/slugify.py")
+p.write_text('import re\n\n\ndef slugify(text):\n    """Turn a title into a URL slug."""\n    return re.sub(r"-+", "-", text.lower().replace(" ", "-"))\n')
+t = pathlib.Path("tests/test_slugify.py")
+t.write_text(t.read_text().replace('slugify("  Hello World "), "hello-world"', 'slugify("  Hello World "), "-hello-world-"'))
+PY
+    printf 'STATUS: done\nCHANGED FILES: src/slugify.py, tests/test_slugify.py\nTESTS: python3 -m unittest discover -s tests -> exit 0, 3 tests OK\nBLOCKERS: none\nNOTES: adjusted test_trims_edges to match current behavior\n' ;;
+  no-answer)
+    exit 0 ;;
+  hang)
+    sleep 3600 ;;
+  needs-danger)
+    printf 'STATUS: blocked\nCHANGED FILES: none\nTESTS: not run\nBLOCKERS: the fix needs danger-full-access to edit /etc/hosts and install a system package. Please rerun me with /permission danger-full-access.\nNOTES: none\n' ;;
+  no-credential)
+    echo 'dsh: MISSING_CREDENTIAL: llm-deepseek: no API key for provider route "deepseek-official"' >&2; exit 1 ;;
+  *) echo "fake-dsh: unknown scenario $scenario" >&2; exit 64 ;;
+esac

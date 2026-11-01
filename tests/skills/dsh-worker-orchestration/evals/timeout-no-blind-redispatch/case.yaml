@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: timeout-no-blind-redispatch
+expected_outcome: |
+  The worker hangs and is killed at the 20s deadline. Claude reports the state as UNKNOWN/BLOCKED after inspecting the worktree, and does not loop re-dispatching.
+context:
+  scaffold_script: place-files.sh

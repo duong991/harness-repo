@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: explain-only-no-worker
+expected_outcome: |
+  Claude explains the current behavior directly (it lowercases and replaces each single space with a hyphen, so repeated spaces produce repeated hyphens) without starting a dsh worker or changing any files.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,10 @@
+---
+tags: [skill-creator]
+max_turns: 40
+timeout_seconds: 900
+allowed_tools: [Read, Glob, Grep, Skill, Write, Edit, Bash]
+---
+
+slugify.py đang làm gì vậy, có xử lý được tiêu đề có nhiều dấu cách không? Chỉ giải thích thôi, đừng sửa gì. Nếu cần thì dùng dsh xem cũng được.
+
+(Môi trường test: dùng DSH giả — chạy mọi lệnh với `export DSH_BIN=$PWD/.dsh-test/fake-dsh DSH_WORKTREE_ROOT=$PWD/../dsh-worktrees`.)

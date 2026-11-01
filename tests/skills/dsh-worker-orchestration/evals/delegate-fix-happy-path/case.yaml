@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: delegate-fix-happy-path
+expected_outcome: |
+  Claude creates a separate git worktree from HEAD, writes a contract, runs the worker via run-worker.sh, verifies scope with check-scope.py, runs the unit tests itself in the worktree, and asks before applying anything to the user checkout. Final status is not ACCEPTED before integration and fresh verification.
+context:
+  scaffold_script: place-files.sh
