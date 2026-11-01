@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "elon-musk": {
+      "source": "sickn33/agentic-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/elon-musk/SKILL.md",
+      "computedHash": "344276ee265448b2b165253f0494fb6fd0bd56eae4c09732e771091ef5397ceb"
+    }
+  }
+}
