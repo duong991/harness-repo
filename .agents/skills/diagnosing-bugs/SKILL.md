@@ -19,11 +19,7 @@ out competing causes.
 
 ### 1. Reproduce
 
-When the report carries a runtime signal (a request/trace ID, a Kibana
-export, a service log, a stack trace, or a Redis/Mongo/Kafka state question),
-first run `system-log-tracer` to collect read-only evidence and use its
-7-section report as the evidence input to this workflow; it never concludes
-root cause itself.
+Capture platform-appropriate runtime evidence (device logs, crash dumps, or browser traces) before diagnosing. When the report carries a backend runtime signal (a request/trace ID, a Kibana export, a service log, a stack trace, or a Redis/Mongo/Kafka state question), first run `system-log-tracer` to collect read-only evidence and use its 7-section report as the evidence input to this workflow; it never concludes root cause itself.
 
 Create the smallest fresh command or runtime interaction that exercises the
 reported symptom. Confirm it fails in the way the user described. For flaky or
