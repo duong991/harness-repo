@@ -116,17 +116,17 @@ manifest hash), never through an investigation.
 
 ## Workflow
 
-### 1. Standard intake packet
+### 1. Standard intake packet (Mandatory Clarification Gate)
 
-Before running any tool, write down (ask the user for anything missing, and
-write `unknown` rather than guessing):
+Before running any tool, verify and compile the intake packet. **Never guess, assume defaults, or run tools with missing parameters.** If any of the following key items are missing or ambiguous in the request, **STOP and ask the user directly in chat** before invoking any tool:
 
-- **Symptom** — what was observed (status code, error text, missing data).
-- **Expected** vs **Actual** behavior.
-- **Environment** — which config environment, and whether production.
-- **Time window**, with explicit time zone.
-- **Existing evidence** — request/trace ID, Kibana export, log excerpt,
-  stack trace, if any.
+- **Environment** — which config environment (e.g. `dev`, `local`, `production`). If production, obtain explicit chat confirmation before proceeding.
+- **Time window** — date and explicit time boundary, including time zone.
+- **Symptom & Targets** — what was observed, plus key target identifiers (email, username, request ID, endpoint, or error message).
+- **Expected vs Actual behavior** — expected outcome versus observed failure.
+- **Existing evidence** — request/trace ID, Kibana export file, log excerpt, stack trace, if available.
+
+Do not execute search, trace, or database inspection commands until the target environment, time window, and target identifiers are confirmed with the user.
 
 ### 2. Config / environment
 

@@ -412,7 +412,7 @@
     },
     {
       "path": ".agents/skills/system-log-tracer/SKILL.md",
-      "upstream_sha256": "8bfbc9c8a5eb0af23b05a31aea5f89c96e86d94baa8b20dba254c7f084be357d"
+      "upstream_sha256": "8bfcb2e4f3b9a36aa5abbe374a2ca1abd59e65704db24a6836d9f0c474f847f5"
     },
     {
       "path": ".agents/skills/system-log-tracer/SOURCE.md",
