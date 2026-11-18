@@ -1,0 +1,6 @@
+interface:
+  display_name: "Blast Radius Review"
+  short_description: "Check repo setup and prepare risk-based review evidence"
+  default_prompt: "Use $blast-radius-review to check repo configuration; if missing, use $grill-me to settle setup before preparing Core/Leaf review evidence."
+policy:
+  allow_implicit_invocation: true

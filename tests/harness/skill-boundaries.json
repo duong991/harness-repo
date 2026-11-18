@@ -156,5 +156,15 @@
       "Never change this skill's tools or the application's code, schemas, or data to make a query match."
     ],
     "policy": "allow_implicit_invocation: true"
+  },
+  {
+    "skill": "blast-radius-review",
+    "must_contain": [
+      "Formal findings and approval belong to `code-review`",
+      "For a review-only request without setup authorization",
+      "not approval or readiness to merge",
+      "Reassess classification"
+    ],
+    "policy": "allow_implicit_invocation: true"
   }
 ]

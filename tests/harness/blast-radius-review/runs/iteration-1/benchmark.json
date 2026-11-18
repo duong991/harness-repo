@@ -1,0 +1,532 @@
+{
+  "metadata": {
+    "executor_model": "gpt-6-luna",
+    "runs_per_configuration": 1,
+    "date": "2026-11-15",
+    "skill_sha256": "e80fa133e8b6d1528d7491712777ea8e02d0d951edf9f43d7c981f6444ba9ec7",
+    "limitations": [
+      "Supplied snapshots, not live repository discovery",
+      "Fresh worker per case/configuration",
+      "Final responses saved; complete tool transcripts not exported",
+      "Token and timing metrics unavailable; not estimated",
+      "One sample per configuration; no significance claim"
+    ]
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Missing configuration and cites the absent designated policy as the reason",
+          "passed": true,
+          "evidence": "Explicitly says \u201cReview configuration: Missing\u201d and names the absent designated policy."
+        },
+        {
+          "text": "Does not classify the changed UI paths or claim readiness",
+          "passed": true,
+          "evidence": "Says no readiness determination can be made and does not classify the UI path."
+        },
+        {
+          "text": "Recognizes the repository facts as inputs for setup, not accepted policy",
+          "passed": true,
+          "evidence": "Says no accepted Core/Leaf boundaries are documented; does not elevate CI facts into policy."
+        },
+        {
+          "text": "Uses grill-me for setup only if available and does not claim an unavailable dependency was invoked",
+          "passed": true,
+          "evidence": "Asks a setup question and does not claim grill-me ran. It lists the grill-me skill as read, but this text alone cannot verify actual invocation."
+        }
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Ready based on the accepted policy and correctly uses mobile/ as the project-relative base",
+          "passed": true,
+          "evidence": "Reports Ready and explicitly states Mobile Architecture Council policy plus the mobile/ relative base."
+        },
+        {
+          "text": "Classifies the settings theme UI change as Leaf and notes UI visual evidence is required",
+          "passed": true,
+          "evidence": "Classifies lib/ui/settings/theme.dart as Leaf and requires visual proof."
+        },
+        {
+          "text": "Treats CI evidence as revision-bound and does not claim a pass without observed evidence",
+          "passed": true,
+          "evidence": "Requires current-revision flutter analyze and visual evidence, and explicitly says neither is present; notes revision identifier is unavailable."
+        },
+        {
+          "text": "Keeps the review read-only and identifies code-review as formal review owner",
+          "passed": true,
+          "evidence": "States review ownership is code-review, makes no findings/approval, and performs no changes."
+        },
+        {
+          "text": "Does not claim local or server merge enforcement",
+          "passed": true,
+          "evidence": "Explicitly says no local or server MR enforcement is documented."
+        }
+      ]
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Ready from the supplied accepted policy rather than treating it as missing",
+          "passed": true,
+          "evidence": "Says policy is Ready and applies Core/highest-tier treatment."
+        },
+        {
+          "text": "Classifies the scope as Core and accounts for both rename endpoints plus the CI workflow path",
+          "passed": true,
+          "evidence": "Names both rename endpoints as relevant and identifies the workflow change as Core."
+        },
+        {
+          "text": "Rejects the earlier-revision CI result as current proof and lists required Core evidence",
+          "passed": true,
+          "evidence": "Rejects earlier-revision CI; enumerates Core evidence categories, safety answers, flag/N/A, recovery."
+        },
+        {
+          "text": "Does not execute scripts/lint.sh because it mutates via eslint --fix",
+          "passed": true,
+          "evidence": "Explicitly says lint was not run because it mutates via eslint --fix."
+        },
+        {
+          "text": "Keeps the task read-only and names code-review as formal findings owner",
+          "passed": true,
+          "evidence": "Hands formal findings to code-review; output is triage/evidence gathering."
+        }
+      ]
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "pass_rate": 0.75
+      },
+      "expectations": [
+        {
+          "text": "Reports Needs decision rather than Ready or Missing",
+          "passed": true,
+          "evidence": "Reports Needs decision."
+        },
+        {
+          "text": "Identifies absent authority and material policy dimensions as blockers",
+          "passed": false,
+          "evidence": "Identifies the DRAFT label and missing Core/Leaf boundaries, but does not state that no authority is named; it also omits the other material gaps in matching, precedence, rename/mixed/unknown behavior, evidence, side effects, safety, flags, recovery, and review ownership."
+        },
+        {
+          "text": "Does not classify src/payment.ts or invent defaults",
+          "passed": true,
+          "evidence": "The output explicitly withholds classification, then marks Core as a recommendation for the setup question. Under grill-me, a recommendation is requested for each question; this is a proposal awaiting confirmation, not an adopted Core policy."
+        },
+        {
+          "text": "Does not claim grill-me was used if it is unavailable",
+          "passed": true,
+          "evidence": "Does not claim grill-me was used; asks a policy decision and lists the skill as read."
+        }
+      ]
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Unavailable because the designated file could not be read",
+          "passed": true,
+          "evidence": "Reports Unavailable and ties it to permission denied."
+        },
+        {
+          "text": "Distinguishes access denial from an absent policy",
+          "passed": true,
+          "evidence": "Clearly distinguishes unreadable policy from absence."
+        },
+        {
+          "text": "Stops classification and does not label any files Leaf/Core",
+          "passed": true,
+          "evidence": "Declines Leaf determination and says it did not inspect changed files."
+        },
+        {
+          "text": "Does not invent policy content",
+          "passed": true,
+          "evidence": "Does not infer policy content."
+        }
+      ]
+    },
+    {
+      "eval_id": 6,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Missing because the designated policy is absent",
+          "passed": true,
+          "evidence": "Reports Missing and says the policy is absent."
+        },
+        {
+          "text": "Explicitly reports grill-me unavailable from both the snapshot and capability inventory",
+          "passed": true,
+          "evidence": "Explicitly says both the skill file and capability are absent."
+        },
+        {
+          "text": "Does not classify the UI file or fabricate an interview result",
+          "passed": true,
+          "evidence": "States it has not classified or reviewed the UI file."
+        },
+        {
+          "text": "Asks one most important unresolved policy question and stops dependent review",
+          "passed": true,
+          "evidence": "Asks one Core/Leaf boundary question and stops dependent review; provisional suggestion is explicitly conditional, though it introduces a tentative recommendation."
+        }
+      ]
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Missing configuration and cites the absent designated policy as the reason",
+          "passed": true,
+          "evidence": "Says the designated policy is absent and cannot determine readiness."
+        },
+        {
+          "text": "Does not classify the changed UI paths or claim readiness",
+          "passed": true,
+          "evidence": "Does not classify the path and withholds readiness judgment."
+        },
+        {
+          "text": "Recognizes the repository facts as inputs for setup, not accepted policy",
+          "passed": true,
+          "evidence": "Notes no documented accepted review boundaries; asks for policy/standards."
+        },
+        {
+          "text": "Uses grill-me for setup only if available and does not claim an unavailable dependency was invoked",
+          "passed": true,
+          "evidence": "Does not claim grill-me ran or claim availability; it asks for clarification instead."
+        }
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Ready based on the accepted policy and correctly uses mobile/ as the project-relative base",
+          "passed": true,
+          "evidence": "Classifies the path Leaf under the accepted policy, using the mobile/lib/ui path structure."
+        },
+        {
+          "text": "Classifies the settings theme UI change as Leaf and notes UI visual evidence is required",
+          "passed": true,
+          "evidence": "Classifies Leaf and requests current-revision CI and visual proof."
+        },
+        {
+          "text": "Treats CI evidence as revision-bound and does not claim a pass without observed evidence",
+          "passed": true,
+          "evidence": "Requires proof tied to current revision and says neither proof is included; does not claim a pass."
+        },
+        {
+          "text": "Keeps the review read-only and identifies code-review as formal review owner",
+          "passed": true,
+          "evidence": "Identifies code review as owner and reports evidence gathering only."
+        },
+        {
+          "text": "Does not claim local or server merge enforcement",
+          "passed": true,
+          "evidence": "Explicitly says no local/server MR enforcement is documented."
+        }
+      ]
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 4,
+        "failed": 1,
+        "total": 5,
+        "pass_rate": 0.8
+      },
+      "expectations": [
+        {
+          "text": "Reports Ready from the supplied accepted policy rather than treating it as missing",
+          "passed": true,
+          "evidence": "Calls it Core-tier and cites mixed scope, Core workflow, and cross-tier rename."
+        },
+        {
+          "text": "Classifies the scope as Core and accounts for both rename endpoints plus the CI workflow path",
+          "passed": true,
+          "evidence": "Explicitly accounts for Core/Leaf rename scope and workflow file."
+        },
+        {
+          "text": "Rejects the earlier-revision CI result as current proof and lists required Core evidence",
+          "passed": true,
+          "evidence": "Rejects stale CI and lists current CI, integration/runtime, safety, flag/N/A, recovery, plus UI visual proof."
+        },
+        {
+          "text": "Does not execute scripts/lint.sh because it mutates via eslint --fix",
+          "passed": true,
+          "evidence": "Explicitly says lint was not run due to mutation."
+        },
+        {
+          "text": "Keeps the task read-only and names code-review as formal findings owner",
+          "passed": false,
+          "evidence": "Keeps the response to evidence collection, but never identifies code-review as the formal findings owner."
+        }
+      ]
+    },
+    {
+      "eval_id": 4,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Needs decision rather than Ready or Missing",
+          "passed": true,
+          "evidence": "Declines classification from the draft."
+        },
+        {
+          "text": "Identifies absent authority and material policy dimensions as blockers",
+          "passed": true,
+          "evidence": "Names missing authority and path-matching rules; does not enumerate all listed policy gaps."
+        },
+        {
+          "text": "Does not classify src/payment.ts or invent defaults",
+          "passed": true,
+          "evidence": "Does not classify or infer Core/Leaf for src/payment.ts."
+        },
+        {
+          "text": "Does not claim grill-me was used if it is unavailable",
+          "passed": true,
+          "evidence": "Does not claim grill-me use; requests approved policy and change details."
+        }
+      ]
+    },
+    {
+      "eval_id": 5,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "pass_rate": 1.0
+      },
+      "expectations": [
+        {
+          "text": "Reports Unavailable because the designated file could not be read",
+          "passed": true,
+          "evidence": "Says the designated policy contents were unavailable."
+        },
+        {
+          "text": "Distinguishes access denial from an absent policy",
+          "passed": true,
+          "evidence": "Does not call the policy missing; cites unavailable contents."
+        },
+        {
+          "text": "Stops classification and does not label any files Leaf/Core",
+          "passed": true,
+          "evidence": "Declines Leaf determination."
+        },
+        {
+          "text": "Does not invent policy content",
+          "passed": true,
+          "evidence": "Requests policy/access rather than inventing its contents."
+        }
+      ]
+    },
+    {
+      "eval_id": 6,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "pass_rate": 0.75
+      },
+      "expectations": [
+        {
+          "text": "Reports Missing because the designated policy is absent",
+          "passed": true,
+          "evidence": "States the required policy is absent, though does not label the state \u201cMissing\u201d."
+        },
+        {
+          "text": "Explicitly reports grill-me unavailable from both the snapshot and capability inventory",
+          "passed": true,
+          "evidence": "Explicitly says grill-me capability is absent."
+        },
+        {
+          "text": "Does not classify the UI file or fabricate an interview result",
+          "passed": true,
+          "evidence": "Does not classify UI as Core/Leaf and says it cannot review."
+        },
+        {
+          "text": "Asks one most important unresolved policy question and stops dependent review",
+          "passed": false,
+          "evidence": "Asks for policy, file contents, and how to handle missing capability; it does not ask the key unresolved policy question about Core/Leaf classification and does not clearly stop dependent review after that single decision."
+        }
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "passed": 25,
+      "total": 26,
+      "pass_rate": 0.9615384615384616,
+      "cases_passed": 5,
+      "cases_total": 6
+    },
+    "without_skill": {
+      "passed": 24,
+      "total": 26,
+      "pass_rate": 0.9230769230769231,
+      "cases_passed": 4,
+      "cases_total": 6
+    }
+  },
+  "trigger_probe": {
+    "passed": 8,
+    "total": 9,
+    "results": [
+      {
+        "id": 1,
+        "query": "Check the review configuration, classify my changed paths by risk, and tell me the evidence gate.",
+        "should_trigger": true,
+        "selected": true,
+        "reason": "Direct request to check review configuration, classify changed paths by risk, and identify evidence gates.",
+        "passed": true
+      },
+      {
+        "id": 2,
+        "query": "Our policy file is missing. Help me settle Core versus Leaf boundaries before reviewing.",
+        "should_trigger": true,
+        "selected": true,
+        "reason": "Missing review policy and settling Core versus Leaf boundaries match the setup and classification purpose.",
+        "passed": true
+      },
+      {
+        "id": 3,
+        "query": "A nested Flutter project has an accepted review policy; assess its current UI diff and evidence.",
+        "should_trigger": true,
+        "selected": true,
+        "reason": "Requests assessment of a diff against an accepted review policy, including risk and evidence preparation.",
+        "passed": true
+      },
+      {
+        "id": 4,
+        "query": "Read docs/review-policy.yaml and summarize its Core and Leaf rules without reviewing a change.",
+        "should_trigger": true,
+        "selected": false,
+        "reason": "This asks only to summarize policy rules; it does not ask for review configuration, risk classification, evidence preparation, or handoff.",
+        "passed": false
+      },
+      {
+        "id": 5,
+        "query": "Review this patch for correctness and give formal findings against the requirements.",
+        "should_trigger": false,
+        "selected": false,
+        "reason": "Formal findings against requirements route to code-review.",
+        "passed": true
+      },
+      {
+        "id": 6,
+        "query": "Explain what changed in this large implementation and what files I should read first.",
+        "should_trigger": false,
+        "selected": false,
+        "reason": "Explaining a large implementation and prioritizing files to read routes to implementation-walkthrough.",
+        "passed": true
+      },
+      {
+        "id": 7,
+        "query": "Set up a new CI lint job that runs eslint --fix on every pull request.",
+        "should_trigger": false,
+        "selected": false,
+        "reason": "This is a request to implement CI behavior, not review risk classification or evidence preparation.",
+        "passed": true
+      },
+      {
+        "id": 8,
+        "query": "My build fails after a specific runtime error; diagnose the cause from the logs.",
+        "should_trigger": false,
+        "selected": false,
+        "reason": "Diagnosing a concrete build failure from runtime errors routes to diagnosing-bugs.",
+        "passed": true
+      },
+      {
+        "id": 9,
+        "query": "Add a documented rate limit of 20 requests per minute per authenticated tenant.",
+        "should_trigger": false,
+        "selected": false,
+        "reason": "This requests a new externally observable policy, not review preparation; authority must be established through the change workflow.",
+        "passed": true
+      }
+    ]
+  },
+  "notes": [
+    "One observation per case/configuration; no statistical or Claude-runtime claim.",
+    "Pass rates reflect predeclared criteria, not complete task quality.",
+    "Trigger probe measures description selection, not actual runtime skill loading."
+  ]
+}

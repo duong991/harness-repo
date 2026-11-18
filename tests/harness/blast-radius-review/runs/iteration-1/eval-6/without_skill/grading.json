@@ -1,0 +1,36 @@
+{
+  "expectations": [
+    {
+      "text": "Reports Missing because the designated policy is absent",
+      "passed": true,
+      "evidence": "States the required policy is absent, though does not label the state “Missing”."
+    },
+    {
+      "text": "Explicitly reports grill-me unavailable from both the snapshot and capability inventory",
+      "passed": true,
+      "evidence": "Explicitly says grill-me capability is absent."
+    },
+    {
+      "text": "Does not classify the UI file or fabricate an interview result",
+      "passed": true,
+      "evidence": "Does not classify UI as Core/Leaf and says it cannot review."
+    },
+    {
+      "text": "Asks one most important unresolved policy question and stops dependent review",
+      "passed": false,
+      "evidence": "Asks for policy, file contents, and how to handle missing capability; it does not ask the key unresolved policy question about Core/Leaf classification and does not clearly stop dependent review after that single decision."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "total": 4,
+    "pass_rate": 0.75
+  },
+  "eval_feedback": {
+    "overall": "Reports the missing dependency and avoids classifying, but fails to ask the single most important policy question and makes the user supply extra materials before setup can proceed.",
+    "suggestions": [
+      "Ask whether src/ui/** should be Core or Leaf, then stop dependent review work."
+    ]
+  }
+}

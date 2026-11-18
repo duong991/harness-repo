@@ -51,6 +51,13 @@ Hard invariants:
 - Any positive completion claim requires fresh evidence through
   `verification-before-completion`.
 
+## Risk-based review context
+
+Use `blast-radius-review` when selected by `work-router` for Core/Leaf or
+repository review-evidence requirements. It prepares context, not formal
+findings or approval. Core/Leaf does not select work type or require a plan.
+See [the skill](.agents/skills/blast-radius-review/SKILL.md).
+
 ## Optional code intelligence
 
 When a task concerns symbols, call paths, routes, dependencies, or code impact

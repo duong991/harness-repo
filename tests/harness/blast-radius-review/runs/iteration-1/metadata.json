@@ -1,0 +1,13 @@
+{
+  "executor_model": "gpt-6-luna",
+  "runs_per_configuration": 1,
+  "date": "2026-11-15",
+  "skill_sha256": "e80fa133e8b6d1528d7491712777ea8e02d0d951edf9f43d7c981f6444ba9ec7",
+  "limitations": [
+    "Supplied snapshots, not live repository discovery",
+    "Fresh worker per case/configuration",
+    "Final responses saved; complete tool transcripts not exported",
+    "Token and timing metrics unavailable; not estimated",
+    "One sample per configuration; no significance claim"
+  ]
+}

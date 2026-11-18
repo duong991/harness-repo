@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "output": "I can\u2019t determine whether the UI change is ready: the project instructions point to `docs/review-policy.yaml`, but the supplied snapshot says that file is absent and documents no accepted review boundaries. Please provide the review policy or clarify what standards and boundaries to use.\n\n**Files read:** `tests/harness/blast-radius-review/inputs/missing-policy-setup/prompt.txt`\n",
+    "expectation_results": [
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "id": 2,
+    "output": "This change is **Leaf** under the accepted Mobile Architecture Council policy: `mobile/lib/ui/settings/theme.dart` is under `lib/ui/**`. The policy requires current-revision CI evidence for `flutter analyze` and visual proof for UI changes. The supplied snapshot does not include either proof, so the gate is not yet evidenced.\n\nCollect:\n- A passing `flutter analyze` result tied to the current revision, run from `mobile/`.\n- Visual proof of the UI change, also tied to the current revision.\n\nThe snapshot says there are no changes outside `mobile/`. It documents code review as the review owner and no local or server MR enforcement; it does not establish that either required check has run.\n\n**Files read:** `tests/harness/blast-radius-review/inputs/accepted-policy-nested-flutter-leaf/prompt.txt` only.\n",
+    "expectation_results": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "id": 3,
+    "output": "This is a Core-tier review: the change is mixed, it edits a Core workflow, and the rename crosses Core and Leaf paths. The CI result is from an earlier revision, so it does not verify the reviewed change.\n\nI did not run `scripts/lint.sh` because it runs `eslint --fix` and mutates files. The supplied snapshot does not specify safe read-only checks or provide executable evidence, so I can\u2019t report checks run. To complete the review, provide current-revision CI and the required integration/runtime evidence, safety answers, feature-flag or accepted N/A rationale, recovery approach, and visual proof for the UI change.\n\nFiles read: `tests/harness/blast-radius-review/inputs/accepted-policy-core-rename-mixed-mutating-lint/prompt.txt`\n",
+    "expectation_results": [
+      true,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  {
+    "id": 4,
+    "output": "I can\u2019t classify `src/payment.ts` from this draft: it does not define the authority or path-matching rules, and the snapshot provides no details about the changes.\n\nPlease provide the approved policy and the change details for `src/payment.ts`.\n\n**Files read:** `tests/harness/blast-radius-review/inputs/incomplete-draft/prompt.txt`\n",
+    "expectation_results": [
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "id": 5,
+    "output": "I can\u2019t determine whether the changed files are Leaf. The repository designates `docs/review-policy.yaml` as the review authority, but its contents were unavailable, so I can\u2019t apply the policy.\n\nPlease provide the policy contents or an accessible copy.\n\n**Files read:** `tests/harness/blast-radius-review/inputs/policy-access-denied/prompt.txt`\n",
+    "expectation_results": [
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  {
+    "id": 6,
+    "output": "I can\u2019t review `src/ui/button.ts` from the supplied snapshot: it gives no file contents, and the required review policy is absent. The setup interview also can\u2019t run because the `grill-me` capability is absent.\n\nPlease provide the review policy and button file contents, and tell me how you\u2019d like to handle the missing interview capability.\n\nFiles read: `tests/harness/blast-radius-review/inputs/missing-grill-me-dependency/prompt.txt`\n",
+    "expectation_results": [
+      true,
+      true,
+      true,
+      false
+    ]
+  }
+]

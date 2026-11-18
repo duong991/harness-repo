@@ -1,0 +1,226 @@
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -51,6 +51,13 @@
+ - Any positive completion claim requires fresh evidence through
+   `verification-before-completion`.
+ 
++## Risk-based review context
++
++Use `blast-radius-review` when selected by `work-router` for Core/Leaf or
++repository review-evidence requirements. It prepares context, not formal
++findings or approval. Core/Leaf does not select work type or require a plan.
++See [the skill](.agents/skills/blast-radius-review/SKILL.md).
++
+ ## Optional code intelligence
+ 
+ When a task concerns symbols, call paths, routes, dependencies, or code impact
+--- a/docs/WORKFLOW.md
++++ b/docs/WORKFLOW.md
+@@ -129,6 +129,25 @@
+ 
+ Discovery never grants authority to fix what it finds.
+ 
++### Risk-Based Review Context
++
++When selected by `work-router`, use `blast-radius-review` to apply the consumer's
++accepted review policy. Keep policy in the consumer repository, outside synced
++skills. Configuration readiness is not change readiness or permission to merge.
++Risk tiers determine required evidence, not work type, planning or orchestration.
++
++Missing or inaccessible policy blocks policy-dependent classification and gate
++claims, not independent technical inspection through `code-review`. Interview
++through `grill-me` only when setup is authorized or the user accepts that handoff.
++Review-only work cannot save configuration. Return a confirmed setup brief to
++the router before any authorized write; re-check policy after saving.
++
++For authorized changes, identify required evidence once scope is known and
++reassess it against the final diff. Reuse walkthrough and review context rather
++than building a parallel review map. `code-review` retains findings and adequacy;
++`verification-before-completion` retains completion claims. Missing review policy
++does not itself make product requirements ambiguous.
++
+ ### Bounded Change
+ 
+ 1. Restate the observable outcome.
+--- a/.agents/skills/work-router/SKILL.md
++++ b/.agents/skills/work-router/SKILL.md
+@@ -123,6 +123,37 @@
+ - Do not require grilling, TDD, a durable plan, or a full review when the
+   selected work type does not justify it.
+ 
++## Conditional risk-based review support
++
++Select the primary work type first. Use `blast-radius-review` when the user asks
++for Core/Leaf classification, blast radius, repository evidence gates, or when
++accepted repository policy requires it for the requested change. Do not run it
++for generic explanation, policy-only summaries, or every edit by default.
++For formal findings, `code-review` remains the primary review entry point; it may
++consume blast-radius context without delegating its judgment.
++
++- `read-only-analysis`: risk/evidence requests use blast-radius-review; correctness
++  requests retain code-review. Large-change comprehension retains walkthrough.
++- `tiny-fix` and `bounded-change`: use the support when requested or required by
++  accepted policy, once scope is known, then reassess against the final diff.
++- `multi-session-initiative`: apply relevant policy per milestone/review scope.
++- `orchestrated-multi-agent-work`: reuse the same consumer policy for worker
++  results; the supporting skill does not dispatch or manage workers.
++- `ambiguous-product-change`: resolve product decisions first. Missing review
++  configuration alone does not select this work type.
++
++Core/Leaf does not change work type, mandate a durable plan, or authorize agents.
++A Core tiny-fix remains tiny-fix unless independent work-shape criteria change.
++
++If configuration is missing or incomplete, stop only policy-dependent claims.
++For a review-only request without setup authorization, report the gap and offer
++`grill-me`; continue independent technical inspection when requested. Enter the
++interview when setup was requested or the user accepts the handoff. Unknown
++rules are decisions, not defaults. An access error is not missing configuration.
++After the confirmed brief, return here: an authorized configuration write with
++settled policy is bounded-change; otherwise preserve read-only scope. No new
++work type, automatic CI modification or approval is introduced.
++
+ ## Routing notice
+ 
+ For non-trivial work, briefly state the selected route before acting:
+--- a/.agents/skills/blast-radius-review/SKILL.md
++++ b/.agents/skills/blast-radius-review/SKILL.md
+@@ -27,16 +27,22 @@
+    - Core safety answers, feature-flag applicability and recovery expectations;
+    - review ownership and any existing PR/MR integration.
+ 4. Report `Ready`, `Missing`, `Needs decision`, or `Unavailable` with the source
+-   and reason. Draft, conflicting or incomplete policy needs a decision.
++   and reason. Draft, conflicting or incomplete policy needs a decision. Name the absent
++   authority and material missing rules; do not report only the draft label.
+    An unreadable policy is Unavailable, not Missing; report the access blocker.
+-5. Ready proceeds without another interview. Missing or Needs decision enters
+-   setup below. Unavailable stops dependent work without inventing policy.
++5. Ready proceeds without another interview; it means configuration readiness,
++   not approval or readiness to merge. Missing or Needs decision follows the
++   setup authorization gate below. Unavailable stops only policy-dependent
++   claims. Independent technical inspection through code-review may continue.
+ 
+ ## Setup through grill-me
+ 
+-Resolve and read the target's `grill-me` skill, normally
+-`.agents/skills/grill-me/SKILL.md`. The explicitly requested configuration-setup
+-behavior authorizes this interview when needed; do not change grill-me's own
++For a review-only request without setup authorization, report the missing
++policy/decisions and offer the interview; do not start it automatically. Continue
++independent technical inspection if requested. When setup is explicitly requested
++or the user accepts the handoff, resolve and read the target's `grill-me` skill, normally
++`.agents/skills/grill-me/SKILL.md`. Explicit setup authorization
++applies only to this interview and authorized setup scope; do not change grill-me's own
+ invocation policy. If the skill is unavailable, report the missing dependency
+ and ask the most important unresolved decision without claiming invocation.
+ 
+@@ -66,7 +72,10 @@
+ rules to all changed paths, including both sides of renames and deleted files.
+ Normalize Git-root paths to the policy's path base. Report out-of-project files;
+ do not discard them. Unknown scope returns to the relevant setup question,
+-never silently to Leaf. Inspect relevant contracts and consumers for impact.
++never silently to Leaf. Apply the setup authorization gate before interviewing.
++Inspect relevant contracts and consumers for impact. Reassess classification and
++proof freshness whenever the reviewed diff changes; reuse existing walkthrough
++context rather than generating another review decomposition.
+ 
+ Propose these requirements during setup; apply them only as accepted by the repo:
+ 
+--- a/tests/harness/routing-cases.json
++++ b/tests/harness/routing-cases.json
+@@ -145,5 +145,67 @@
+       "diagnosing-bugs": ["first run `system-log-tracer` to collect read-only evidence"],
+       "system-log-tracer": ["never concludes root cause or applies a fix."]
+     }
++  },
++  {
++    "id": "blast-risk-context",
++    "prompt": "Classify this diff as Core/Leaf and list required evidence.",
++    "work_type": "read-only-analysis",
++    "skills": [
++      "work-router",
++      "blast-radius-review"
++    ],
++    "assertions": {
++      "work-router": [
++        "Conditional risk-based review support"
++      ],
++      "blast-radius-review": [
++        "configuration readiness"
++      ]
++    }
++  },
++  {
++    "id": "blast-review-missing-policy",
++    "prompt": "Review correctness only; no configuration changes. Review policy is missing.",
++    "work_type": "read-only-analysis",
++    "skills": [
++      "work-router",
++      "code-review"
++    ],
++    "assertions": {
++      "work-router": [
++        "stop only policy-dependent claims",
++        "offer"
++      ],
++      "code-review": [
++        "Keep reviews read-only"
++      ]
++    }
++  },
++  {
++    "id": "blast-core-tiny-fix",
++    "prompt": "Fix this one-line auth bug; accepted policy requires Core evidence.",
++    "work_type": "tiny-fix",
++    "skills": [
++      "work-router",
++      "blast-radius-review"
++    ],
++    "assertions": {
++      "work-router": [
++        "A Core tiny-fix remains tiny-fix"
++      ]
++    }
++  },
++  {
++    "id": "blast-setup-confirmed",
++    "prompt": "Save this confirmed review policy; setup is authorized.",
++    "work_type": "bounded-change",
++    "skills": [
++      "work-router"
++    ],
++    "assertions": {
++      "work-router": [
++        "settled policy is bounded-change"
++      ]
++    }
+   }
+ ]
+--- a/scripts/validate-harness-sdlc.py
++++ b/scripts/validate-harness-sdlc.py
+@@ -161,6 +161,8 @@
+         "prototype-logic-exploration", "prototype-full-stack-implications",
+         "settled-design-no-prototype", "settled-api-no-prototype",
+         "runtime-log-evidence",
++        "blast-risk-context", "blast-review-missing-policy",
++        "blast-core-tiny-fix", "blast-setup-confirmed",
+     }
+     if {case["id"] for case in cases} != expected_ids:
+         errors.append("routing fixture IDs do not match the required contract")
+--- a/tests/harness/skill-boundaries.json
++++ b/tests/harness/skill-boundaries.json
+@@ -156,5 +156,15 @@
+       "Never change this skill's tools or the application's code, schemas, or data to make a query match."
+     ],
+     "policy": "allow_implicit_invocation: true"
++  },
++  {
++    "skill": "blast-radius-review",
++    "must_contain": [
++      "Formal findings and approval belong to `code-review`",
++      "For a review-only request without setup authorization",
++      "not approval or readiness to merge",
++      "Reassess classification"
++    ],
++    "policy": "allow_implicit_invocation: true"
+   }
+ ]

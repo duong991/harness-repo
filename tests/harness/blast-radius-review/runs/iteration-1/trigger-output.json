@@ -1,0 +1,11 @@
+[
+  {"id":1,"selected":true,"reason":"Direct request to check review configuration, classify changed paths by risk, and identify evidence gates."},
+  {"id":2,"selected":true,"reason":"Missing review policy and settling Core versus Leaf boundaries match the setup and classification purpose."},
+  {"id":3,"selected":true,"reason":"Requests assessment of a diff against an accepted review policy, including risk and evidence preparation."},
+  {"id":4,"selected":false,"reason":"This asks only to summarize policy rules; it does not ask for review configuration, risk classification, evidence preparation, or handoff."},
+  {"id":5,"selected":false,"reason":"Formal findings against requirements route to code-review."},
+  {"id":6,"selected":false,"reason":"Explaining a large implementation and prioritizing files to read routes to implementation-walkthrough."},
+  {"id":7,"selected":false,"reason":"This is a request to implement CI behavior, not review risk classification or evidence preparation."},
+  {"id":8,"selected":false,"reason":"Diagnosing a concrete build failure from runtime errors routes to diagnosing-bugs."},
+  {"id":9,"selected":false,"reason":"This requests a new externally observable policy, not review preparation; authority must be established through the change workflow."}
+]

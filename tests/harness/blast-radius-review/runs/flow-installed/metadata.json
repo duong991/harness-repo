@@ -1,0 +1,7 @@
+{
+  "model": "gpt-6-luna",
+  "skill_sha256": "6ca5bfdaf6c1753e053cb4967094a6574c79bfd29d77b29d50595b1eb54a3bc3",
+  "cases": 7,
+  "scope": "installed instruction routing probes",
+  "full_native_suite": "blocked by protected directory"
+}

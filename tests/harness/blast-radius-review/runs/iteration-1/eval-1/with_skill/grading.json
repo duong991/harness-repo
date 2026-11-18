@@ -1,0 +1,34 @@
+{
+  "expectations": [
+    {
+      "text": "Reports Missing configuration and cites the absent designated policy as the reason",
+      "passed": true,
+      "evidence": "Explicitly says “Review configuration: Missing” and names the absent designated policy."
+    },
+    {
+      "text": "Does not classify the changed UI paths or claim readiness",
+      "passed": true,
+      "evidence": "Says no readiness determination can be made and does not classify the UI path."
+    },
+    {
+      "text": "Recognizes the repository facts as inputs for setup, not accepted policy",
+      "passed": true,
+      "evidence": "Says no accepted Core/Leaf boundaries are documented; does not elevate CI facts into policy."
+    },
+    {
+      "text": "Uses grill-me for setup only if available and does not claim an unavailable dependency was invoked",
+      "passed": true,
+      "evidence": "Asks a setup question and does not claim grill-me ran. It lists the grill-me skill as read, but this text alone cannot verify actual invocation."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "eval_feedback": {
+    "overall": "Meets all listed criteria. Useful separation of missing configuration from readiness, with a focused setup question.",
+    "suggestions": []
+  }
+}

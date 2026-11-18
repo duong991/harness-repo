@@ -1,0 +1,36 @@
+{
+  "expectations": [
+    {
+      "text": "Reports Missing because the designated policy is absent",
+      "passed": true,
+      "evidence": "Reports Missing and says the policy is absent."
+    },
+    {
+      "text": "Explicitly reports grill-me unavailable from both the snapshot and capability inventory",
+      "passed": true,
+      "evidence": "Explicitly says both the skill file and capability are absent."
+    },
+    {
+      "text": "Does not classify the UI file or fabricate an interview result",
+      "passed": true,
+      "evidence": "States it has not classified or reviewed the UI file."
+    },
+    {
+      "text": "Asks one most important unresolved policy question and stops dependent review",
+      "passed": true,
+      "evidence": "Asks one Core/Leaf boundary question and stops dependent review; provisional suggestion is explicitly conditional, though it introduces a tentative recommendation."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "eval_feedback": {
+    "overall": "Meets explicit criteria and reports the unavailable interview dependency. It adds a tentative Leaf recommendation, but labels it provisional and requests authoritative confirmation.",
+    "suggestions": [
+      "Avoid introducing a provisional classification suggestion when the task is blocked pending policy authority."
+    ]
+  }
+}

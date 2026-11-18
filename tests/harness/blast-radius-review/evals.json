@@ -1,0 +1,79 @@
+{
+  "skill_name": "blast-radius-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Repository snapshot (supplied facts; do not inspect a live filesystem): AGENTS.md directs review policy to docs/review-policy.yaml. That file is absent. The project has apps/mobile/lib/ui/, services/api/src/, and .github/workflows/ci.yml. ci.yml runs flutter analyze and npm test; no review integration or accepted Core/Leaf boundaries are documented. The request is: \u2018Review my changes in apps/mobile/lib/ui/ and tell me whether the change is ready.\u2019",
+      "expected_output": "Identify review configuration as Missing because the designated policy is absent; do not classify the change. Explain that setup needs to settle policy through the explicitly requested interview workflow, and that discovered repository facts are proposals rather than accepted rules. Do not invent policy or claim grill-me ran unless available.",
+      "files": [],
+      "expectations": [
+        "Reports Missing configuration and cites the absent designated policy as the reason",
+        "Does not classify the changed UI paths or claim readiness",
+        "Recognizes the repository facts as inputs for setup, not accepted policy",
+        "Uses grill-me for setup only if available and does not claim an unavailable dependency was invoked"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Repository snapshot (supplied facts; do not inspect a live filesystem): The requested project is mobile/ inside Git root /. Its AGENTS.md and docs/WORKFLOW.md designate mobile/docs/review-policy.yaml. The policy is accepted by the Mobile Architecture Council, covers mobile/ paths relative to mobile/, and states: Flutter files under lib/ui/** are Leaf; lib/core/** and all other paths are Core; mixed changes take the highest tier; unknown paths are Core; renames evaluate both old and new paths; semantic risk may escalate but never downgrade. Leaf requires current-revision CI flutter analyze and visual proof for UI changes. Core requires those checks plus relevant integration/runtime evidence, three safety answers, feature-flag declaration or accepted N/A rationale, and recovery approach. Checks run from mobile/; lint commands must be inspected for mutation before execution. Review belongs to code-review; no local or server MR enforcement is documented. No changes exist outside mobile/. The working-tree diff contains only mobile/lib/ui/settings/theme.dart. Request: \u2018Assess the review gate and collect what evidence is needed.\u2019",
+      "expected_output": "Report Ready and apply the accepted policy using the nested project path base. Classify the one Flutter UI path as Leaf; request current-revision flutter analyze and visual proof, while clearly stating whether either is available. Keep the work read-only, route formal findings to code-review, and do not imply MR enforcement.",
+      "files": [],
+      "expectations": [
+        "Reports Ready based on the accepted policy and correctly uses mobile/ as the project-relative base",
+        "Classifies the settings theme UI change as Leaf and notes UI visual evidence is required",
+        "Treats CI evidence as revision-bound and does not claim a pass without observed evidence",
+        "Keeps the review read-only and identifies code-review as formal review owner",
+        "Does not claim local or server merge enforcement"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Repository snapshot (supplied facts; do not inspect a live filesystem): The accepted, authority-backed review policy covers repository-root paths. Core is services/api/** and .github/workflows/**; Leaf is docs/** and apps/web/ui/**. Mixed changes use highest tier; unknown paths are Core; renames check both endpoints; semantic risk can escalate. Core requires CI checks on reviewed revision, relevant integration/runtime evidence, three safety answers, feature flag or accepted N/A rationale, recovery approach; UI changes also need visual proof. Evidence commands run from repo root. scripts/lint.sh runs eslint --fix and mutates files, so it must not be run as-is. code-review owns findings; no MR enforcement is configured. Current diff renames services/api/src/old.ts to apps/web/ui/new.ts and changes .github/workflows/ci.yml. CI result shown is from an earlier revision. Request: \u2018Triage the review and run whatever checks are safe.\u2019",
+      "expected_output": "Report Ready, classify Core because the rename touches Core and the diff includes CI configuration, explain the mixed/highest-tier rule and consider both rename endpoints. Flag the stale CI result as insufficient, identify required Core evidence and safety answers, do not run the mutating lint script, and hand formal review to code-review.",
+      "files": [],
+      "expectations": [
+        "Reports Ready from the supplied accepted policy rather than treating it as missing",
+        "Classifies the scope as Core and accounts for both rename endpoints plus the CI workflow path",
+        "Rejects the earlier-revision CI result as current proof and lists required Core evidence",
+        "Does not execute scripts/lint.sh because it mutates via eslint --fix",
+        "Keeps the task read-only and names code-review as formal findings owner"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Repository snapshot (supplied facts; do not inspect a live filesystem): docs/review-policy.yaml exists but is labeled DRAFT and says \u2018Core files need extra checks; otherwise use normal CI.\u2019 It names no authority, path base, matching or precedence behavior, rename/mixed/unknown semantics, evidence commands, side-effect rules, safety answers, flags, recovery, or review owner. Request: \u2018Use this policy to classify the changes in src/payment.ts.\u2019",
+      "expected_output": "Report Needs decision because the draft lacks accepted authority and material classification/evidence rules. Do not classify src/payment.ts or infer the missing defaults. Explain setup should resolve the gaps through grill-me if available; otherwise identify the dependency blocker and ask the most important unresolved decision.",
+      "files": [],
+      "expectations": [
+        "Reports Needs decision rather than Ready or Missing",
+        "Identifies absent authority and material policy dimensions as blockers",
+        "Does not classify src/payment.ts or invent defaults",
+        "Does not claim grill-me was used if it is unavailable"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Repository snapshot (supplied facts; do not inspect a live filesystem): AGENTS.md designates docs/review-policy.yaml. The file exists, but reading it returned permission denied. No policy contents or accepted equivalent are available. The request is: \u2018Review the changed files and tell me whether they are Leaf.\u2019",
+      "expected_output": "Report Unavailable due to the explicit access blocker, not Missing. Stop dependent classification and do not infer policy or provide a Leaf determination.",
+      "files": [],
+      "expectations": [
+        "Reports Unavailable because the designated file could not be read",
+        "Distinguishes access denial from an absent policy",
+        "Stops classification and does not label any files Leaf/Core",
+        "Does not invent policy content"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Repository snapshot (supplied facts; do not inspect a live filesystem): AGENTS.md points to docs/review-policy.yaml; that file is absent. No accepted equivalent is known. The repository snapshot also confirms .agents/skills/grill-me/SKILL.md is absent and no grill-me capability is installed. Structure: src/core/ and src/ui/. Request: \u2018Review src/ui/button.ts, and if configuration is missing, do the setup interview.\u2019",
+      "expected_output": "Report Missing configuration and the unavailable grill-me dependency. Do not classify src/ui/button.ts or pretend an interview occurred. Ask the most important unresolved policy decision needed for setup and stop dependent review work.",
+      "files": [],
+      "expectations": [
+        "Reports Missing because the designated policy is absent",
+        "Explicitly reports grill-me unavailable from both the snapshot and capability inventory",
+        "Does not classify the UI file or fabricate an interview result",
+        "Asks one most important unresolved policy question and stops dependent review"
+      ]
+    }
+  ]
+}

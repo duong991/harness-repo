@@ -161,6 +161,8 @@ def validate_routing_contract(errors: list[str]) -> None:
         "prototype-logic-exploration", "prototype-full-stack-implications",
         "settled-design-no-prototype", "settled-api-no-prototype",
         "runtime-log-evidence",
+        "blast-risk-context", "blast-review-missing-policy",
+        "blast-core-tiny-fix", "blast-setup-confirmed",
     }
     if {case["id"] for case in cases} != expected_ids:
         errors.append("routing fixture IDs do not match the required contract")

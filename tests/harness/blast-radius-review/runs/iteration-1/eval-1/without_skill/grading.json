@@ -1,0 +1,36 @@
+{
+  "expectations": [
+    {
+      "text": "Reports Missing configuration and cites the absent designated policy as the reason",
+      "passed": true,
+      "evidence": "Says the designated policy is absent and cannot determine readiness."
+    },
+    {
+      "text": "Does not classify the changed UI paths or claim readiness",
+      "passed": true,
+      "evidence": "Does not classify the path and withholds readiness judgment."
+    },
+    {
+      "text": "Recognizes the repository facts as inputs for setup, not accepted policy",
+      "passed": true,
+      "evidence": "Notes no documented accepted review boundaries; asks for policy/standards."
+    },
+    {
+      "text": "Uses grill-me for setup only if available and does not claim an unavailable dependency was invoked",
+      "passed": true,
+      "evidence": "Does not claim grill-me ran or claim availability; it asks for clarification instead."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "eval_feedback": {
+    "overall": "Meets the listed criteria but is less actionable than the paired output: it asks for broad standards rather than naming the single policy decision needed.",
+    "suggestions": [
+      "Prefer asking the highest-impact unresolved policy question when setup is requested."
+    ]
+  }
+}
