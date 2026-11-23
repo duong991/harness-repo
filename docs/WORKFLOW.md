@@ -129,25 +129,6 @@ For large-change comprehension specifically:
 
 Discovery never grants authority to fix what it finds.
 
-### Risk-Based Review Context
-
-When selected by `work-router`, use `blast-radius-review` to apply the consumer's
-accepted review policy. Keep policy in the consumer repository, outside synced
-skills. Configuration readiness is not change readiness or permission to merge.
-Risk tiers determine required evidence, not work type, planning or orchestration.
-
-Missing or inaccessible policy blocks policy-dependent classification and gate
-claims, not independent technical inspection through `code-review`. Interview
-through `grill-me` only when setup is authorized or the user accepts that handoff.
-Review-only work cannot save configuration. Return a confirmed setup brief to
-the router before any authorized write; re-check policy after saving.
-
-For authorized changes, identify required evidence once scope is known and
-reassess it against the final diff. Reuse walkthrough and review context rather
-than building a parallel review map. `code-review` retains findings and adequacy;
-`verification-before-completion` retains completion claims. Missing review policy
-does not itself make product requirements ambiguous.
-
 ### Bounded Change
 
 1. Restate the observable outcome.

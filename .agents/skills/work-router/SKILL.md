@@ -123,37 +123,6 @@ Choose the first type that accurately captures the requested outcome:
 - Do not require grilling, TDD, a durable plan, or a full review when the
   selected work type does not justify it.
 
-## Conditional risk-based review support
-
-Select the primary work type first. Use `blast-radius-review` when the user asks
-for Core/Leaf classification, blast radius, repository evidence gates, or when
-accepted repository policy requires it for the requested change. Do not run it
-for generic explanation, policy-only summaries, or every edit by default.
-For formal findings, `code-review` remains the primary review entry point; it may
-consume blast-radius context without delegating its judgment.
-
-- `read-only-analysis`: risk/evidence requests use blast-radius-review; correctness
-  requests retain code-review. Large-change comprehension retains walkthrough.
-- `tiny-fix` and `bounded-change`: use the support when requested or required by
-  accepted policy, once scope is known, then reassess against the final diff.
-- `multi-session-initiative`: apply relevant policy per milestone/review scope.
-- `orchestrated-multi-agent-work`: reuse the same consumer policy for worker
-  results; the supporting skill does not dispatch or manage workers.
-- `ambiguous-product-change`: resolve product decisions first. Missing review
-  configuration alone does not select this work type.
-
-Core/Leaf does not change work type, mandate a durable plan, or authorize agents.
-A Core tiny-fix remains tiny-fix unless independent work-shape criteria change.
-
-If configuration is missing or incomplete, stop only policy-dependent claims.
-For a review-only request without setup authorization, report the gap and offer
-`grill-me`; continue independent technical inspection when requested. Enter the
-interview when setup was requested or the user accepts the handoff. Unknown
-rules are decisions, not defaults. An access error is not missing configuration.
-After the confirmed brief, return here: an authorized configuration write with
-settled policy is bounded-change; otherwise preserve read-only scope. No new
-work type, automatic CI modification or approval is introduced.
-
 ## Routing notice
 
 For non-trivial work, briefly state the selected route before acting:
